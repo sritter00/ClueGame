@@ -17,6 +17,10 @@ public class TestBoardCell {
 	public void addAdjacency(TestBoardCell cell) {
 		adjList.add(cell);
 	}
+	//getter for the add adjacency list
+	public ArrayList<TestBoardCell> getAdjList(){
+		return adjList;
+	}
 	//setter for if the cell is a room
 	public void setRoom(boolean room) {
 		room = this.room;
