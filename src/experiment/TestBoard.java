@@ -1,4 +1,11 @@
 package experiment;
+/**
+ * TestBoard: Initializes the grid, calculating movement targets based on a start cell and path length.
+ * 
+ * author: Shane Ritter
+ * author: Carter Gorling
+ */
+
 import java.util.*;
 
 public class TestBoard {

@@ -1,4 +1,12 @@
 package experiment;
+
+/**
+ * TestBoardCell: Initializes a cell in a 4x4 grid, managing adjacencies, room status, and occupancy.
+ * 
+ * author: Shane Ritter
+ * author: Carter Gorling
+ */
+
 import java.util.*;
 
 public class TestBoardCell {
