@@ -14,7 +14,7 @@ public class TestBoardCell {
 	private boolean occupied;
 	private int row;
 	private int column;
-	private ArrayList<TestBoardCell> adjList = new ArrayList<TestBoardCell>();
+	private Set<TestBoardCell> adjList = new HashSet<TestBoardCell>();
 	
 	//Constructor
 	public TestBoardCell(int row, int column){
@@ -26,7 +26,7 @@ public class TestBoardCell {
 		adjList.add(cell);
 	}
 	//getter for the add adjacency list
-	public ArrayList<TestBoardCell> getAdjList(){
+	public Set<TestBoardCell> getAdjList(){
 		return adjList;
 	}
 	//setter for if the cell is a room

@@ -7,8 +7,7 @@ package experiment;
  * author: Shane Ritter
  */
 
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.*;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +29,7 @@ public class BoardTestsExp {
 	@Test
 	public void testAdjacency() {
 		TestBoardCell cell = board.getCell(0, 0);
-		ArrayList<TestBoardCell> testList = cell.getAdjList();
+		Set<TestBoardCell> testList = cell.getAdjList();
 		Assert.assertTrue(testList.contains(board.getCell(1, 0)));
 		Assert.assertTrue(testList.contains(board.getCell(0, 1)));
 		Assert.assertEquals(2, testList.size());
