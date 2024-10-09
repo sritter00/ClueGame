@@ -38,23 +38,18 @@ public class TestBoard {
 	}
 	//returns the cell from the board at row, col.
 	public TestBoardCell getCell(int row, int column) {
-		TestBoardCell cell = new TestBoardCell(row, column);
 		if(grid.length > row + 1) {
-			TestBoardCell cellRight = new TestBoardCell(row+1, column);
-			cell.addAdjacency(cellRight);
+			grid[row][column].addAdjacency(grid[row+1][column]);
 		}
-		if(column + 1 > 0) {
-			TestBoardCell cellDown = new TestBoardCell(row, column - 1);
-			cell.addAdjacency(cellDown);
+		if(column - 1 > 0) {
+			grid[row][column].addAdjacency(grid[row][column-1]);
 		}
-		if (row -1 < 0) {
-			TestBoardCell cellLeft = new TestBoardCell(row - 1 , column);
-			cell.addAdjacency(cellLeft);
+		if (row -1 > 0) {
+			grid[row][column].addAdjacency(grid[row-1][column]);
 		}
-		if(grid[0].length > column+1) {
-			TestBoardCell cellUp = new TestBoardCell(row, column + 1);
-			cell.addAdjacency(cellUp);
+		if(grid[0].length > column + 1) {
+			grid[row][column].addAdjacency(grid[row][column+1]);
 		}
-		return cell; 
+		return grid[row][column]; 
 	}
 }
