@@ -18,11 +18,18 @@ public class TestBoard {
 	
 	//constructor
 	public TestBoard() {
-		grid = new TestBoardCell[4][4];
+		grid = new TestBoardCell[ROWS][COLS];
+		for (int row = 0; row < ROWS; row++) {
+			for (int col = 0; col < COLS; col++) {
+				grid[row][col] = new TestBoardCell(row, col);
+			}
+		}
+		targets = new HashSet<>();
+		visited = new HashSet<>();
 	}
+	
 	//calculates legal targets for a move from startCell of length pathlength.
 	public void calcTargets(TestBoardCell startCell, int pathLength) {
-		
 		//Don't really know what to put here also don't think we have to until next assignment not sure though
 	}
 	//getter for target value
