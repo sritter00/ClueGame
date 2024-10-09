@@ -10,6 +10,12 @@ import java.util.*;
 
 public class TestBoard {
 	private Set<TestBoardCell> setAdjList = new HashSet<TestBoardCell>();
+	private TestBoardCell[][] grid;
+	private Set<TestBoardCell> targets;
+	private Set<TestBoardCell> visited;
+	final static int COLS = 4;
+	final static int ROWS = 4;
+	
 	//constructor
 	public TestBoard() {
 		//empty
