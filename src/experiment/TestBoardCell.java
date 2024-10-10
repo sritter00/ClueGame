@@ -31,7 +31,7 @@ public class TestBoardCell {
 	}
 	//setter for if the cell is a room
 	public void setRoom(boolean room) {
-		room = this.room;
+		this.room = room ;
 	}
 	//getter for if the cell is a room
 	public boolean isRoom() {
@@ -39,11 +39,19 @@ public class TestBoardCell {
 	}
 	//setter for if the cell is occupied
 	public void setOccupied(boolean occupied) {
-		occupied = this.occupied;
+		this.occupied = occupied;
 	}
 	//getter for if the cell is occupied
 	public boolean getOccupied() {
 		return occupied;
+	}
+	//getter for row of cell
+	public int getRow() {
+		return row;
+	}
+	//getter for the column of the cell
+	public int getColumn(){
+		return column;
 	}
 	
 	
