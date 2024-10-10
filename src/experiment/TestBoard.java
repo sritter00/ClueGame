@@ -16,6 +16,7 @@ public class TestBoard {
 	final static int COLS = 4;
 	final static int ROWS = 4;
 
+
 	//constructor
 	public TestBoard() {
 		grid = new TestBoardCell[ROWS][COLS];
@@ -51,31 +52,33 @@ public class TestBoard {
 		visited.add(startCell);
 		for(TestBoardCell curAdjCell : startCell.getAdjList()) {
 			if(!visited.contains(curAdjCell)) {
-				BFS(curAdjCell, pathLength-1);
+				DFS(curAdjCell, pathLength-1);
 			}
 		}
-
 	}
-	public void BFS(TestBoardCell startCell, int pathLength) {
+	public void DFS(TestBoardCell startCell, int pathLength) {
 		visited.add(startCell);
 		if(startCell.getOccupied()) {
+			visited.remove(startCell);
 			return;	
 		}
 		if(startCell.isRoom()) {
 			targets.add(startCell);
+			visited.remove(startCell);
 			return;
 		}
 		if(pathLength == 0) {	
 			targets.add(startCell);
+			visited.remove(startCell);
 			return;
 		}
 
-		
 		for(TestBoardCell curAdjCell : startCell.getAdjList()) {
-			if(!visited.contains(curAdjCell) ) {
-				BFS(curAdjCell, pathLength-1);
+			if(!visited.contains(curAdjCell)) {
+				DFS(curAdjCell, pathLength-1);
 			}
 		}
+		visited.remove(startCell);
 	}
 
 	//getter for target value

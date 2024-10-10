@@ -1,0 +1,54 @@
+commit 5b9cc7c358462df855a5d2a3ec4c709d67caa4b5
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Mon Oct 7 21:15:10 2024 -0600
+
+    Changed ArrayList adjlist variable to a Set instead of a ArrayList
+
+commit 75d2296db7f5828459f15d89abf1f9ff69abb566
+Author: rcgorling <rcgorling@mines.edu>
+Date:   Mon Oct 7 19:59:22 2024 -0600
+
+    Added 5 JUnit tests in BoardTestsExp (Adjacency, Normal, Mixed, Room, and Occupied)
+
+commit 57fd8e8441876696a894515200e96a88e735ba45
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Mon Oct 7 13:29:13 2024 -0600
+
+    Created ClueLayout.csv, ClueSetup.txt, and readme.txt
+
+commit d2166ccba76be3a9a0ee20bcdfe05fa606397a77
+Author: rcgorling <rcgorling@mines.edu>
+Date:   Mon Oct 7 12:48:14 2024 -0600
+
+    Nearly Complete Clue Layout
+
+commit 9ee59c09130c2f55634616ffc0860324994747a7
+Merge: 2f4d9b5 5ac9d2e
+Author: rcgorling <rcgorling@mines.edu>
+Date:   Mon Oct 7 12:42:19 2024 -0600
+
+    Merge branch 'main' of https://github.com/sritter00/ClueGame
+
+commit 5ac9d2e47df4e0ce488aedd2bf94a2778f5553ed
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Sun Oct 6 18:41:22 2024 -0600
+
+    Created the functions needed in TestBoard.java class
+
+commit 922093017d856e3a25b45c455f0b4fea123a1d26
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Sun Oct 6 17:57:19 2024 -0600
+
+    First commit created everthing we need for the TestBoardCell class
+
+commit 2f4d9b55c3776af26a3590610c1e4f2c9dd04be3
+Author: rcgorling <rcgorling@mines.edu>
+Date:   Fri Oct 4 12:50:16 2024 -0600
+
+    Added ClueLayout excel sheet
+
+commit eaecf597dd20080a4a3aa9e7a1217c083373c795
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Oct 4 12:40:47 2024 -0600
+
+    Setup Commit
