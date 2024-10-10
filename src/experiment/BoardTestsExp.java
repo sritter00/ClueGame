@@ -98,12 +98,12 @@ public class BoardTestsExp {
 
 		// Player must stop in the room, but can move to other cells with exact movement
 		assertEquals(6, targets.size());
-		assertTrue(targets.contains(roomCell)); // Entering the room should stop movement
-		assertTrue(targets.contains(board.getCell(3, 1)));
-		assertTrue(targets.contains(board.getCell(3, 3)));
-		assertTrue(targets.contains(board.getCell(1, 1)));
-		assertTrue(targets.contains(board.getCell(0, 2)));
-		assertTrue(targets.contains(board.getCell(2, 0)));
+		Assert.assertTrue(targets.contains(roomCell)); // Entering the room should stop movement
+		Assert.assertTrue(targets.contains(board.getCell(1, 1)));
+		Assert.assertTrue(targets.contains(board.getCell(2, 0)));
+		Assert.assertTrue(targets.contains(board.getCell(1, 3)));
+		Assert.assertTrue(targets.contains(board.getCell(3, 1)));
+		Assert.assertTrue(targets.contains(board.getCell(3, 3)));
 
 	}
 

@@ -36,7 +36,7 @@ public class TestBoard {
 				if (row -1 >= 0) {
 					grid[row][col].addAdjacency(grid[row-1][col]);
 				}
-				if(grid[0].length > col + 1 ) {
+				if(grid[0].length > col + 1) {
 					grid[row][col].addAdjacency(grid[row][col+1]);
 				}
 			}
@@ -57,6 +57,7 @@ public class TestBoard {
 
 	}
 	public void BFS(TestBoardCell startCell, int pathLength) {
+		visited.add(startCell);
 		if(startCell.getOccupied()) {
 			return;	
 		}
@@ -69,10 +70,8 @@ public class TestBoard {
 			return;
 		}
 
-
+		
 		for(TestBoardCell curAdjCell : startCell.getAdjList()) {
-
-			
 			if(!visited.contains(curAdjCell) ) {
 				BFS(curAdjCell, pathLength-1);
 			}
