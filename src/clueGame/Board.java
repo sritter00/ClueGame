@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 import clueGame.BoardCell;
+import experiment.TestBoardCell;
 
 public class Board {
 	private BoardCell[][] grid;
@@ -17,6 +18,10 @@ public class Board {
 	private Map<Character, Room> roomMap;
 	private static Board theInstance = new Board();
 	
+	public Room getRoom(BoardCell cell) {
+		Room newRoom = new Room();
+		return newRoom;
+	}
 	public int getNumRows() {
 		return numRows;
 	}
@@ -53,4 +58,11 @@ public class Board {
     public void initialize()
     {
     }
+	public BoardCell getCell(int row, int column) {
+		return grid[row][column]; 
+	}
+	public Object getRoom(char c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
