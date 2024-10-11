@@ -17,7 +17,7 @@ public class TestBoard {
 	final static int ROWS = 4;
 
 
-	//constructor
+	// Constructor initializing board size and adjacency list.
 	public TestBoard() {
 		grid = new TestBoardCell[ROWS][COLS];
 		for (int row = 0; row < ROWS; row++) {
@@ -47,7 +47,7 @@ public class TestBoard {
 		visited = new HashSet<>();
 	}
 
-	//calculates legal targets for a move from startCell of length pathlength.
+	// Calculates legal targets for a move from startCell of length path length.
 	public void calcTargets(TestBoardCell startCell, int pathLength) {
 		visited.add(startCell);
 		for(TestBoardCell curAdjCell : startCell.getAdjList()) {
@@ -56,6 +56,8 @@ public class TestBoard {
 			}
 		}
 	}
+	
+	// Recursive function that removes and adds the starting cell based on the input of the path length.
 	public void DFS(TestBoardCell startCell, int pathLength) {
 		visited.add(startCell);
 		if(startCell.getOccupied()) {
@@ -81,11 +83,12 @@ public class TestBoard {
 		visited.remove(startCell);
 	}
 
-	//getter for target value
+	// Getter for target value
 	public Set<TestBoardCell> getTargets() {
 		return targets;
 	}
-	//returns the cell from the board at row, col.
+	
+	// Returns the cell from the board at row, col.
 	public TestBoardCell getCell(int row, int column) {
 		return grid[row][column]; 
 	}

@@ -25,31 +25,31 @@ public class TestBoardCell {
 	public void addAdjacency(TestBoardCell cell) {
 		adjList.add(cell);
 	}
-	//getter for the add adjacency list
+	// Getter for the add adjacency list
 	public Set<TestBoardCell> getAdjList(){
 		return adjList;
 	}
-	//setter for if the cell is a room
+	// Setter for if the cell is a room
 	public void setRoom(boolean room) {
 		this.room = room ;
 	}
-	//getter for if the cell is a room
+	// Getter for if the cell is a room
 	public boolean isRoom() {
 		return room;
 	}
-	//setter for if the cell is occupied
+	// Setter for if the cell is occupied
 	public void setOccupied(boolean occupied) {
 		this.occupied = occupied;
 	}
-	//getter for if the cell is occupied
+	// Getter for if the cell is occupied
 	public boolean getOccupied() {
 		return occupied;
 	}
-	//getter for row of cell
+	// Getter for row of cell
 	public int getRow() {
 		return row;
 	}
-	//getter for the column of the cell
+	// Getter for the column of the cell
 	public int getColumn(){
 		return column;
 	}
