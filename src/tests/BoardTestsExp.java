@@ -1,4 +1,4 @@
-package Tests;
+package tests;
 
 /**
  * BoardTestsExp: Uses JUnit tests to verify adjacency lists and movement targets in different board scenarios.

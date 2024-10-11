@@ -4,19 +4,42 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import experiment.BoardCell;
+import clueGame.BoardCell;
 
 public class Board {
 	private BoardCell[][] grid;
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
-	private int numCol = 0;
+	private int numColumns = 0;
 	private int numRows = 0;
-	private String layoutConfigFile;
-	private String setupConfigFile;
+	private String layoutConfigFiles;
+	private String setConfigFiles;
 	private Map<Character, Room> roomMap;
 	private static Board theInstance = new Board();
-    // constructor is private to ensure only one can be created
+	
+	public int getNumRows() {
+		return numRows;
+	}
+	public int getNumColumns() {
+		return numColumns;
+	}
+	
+	public void loadSetupConfig () {
+		
+	}
+	public void setConfigFiles (String CsvFile, String TxtFile) {
+		
+	}
+	
+	
+	public void loadLayoutConfig() {
+		
+	}
+	public void setLayoutConfigFile(String layoutConfigFile) {
+		this.layoutConfigFiles = layoutConfigFile;
+	}
+	
+	// constructor is private to ensure only one can be created
     private Board() {
            super() ;
     }
