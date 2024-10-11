@@ -1,4 +1,4 @@
-package experiment;
+package Tests;
 
 /**
  * BoardTestsExp: Uses JUnit tests to verify adjacency lists and movement targets in different board scenarios.
@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import experiment.TestBoard;
+import experiment.TestBoardCell;
 
 public class BoardTestsExp {
 	TestBoard board;
