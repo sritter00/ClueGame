@@ -16,8 +16,13 @@ public class BoardCell {
 	private DoorDirection doorDirection;
 	private boolean roomLabel;
 	private boolean roomCenter;
+	private boolean doorway;
 	private char secretPassage;
 	private Set<BoardCell> adjList = new HashSet<BoardCell>();
+	
+	public boolean isDoorway() {
+		return doorway;
+	}
 	
 	// Constructor
 	public BoardCell(int row, int column, char initial){
@@ -46,7 +51,7 @@ public class BoardCell {
 		this.doorDirection = doorDirection;
 	}
 	// Getter for the room label.
-	public boolean isRoomLabel() {
+	public boolean isLabel() {
 		return roomLabel;
 	}
 	// Setter for room label.
