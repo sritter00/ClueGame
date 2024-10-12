@@ -1,0 +1,7 @@
+For Test SetUp I changed the CSC to are clue layout same with the txt file.
+For Test Room labels I ensured that they were rooms that we had created and were the same as the ones in our ClueSetup.txt\
+For Test boardDim I just changed the constants NUM_ROWS and NUM_COLUMS
+For Four Door Directions I choose the walkway into the guest house for up, the Royal Dining Room for right, Patio for Down, and Royal Hall for left.
+For Num of doorways I didn't change it because we have the same number of doorways 17
+For Test rooms I changed the first one to spa, second one to Observatory, third one to the center of Living room, fourth one I choose the secret passage from Guest house to spa, and for the woalkway I changed it to match a walkway on are board (same with the unused test).
+For Exception Tests I just made them what are names will be (all I did was remove the 306 on each of the file names).

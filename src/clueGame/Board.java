@@ -11,8 +11,8 @@ public class Board {
 	private BoardCell[][] grid;
 	private Set<BoardCell> targets;
 	private Set<BoardCell> visited;
-	private int numColumns = 50;
-	private int numRows = 50;
+	private int numColumns = 28;
+	private int numRows = 25;
 	private String layoutConfigFiles;
 	private String setConfigFiles;
 	private Map<Character, Room> roomMap;
