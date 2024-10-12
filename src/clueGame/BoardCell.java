@@ -20,10 +20,10 @@ public class BoardCell {
 	private char secretPassage;
 	private Set<BoardCell> adjList = new HashSet<BoardCell>();
 	
+	// Boolean for whether location is a doorway or not.
 	public boolean isDoorway() {
 		return doorway;
 	}
-	
 	// Constructor
 	public BoardCell(int row, int column, char initial){
 		row = this.row;
