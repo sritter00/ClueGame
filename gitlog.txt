@@ -1,3 +1,58 @@
+commit 62d00dbe9e39663165b92fb953d936ed49f30c65
+Author: rcgorling <rcgorling@mines.edu>
+Date:   Fri Oct 11 12:22:35 2024 -0600
+
+    Added comments for new methods (DFS and others).
+
+commit 570cda8c05a15c386a2b2e6d89a088bd0a8976c2
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Thu Oct 10 15:02:45 2024 -0600
+
+    The code now passes all test :)
+
+commit c11af019dda2cbec1b1cd1b6f491017cb44610f1
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 9 21:47:08 2024 -0600
+
+    Fixed Room and Occupied now just need to fix mixed
+
+commit 1e239a828b09ba7d52246860ea26da724501f37a
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 9 21:21:30 2024 -0600
+
+    Got testBoard to pass all normal tests as well as testTargetsOccupied
+
+commit 426c0638c93a011cfce12ab5d53c2d7f63ce6e44
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 9 13:18:00 2024 -0600
+
+    testAdjacency now passes in BoardTestsExp/ changed Test board get cell to addAdjacency correctly
+
+commit 246a81ae1d12a46d2199f451fcef1fb53b3e04f9
+Merge: 4f4d0e0 12bb981
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 9 12:54:39 2024 -0600
+
+    Merge branch 'main' of https://github.com/sritter00/ClueGame
+
+commit 4f4d0e0461beddb368c9db95c622933e1c6fda0e
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 9 12:52:55 2024 -0600
+
+    Created the adjlist in testBoard and set up the board in adjlist
+
+commit 12bb98188e24e5f3609857752208a2760f8e1c39
+Author: rcgorling <rcgorling@mines.edu>
+Date:   Wed Oct 9 12:52:50 2024 -0600
+
+    Added constructor for TestBoard that initializes and empty board as well as empty hashsets for targets and visited.
+
+commit 5e6e2cb68cab884c6ea47f33a6cc1c237cda394e
+Author: rcgorling <rcgorling@mines.edu>
+Date:   Wed Oct 9 12:21:39 2024 -0600
+
+    Added instance variables to the TestBoard Class that were on the Clue Paths 2 Assignment
+
 commit 5b9cc7c358462df855a5d2a3ec4c709d67caa4b5
 Author: Shane Ritter <sritter@mines.edu>
 Date:   Mon Oct 7 21:15:10 2024 -0600
