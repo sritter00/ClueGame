@@ -1,0 +1,18 @@
+Rooms and room cards
+Room, Guest House, G
+Room, Royal Dining Room, D
+Room, Royal Kitchen, K
+Room, Royal Hall, H
+Room, Patio, P
+Room, Observatory, O
+Room, Living Room, L
+Room, Theater, T
+Room, Spa, S
+// Other Spaces on board
+Space, Unused, X
+Space, Walkway, W
+// Additional Indicators
+// Indicator, Doors, <,>,^,v
+// Indicator, Center, *  
+// Indicator, RoomName, #
+// Indicator, SecretPassage, RoomLetter

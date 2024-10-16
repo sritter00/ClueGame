@@ -110,8 +110,12 @@ public class Board {
 					if(currentIndex.length() > 2) { //throw error if formated wrong
 						throw new BadConfigFormatException();
 					}
+					if (!roomMap.containsKey(currentIndex.charAt(0))) {
+						String message = currentIndex + " refers to a room that isn't in the setup file.";
+						throw new BadConfigFormatException(message);
+					}
 					grid[curRow][curColumn] = new BoardCell(curRow, curColumn, currentIndex.charAt(0));
-					
+
 					if(currentIndex.length() == 2) { // check if there is a special characteristics of the specific cell
 						if(currentIndex.charAt(1) == '<') {
 							grid[curRow][curColumn].setDoorDirection(DoorDirection.LEFT);
