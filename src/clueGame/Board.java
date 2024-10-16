@@ -27,7 +27,6 @@ public class Board {
 
 	// Getter for the room.
 	public Room getRoom(BoardCell cell) {
-		System.out.println(cell.getInitial());
 		char ch = cell.getInitial();
 		Room newRoom = roomMap.get(ch);
 		return newRoom;
@@ -53,7 +52,7 @@ public class Board {
 			Scanner scanner = new Scanner(file);
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
-				String[] rows = line.split(", ");
+				String[] rows = line.split(", "); // Split file with , and put it into a string
 				char firstChar = line.charAt(0);
 				char secondChar = line.charAt(1);
 				if(!(firstChar == '/' && secondChar == '/')) { //Check if commented out
@@ -91,14 +90,14 @@ public class Board {
 
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
-				String[] rows = line.split(",");
+				String[] rows = line.split(","); // Split file with , and put it into a string
 				// Get column count from the first row
 				
 				if (numColumns == 0) {
 					numRows = rows.length; 
 				}
-				if (numRows != rows.length) {
-					String message = "different number of rows/columns in file: " + file;
+				if (numRows != rows.length) { // check if there is a different number of rows if there is throw error
+					String message = "Different number of rows/columns in file: " + file;
 					scanner.close();
 					throw new BadConfigFormatException(message);
 				}
@@ -119,14 +118,14 @@ public class Board {
 				String line = scanner.nextLine();
 				String[] rows = line.split(",");
 				int curRow = 0;
-				for(String currentIndex : rows) {
+				for(String currentIndex : rows) { // goes threw rows in the csv file and creates cells named appropriately
 					if(currentIndex.length() > 2) { //throw error if formated wrong
 						String message = "length of cell is more than two: " + currentIndex + " in file: " + file + " at (" + curRow +"," + curColumn+ ")"; 
 						scanner.close();
 						throw new BadConfigFormatException(message);
 					}
-					if (!roomMap.containsKey(currentIndex.charAt(0))) {
-						String message = currentIndex + " in " + file + " is not a room in the setup file " + setConfigFiles + " at (" + curRow +"," + curColumn+ ")" ;
+					if (!roomMap.containsKey(currentIndex.charAt(0))) { // throw error if the room name is not in the setup file
+						String message = currentIndex + " in " + file + " at (" + curRow +"," + curColumn + ")," + " is not a room in the setup file: " + setConfigFiles  ;
 						scanner.close();
 						throw new BadConfigFormatException(message);
 					}
@@ -183,15 +182,13 @@ public class Board {
 		try {
 			this.loadSetupConfig();
 		} catch (BadConfigFormatException e) {
-			// TODO Auto-generated catch block
-			new BadConfigFormatException(); 
+			new BadConfigFormatException();  // throw default error if no error was found and something went wrong
 		}
 		
 		try {
 			this.loadLayoutConfig();
 		} catch (BadConfigFormatException e) {
-			// TODO Auto-generated catch block
-			new BadConfigFormatException(); 
+			new BadConfigFormatException(); // throw default error if no error was found and something went wrong
 		}
 
 	}
