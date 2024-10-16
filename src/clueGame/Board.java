@@ -24,7 +24,20 @@ public class Board {
 	private Map<Character, Room> roomMap = new HashMap<>();
 
 	private static Board theInstance = new Board();
-
+	// Getter for the adjList
+	public Set<BoardCell> getAdjList(int row, int col){
+		Set<BoardCell> adjList = new HashSet<>();
+		return adjList;
+	}
+	// Calculate the targets for a player
+	public void calcTargets(BoardCell startCell, int pathLength) {
+	
+	
+	}
+	//Getter for the target list
+	public Set<BoardCell> getTargets() {
+		return targets;
+	}
 	// Getter for the room.
 	public Room getRoom(BoardCell cell) {
 		char ch = cell.getInitial();

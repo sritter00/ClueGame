@@ -18,7 +18,13 @@ public class BoardCell {
 	private boolean roomCenter;
 	private boolean doorway;
 	private char secretPassage;
+	private boolean occupied;
 	private Set<BoardCell> adjList = new HashSet<BoardCell>();
+	//Setter for occupied
+	public void setOccupied(boolean occupied) {
+		this.occupied = occupied;
+	}
+	
 	
 	// Boolean for whether location is a doorway or not.
 	public boolean isDoorway() {

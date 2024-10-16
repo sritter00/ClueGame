@@ -1,0 +1,212 @@
+commit b04411dae65575ee8dac3f91bc5fa3f2e5b778b0
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 16 15:09:17 2024 -0600
+
+    added the fileinitTest306 - didn't realize we needed it in are test
+
+commit c4f7fde41e64de53bb1d6a981f1e89bf24714c98
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 16 13:47:54 2024 -0600
+
+    created git log and cleaned up some files
+
+commit a42d01043dbf4495f0d12bb84fb0a628f1d02bb9
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 16 13:37:57 2024 -0600
+
+    added more comments in are code and cleaned it up
+
+commit c276d6cb4a8992e9541dc025907bd69b7a95ff28
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 16 13:22:16 2024 -0600
+
+    Added more Exeptions/errors and now passes all JUnit tests
+
+commit ee32940624dde907abeecb3d10ccd26c8ea8eb16
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Wed Oct 16 12:55:12 2024 -0600
+
+    Deleted a cell for the BadColumns exception test.
+
+commit 5a0dc2d6a6070e5914f4f329b96eb78338cd0ac2
+Merge: c59ec50 ee9618f
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Wed Oct 16 12:54:00 2024 -0600
+
+    Merge branch 'main' of https://github.com/sritter00/ClueGame
+
+commit c59ec50815c401d3b11b635f60045183b39fc157
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Wed Oct 16 12:52:18 2024 -0600
+
+    Added some new BadConfig exceptions and created the BadRoom and BadFormat.
+
+commit ee9618fc79e8357111a1d6e9f0c752e32914a996
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 16 12:51:52 2024 -0600
+
+    Created some new exceptions
+
+commit 98d93a87e32091879f07d280e2d9f96afd817fe7
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Tue Oct 15 20:24:07 2024 -0600
+
+    Created code for each load function of which it now passes all FileInitTests
+
+commit 2ec5800e9bab0b18d8c1208ef74177600b97d03c
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Fri Oct 11 21:08:10 2024 -0600
+
+    Comments for new files as well as new methods for the classes in the clueGame package
+
+commit 64212760f90d7b25a8a63275235d1939b13028be
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Oct 11 20:50:27 2024 -0600
+
+    Added the Test.txt and changed the tests to match are board
+
+commit 5a5cdfcc4d3ad71426f04b711d2d05968814a950
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Oct 11 20:19:42 2024 -0600
+
+    Test now runs without errors
+
+commit a1c5b3a8901e4bbcd3930ed9792c8c74d018dfd5
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Fri Oct 11 19:40:38 2024 -0600
+
+    Created and filled out the BoardCell class and the DoorDirection enumerated class.
+
+commit 5c4787c80b9aa0d544da9a91c5229ff7e8bb1938
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Oct 11 17:18:52 2024 -0600
+
+    I lied now we should have everything we need for board
+
+commit 5c5aa830bb56f5b8f7bb1101489eaf74c5345eed
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Oct 11 17:11:59 2024 -0600
+
+    Fixed board class to have all nessisary getters and setters
+
+commit 997c8cf09f443abe0d9edb1198d1e512407ae347
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Oct 11 12:49:34 2024 -0600
+
+    Set up board.java
+
+commit a9ce6deeb6ba8d19b0356b4a04ceb55662c97a38
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Oct 11 12:32:52 2024 -0600
+
+    Setup commit for C14A-2
+
+commit 62d00dbe9e39663165b92fb953d936ed49f30c65
+Author: rcgorling <rcgorling@mines.edu>
+Date:   Fri Oct 11 12:22:35 2024 -0600
+
+    Added comments for new methods (DFS and others).
+
+commit 570cda8c05a15c386a2b2e6d89a088bd0a8976c2
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Thu Oct 10 15:02:45 2024 -0600
+
+    The code now passes all test :)
+
+commit c11af019dda2cbec1b1cd1b6f491017cb44610f1
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 9 21:47:08 2024 -0600
+
+    Fixed Room and Occupied now just need to fix mixed
+
+commit 1e239a828b09ba7d52246860ea26da724501f37a
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 9 21:21:30 2024 -0600
+
+    Got testBoard to pass all normal tests as well as testTargetsOccupied
+
+commit 426c0638c93a011cfce12ab5d53c2d7f63ce6e44
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 9 13:18:00 2024 -0600
+
+    testAdjacency now passes in BoardTestsExp/ changed Test board get cell to addAdjacency correctly
+
+commit 246a81ae1d12a46d2199f451fcef1fb53b3e04f9
+Merge: 4f4d0e0 12bb981
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 9 12:54:39 2024 -0600
+
+    Merge branch 'main' of https://github.com/sritter00/ClueGame
+
+commit 4f4d0e0461beddb368c9db95c622933e1c6fda0e
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 9 12:52:55 2024 -0600
+
+    Created the adjlist in testBoard and set up the board in adjlist
+
+commit 12bb98188e24e5f3609857752208a2760f8e1c39
+Author: rcgorling <rcgorling@mines.edu>
+Date:   Wed Oct 9 12:52:50 2024 -0600
+
+    Added constructor for TestBoard that initializes and empty board as well as empty hashsets for targets and visited.
+
+commit 5e6e2cb68cab884c6ea47f33a6cc1c237cda394e
+Author: rcgorling <rcgorling@mines.edu>
+Date:   Wed Oct 9 12:21:39 2024 -0600
+
+    Added instance variables to the TestBoard Class that were on the Clue Paths 2 Assignment
+
+commit 5b9cc7c358462df855a5d2a3ec4c709d67caa4b5
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Mon Oct 7 21:15:10 2024 -0600
+
+    Changed ArrayList adjlist variable to a Set instead of a ArrayList
+
+commit 75d2296db7f5828459f15d89abf1f9ff69abb566
+Author: rcgorling <rcgorling@mines.edu>
+Date:   Mon Oct 7 19:59:22 2024 -0600
+
+    Added 5 JUnit tests in BoardTestsExp (Adjacency, Normal, Mixed, Room, and Occupied)
+
+commit 57fd8e8441876696a894515200e96a88e735ba45
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Mon Oct 7 13:29:13 2024 -0600
+
+    Created ClueLayout.csv, ClueSetup.txt, and readme.txt
+
+commit d2166ccba76be3a9a0ee20bcdfe05fa606397a77
+Author: rcgorling <rcgorling@mines.edu>
+Date:   Mon Oct 7 12:48:14 2024 -0600
+
+    Nearly Complete Clue Layout
+
+commit 9ee59c09130c2f55634616ffc0860324994747a7
+Merge: 2f4d9b5 5ac9d2e
+Author: rcgorling <rcgorling@mines.edu>
+Date:   Mon Oct 7 12:42:19 2024 -0600
+
+    Merge branch 'main' of https://github.com/sritter00/ClueGame
+
+commit 5ac9d2e47df4e0ce488aedd2bf94a2778f5553ed
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Sun Oct 6 18:41:22 2024 -0600
+
+    Created the functions needed in TestBoard.java class
+
+commit 922093017d856e3a25b45c455f0b4fea123a1d26
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Sun Oct 6 17:57:19 2024 -0600
+
+    First commit created everthing we need for the TestBoardCell class
+
+commit 2f4d9b55c3776af26a3590610c1e4f2c9dd04be3
+Author: rcgorling <rcgorling@mines.edu>
+Date:   Fri Oct 4 12:50:16 2024 -0600
+
+    Added ClueLayout excel sheet
+
+commit eaecf597dd20080a4a3aa9e7a1217c083373c795
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Oct 4 12:40:47 2024 -0600
+
+    Setup Commit
