@@ -166,8 +166,6 @@ public class Board {
 	// constructor is private to ensure only one can be created
 	private Board() {
 		super();
-
-
 	}
 	// this method returns the only Board
 	public static Board getInstance() {

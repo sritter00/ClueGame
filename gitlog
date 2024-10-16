@@ -1,3 +1,46 @@
+commit a42d01043dbf4495f0d12bb84fb0a628f1d02bb9
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 16 13:37:57 2024 -0600
+
+    added more comments in are code and cleaned it up
+
+commit c276d6cb4a8992e9541dc025907bd69b7a95ff28
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 16 13:22:16 2024 -0600
+
+    Added more Exeptions/errors and now passes all JUnit tests
+
+commit ee32940624dde907abeecb3d10ccd26c8ea8eb16
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Wed Oct 16 12:55:12 2024 -0600
+
+    Deleted a cell for the BadColumns exception test.
+
+commit 5a0dc2d6a6070e5914f4f329b96eb78338cd0ac2
+Merge: c59ec50 ee9618f
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Wed Oct 16 12:54:00 2024 -0600
+
+    Merge branch 'main' of https://github.com/sritter00/ClueGame
+
+commit c59ec50815c401d3b11b635f60045183b39fc157
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Wed Oct 16 12:52:18 2024 -0600
+
+    Added some new BadConfig exceptions and created the BadRoom and BadFormat.
+
+commit ee9618fc79e8357111a1d6e9f0c752e32914a996
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 16 12:51:52 2024 -0600
+
+    Created some new exceptions
+
+commit 98d93a87e32091879f07d280e2d9f96afd817fe7
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Tue Oct 15 20:24:07 2024 -0600
+
+    Created code for each load function of which it now passes all FileInitTests
+
 commit 2ec5800e9bab0b18d8c1208ef74177600b97d03c
 Author: Carter Gorling <rcgorling@mines.edu>
 Date:   Fri Oct 11 21:08:10 2024 -0600
