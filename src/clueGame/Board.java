@@ -46,6 +46,7 @@ public class Board {
 	}
 	// Load setup configuration.
 	public void loadSetupConfig () throws BadConfigFormatException {
+		roomMap = new HashMap<>();
 		try {
 			int curColumn = 1;
 			File file = new File(setConfigFiles);
