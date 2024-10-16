@@ -8,13 +8,11 @@ Room, Observatory, O
 Room, Living Room, L
 Room, Theater, T
 Room, Spa, S
-//Other Spaces on board
+// Other Spaces on board
 Space, Unused, X
-Space, Walk, W
-
-
-//Additional Indicators
-//Indicator, Doors, <,>,^,v
-//Indicator, Center, *  
-//Indicator, RoomName, #
-//Indicator, SecretPassage, RoomLetter
+Space, Walkway, W
+// Additional Indicators
+// Indicator, Doors, <,>,^,v
+// Indicator, Center, *  
+// Indicator, RoomName, #
+// Indicator, SecretPassage, RoomLetter

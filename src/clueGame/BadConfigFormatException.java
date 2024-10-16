@@ -9,4 +9,10 @@ package clueGame;
 
 public class BadConfigFormatException extends Exception {
 
+	BadConfigFormatException(){
+
+	}
+	BadConfigFormatException(String message){
+
+	}
 }

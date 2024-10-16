@@ -1,3 +1,51 @@
+commit 2ec5800e9bab0b18d8c1208ef74177600b97d03c
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Fri Oct 11 21:08:10 2024 -0600
+
+    Comments for new files as well as new methods for the classes in the clueGame package
+
+commit 64212760f90d7b25a8a63275235d1939b13028be
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Oct 11 20:50:27 2024 -0600
+
+    Added the Test.txt and changed the tests to match are board
+
+commit 5a5cdfcc4d3ad71426f04b711d2d05968814a950
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Oct 11 20:19:42 2024 -0600
+
+    Test now runs without errors
+
+commit a1c5b3a8901e4bbcd3930ed9792c8c74d018dfd5
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Fri Oct 11 19:40:38 2024 -0600
+
+    Created and filled out the BoardCell class and the DoorDirection enumerated class.
+
+commit 5c4787c80b9aa0d544da9a91c5229ff7e8bb1938
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Oct 11 17:18:52 2024 -0600
+
+    I lied now we should have everything we need for board
+
+commit 5c5aa830bb56f5b8f7bb1101489eaf74c5345eed
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Oct 11 17:11:59 2024 -0600
+
+    Fixed board class to have all nessisary getters and setters
+
+commit 997c8cf09f443abe0d9edb1198d1e512407ae347
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Oct 11 12:49:34 2024 -0600
+
+    Set up board.java
+
+commit a9ce6deeb6ba8d19b0356b4a04ceb55662c97a38
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Oct 11 12:32:52 2024 -0600
+
+    Setup commit for C14A-2
+
 commit 62d00dbe9e39663165b92fb953d936ed49f30c65
 Author: rcgorling <rcgorling@mines.edu>
 Date:   Fri Oct 11 12:22:35 2024 -0600

@@ -26,9 +26,9 @@ public class BoardCell {
 	}
 	// Constructor
 	public BoardCell(int row, int column, char initial){
-		row = this.row;
-		column = this.column;
-		initial = this.initial;
+		this.row = row  ;
+		this.column = column;
+		this.initial = initial;
 	}
 	// Setter to add a cell to the cell adjacency list
 	public void addAdjacency(BoardCell cell) {
@@ -48,6 +48,7 @@ public class BoardCell {
 	}
 	// Setter for door direction.
 	public void setDoorDirection(DoorDirection doorDirection) {
+		doorway = true;
 		this.doorDirection = doorDirection;
 	}
 	// Getter for the room label.
