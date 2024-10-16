@@ -48,6 +48,7 @@ public class Board {
 	// Load setup configuration.
 	public void loadSetupConfig () throws BadConfigFormatException {
 		try {
+			int curColumn = 1;
 			File file = new File(setConfigFiles);
 			Scanner scanner = new Scanner(file);
 			while (scanner.hasNextLine()) {
@@ -57,11 +58,13 @@ public class Board {
 				char secondChar = line.charAt(1);
 				if(!(firstChar == '/' && secondChar == '/')) { //Check if commented out
 					if(rows.length != 3) {
-						String message = line + " is not formated properly in:" + file;
+						String message = "---"+line + "--- is not formated properly in: " + file +" at line (" + curColumn +")";
+						scanner.close();
 						throw new BadConfigFormatException(message);
 					}
 					if(!Character.isLetter(rows[2].charAt(0))) {
-						String message = rows[2].charAt(0) + " is not a letter in stetup file";
+						String message = rows[2].charAt(0) + " is not a letter in stetup file: " + file;
+						scanner.close();
 						throw new BadConfigFormatException(message);
 					}
 					Character ch = Character.valueOf(rows[2].charAt(0));
@@ -69,7 +72,7 @@ public class Board {
 					newRoom.setName(rows[1]);
 					roomMap.put(ch, newRoom);
 				}
-
+				curColumn++;
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
@@ -90,10 +93,15 @@ public class Board {
 				String line = scanner.nextLine();
 				String[] rows = line.split(",");
 				// Get column count from the first row
+				
 				if (numColumns == 0) {
 					numRows = rows.length; 
 				}
-
+				if (numRows != rows.length) {
+					String message = "different number of rows/columns in file: " + file;
+					scanner.close();
+					throw new BadConfigFormatException(message);
+				}
 				numColumns++;
 			}
 			scanner.close();
@@ -113,11 +121,13 @@ public class Board {
 				int curRow = 0;
 				for(String currentIndex : rows) {
 					if(currentIndex.length() > 2) { //throw error if formated wrong
-						String message = "length of cell is more than two at:" + currentIndex; 
+						String message = "length of cell is more than two: " + currentIndex + " in file: " + file + " at (" + curRow +"," + curColumn+ ")"; 
+						scanner.close();
 						throw new BadConfigFormatException(message);
 					}
 					if (!roomMap.containsKey(currentIndex.charAt(0))) {
-						String message = currentIndex + " refers to a room that isn't in the setup file.";
+						String message = currentIndex + " in " + file + " is not a room in the setup file " + setConfigFiles + " at (" + curRow +"," + curColumn+ ")" ;
+						scanner.close();
 						throw new BadConfigFormatException(message);
 					}
 					grid[curRow][curColumn] = new BoardCell(curRow, curColumn, currentIndex.charAt(0));
@@ -140,8 +150,9 @@ public class Board {
 							grid[curRow][curColumn].setRoomLabel(true);
 							roomMap.get(currentIndex.charAt(0)).setLabelCell(grid[curRow][curColumn]);
 						}else { //throw exception if we don't know what the second char is in the cell
-							String message = "length of cell is more than two at:" + currentIndex;
-							throw new BadConfigFormatException();
+							String message = "bad format of: " + currentIndex + " in file: " + file + " at (" + curRow +"," + curColumn+ ")";
+							scanner.close();
+							throw new BadConfigFormatException(message);
 						}
 					}
 					curRow++; // new Row after we get entry of room char names
