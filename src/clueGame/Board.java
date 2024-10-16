@@ -57,7 +57,12 @@ public class Board {
 				char secondChar = line.charAt(1);
 				if(!(firstChar == '/' && secondChar == '/')) { //Check if commented out
 					if(rows.length != 3) {
-						throw new BadConfigFormatException();
+						String message = line + " is not formated properly in:" + file;
+						throw new BadConfigFormatException(message);
+					}
+					if(!Character.isLetter(rows[2].charAt(0))) {
+						String message = rows[2].charAt(0) + " is not a letter in stetup file";
+						throw new BadConfigFormatException(message);
 					}
 					Character ch = Character.valueOf(rows[2].charAt(0));
 					Room newRoom = new Room();
@@ -108,7 +113,8 @@ public class Board {
 				int curRow = 0;
 				for(String currentIndex : rows) {
 					if(currentIndex.length() > 2) { //throw error if formated wrong
-						throw new BadConfigFormatException();
+						String message = "length of cell is more than two at:" + currentIndex; 
+						throw new BadConfigFormatException(message);
 					}
 					if (!roomMap.containsKey(currentIndex.charAt(0))) {
 						String message = currentIndex + " refers to a room that isn't in the setup file.";
@@ -134,6 +140,7 @@ public class Board {
 							grid[curRow][curColumn].setRoomLabel(true);
 							roomMap.get(currentIndex.charAt(0)).setLabelCell(grid[curRow][curColumn]);
 						}else { //throw exception if we don't know what the second char is in the cell
+							String message = "length of cell is more than two at:" + currentIndex;
 							throw new BadConfigFormatException();
 						}
 					}
@@ -166,14 +173,14 @@ public class Board {
 			this.loadSetupConfig();
 		} catch (BadConfigFormatException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new BadConfigFormatException(); 
 		}
 		
 		try {
 			this.loadLayoutConfig();
 		} catch (BadConfigFormatException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new BadConfigFormatException(); 
 		}
 
 	}
