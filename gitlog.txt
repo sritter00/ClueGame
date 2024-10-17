@@ -1,3 +1,33 @@
+commit 0f66478e492fc551d6a3cf66214255085b6836cb
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Thu Oct 17 13:46:41 2024 -0600
+
+    Changed test targets (AtDoor,Walkway1,Walkway2,Occupied) in BoardAdjTargetTest class and marked cells in excel sheet.
+
+commit f0ee826806ebe3c2d6fc8bf8f36869f21fa93a61
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Thu Oct 17 03:59:36 2024 -0600
+
+    minor commit changed the file name to reference are file in BoardAdjTargetTest.java
+
+commit c51c9b202f8eed8224e1c28c127dcc45767b3b61
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Thu Oct 17 03:54:59 2024 -0600
+
+    All tests fail no error(still need to add the last 4 tests for BoardAdjTargetTest.java, and add to are exel file
+
+commit f07e16a5c1f38b46cef3f7de3a6f6f86d5348ac9
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 16 16:55:20 2024 -0600
+
+    Created BoardAdjTargetTest.java did Adj room, doors, walkways also did calctargets test on Royal Dining Room and Spa
+
+commit 29009015794a9221e33544c902d5572e72e5df05
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Oct 16 15:32:44 2024 -0600
+
+    Made the new test files and push a new gitlog
+
 commit b04411dae65575ee8dac3f91bc5fa3f2e5b778b0
 Author: Shane Ritter <sritter@mines.edu>
 Date:   Wed Oct 16 15:09:17 2024 -0600
