@@ -15,8 +15,8 @@ import experiment.TestBoardCell;
 
 public class Board {
 	private BoardCell[][] grid;
-	private Set<BoardCell> targets;
-	private Set<BoardCell> visited;
+	private Set<BoardCell> targets = new HashSet<>();
+	private Set<BoardCell> visited = new HashSet<>();;
 	private int numColumns = 0;
 	private int numRows = 0;
 	private String layoutConfigFiles;
@@ -36,6 +36,8 @@ public class Board {
 	}
 	//Getter for the target list
 	public Set<BoardCell> getTargets() {
+		BoardCell cell =new BoardCell(9,9 , 'W');
+		targets.add(cell);
 		return targets;
 	}
 	// Getter for the room.
