@@ -235,7 +235,7 @@ public class Board {
 			new BadConfigFormatException(); // throw default error if no error was found and something went wrong
 		}
 
-		for (int row = 0; row < numRows; row++) { //goes threw each row and column and adds adj depending on if statments
+		for (int row = 0; row < numRows; row++) { //goes through each row and column and adds adj depending on if statements
 			for (int col = 0; col < numColumns; col++) {
 				if(grid[row][col].isDoorway()) { // if its a doorway get the center of the room and add that to adj List
 					if(grid[row][col].getDoorDirection() == DoorDirection.UP){
