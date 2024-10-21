@@ -10,7 +10,6 @@ package clueGame;
 import java.io.*;
 import java.util.*;
 import java.lang.Character;
-import clueGame.BoardCell;
 
 public class Board {
 	private BoardCell[][] grid;
@@ -139,14 +138,14 @@ public class Board {
 				// Get column count from the first row
 
 				if (numColumns == 0) {
-					numRows = rows.length; 
+					numColumns = rows.length; 
 				}
-				if (numRows != rows.length) { // check if there is a different number of rows if there is throw error
+				if (numColumns != rows.length) { // check if there is a different number of rows if there is throw error
 					String message = "Different number of rows/columns in file: " + file;
 					scanner.close();
 					throw new BadConfigFormatException(message);
 				}
-				numColumns++;
+				numRows++;
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
@@ -154,7 +153,7 @@ public class Board {
 		}
 		//set up the board
 		grid = new BoardCell[numRows][numColumns];
-		int curColumn = 0;
+		int curRow = 0;
 		try {
 			File file = new File(layoutConfigFiles);
 			Scanner scanner = new Scanner(file);
@@ -162,7 +161,7 @@ public class Board {
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
 				String[] rows = line.split(",");
-				int curRow = 0;
+				int curColumn = 0;
 				for(String currentIndex : rows) { // goes threw rows in the csv file and creates cells named appropriately
 					if(currentIndex.length() > 2) { //throw error if formated wrong
 						String message = "length of cell is more than two: " + currentIndex + " in file: " + file + " at (" + curRow +"," + curColumn+ ")"; 
@@ -200,9 +199,9 @@ public class Board {
 							throw new BadConfigFormatException(message);
 						}
 					}
-					curRow++; // new Row after we get entry of room char names
+					curColumn++; // new Column after we get entry of room char names
 				}
-				curColumn++; // new Column at end of next line
+				curRow++; // new Row at end of next line
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
@@ -239,38 +238,38 @@ public class Board {
 			for (int col = 0; col < numColumns; col++) {
 				if(grid[row][col].isDoorway()) { // if its a doorway get the center of the room and add that to adj List
 					if(grid[row][col].getDoorDirection() == DoorDirection.UP){
-						char roomInitial = grid[row][col-1].getInitial();
+						char roomInitial = grid[row-1][col].getInitial();
 						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
 						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
 					}
 					if(grid[row][col].getDoorDirection() == DoorDirection.DOWN){
-						char roomInitial = grid[row][col+1].getInitial();
-						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
-						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
-					}
-					if(grid[row][col].getDoorDirection() == DoorDirection.RIGHT){
 						char roomInitial = grid[row+1][col].getInitial();
 						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
 						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
 					}
+					if(grid[row][col].getDoorDirection() == DoorDirection.RIGHT){
+						char roomInitial = grid[row][col+1].getInitial();
+						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
+						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
+					}
 					if(grid[row][col].getDoorDirection() == DoorDirection.LEFT){
-						char roomInitial = grid[row-1][col].getInitial();
+						char roomInitial = grid[row][col-1].getInitial();
 						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
 						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
 					}
 				}
 				if(grid[row][col].getInitial() == 'W') { // if its a walkway add all walkway adjacencies
-					if(grid.length > row + 1 && grid[row+1][col].getInitial() == 'W') {
-						grid[row][col].addAdjacency(grid[row+1][col] );
+					if(grid[0].length > col+1 && grid[row][col+1].getInitial() == 'W') {
+						grid[row][col].addAdjacency(grid[row][col+1] );
 					}
-					if(col - 1 >=  0 && grid[row][col-1].getInitial() == 'W') {
-						grid[row][col].addAdjacency(grid[row][col-1]);
-					}
-					if (row -1 >= 0 && grid[row-1][col].getInitial() == 'W') {
+					if(row - 1 >=  0 && grid[row-1][col].getInitial() == 'W') {
 						grid[row][col].addAdjacency(grid[row-1][col]);
 					}
-					if(grid[0].length > col + 1 && grid[row][col+1].getInitial() == 'W') {
-						grid[row][col].addAdjacency(grid[row][col+1]);
+					if (col -1 >= 0 && grid[row][col-1].getInitial() == 'W') {
+						grid[row][col].addAdjacency(grid[row][col-1]);
+					}
+					if(grid.length > row + 1 && grid[row+1][col].getInitial() == 'W') {
+						grid[row][col].addAdjacency(grid[row+1][col]);
 					}
 				}
 			}

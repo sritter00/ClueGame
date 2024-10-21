@@ -20,8 +20,8 @@ import clueGame.Room;
 public class FileInitTests {
 	// Constants that I will use to test whether the file was loaded correctly
 	public static final int LEGEND_SIZE = 11;
-	public static final int NUM_ROWS = 26;
-	public static final int NUM_COLUMNS = 29;
+	public static final int NUM_ROWS = 29;
+	public static final int NUM_COLUMNS = 26;
 
 	// NOTE: I made Board static because I only want to set it up one
 	// time (using @BeforeAll), no need to do setup before each test.
@@ -62,20 +62,20 @@ public class FileInitTests {
 	// These cells are white on the planning spreadsheet
 	@Test
 	public void FourDoorDirections() {
-		BoardCell cell = board.getCell(5, 8);
+		BoardCell cell = board.getCell(8, 5);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.UP, cell.getDoorDirection());
-		cell = board.getCell(9, 7);
+		cell = board.getCell(7, 9);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.RIGHT, cell.getDoorDirection());
-		cell = board.getCell(20, 10);
+		cell = board.getCell(10, 20);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.DOWN, cell.getDoorDirection());
-		cell = board.getCell(7, 14);
+		cell = board.getCell(14, 7);
 		assertTrue(cell.isDoorway());
 		assertEquals(DoorDirection.LEFT, cell.getDoorDirection());
 		// Test that walkways are not doors
-		cell = board.getCell(12, 11);
+		cell = board.getCell(11, 12);
 		assertFalse(cell.isDoorway());
 	}
 	
@@ -106,7 +106,7 @@ public class FileInitTests {
 		assertFalse( cell.isDoorway()) ;
 
 		// this is a label cell to test
-		cell = board.getCell(2, 24);
+		cell = board.getCell(24, 2);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Observatory" ) ;
@@ -114,7 +114,7 @@ public class FileInitTests {
 		assertTrue( room.getLabelCell() == cell );
 		
 		// this is a room center cell to test
-		cell = board.getCell(8, 24);
+		cell = board.getCell(24, 8);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Living Room" ) ;
@@ -129,7 +129,7 @@ public class FileInitTests {
 		assertTrue( cell.getSecretPassage() == 'S' );
 		
 		// test a walkway
-		cell = board.getCell(6, 0);
+		cell = board.getCell(0, 6);
 		room = board.getRoom( cell ) ;
 		// Note for our purposes, walkways and closets are rooms
 		assertTrue( room != null );
@@ -138,7 +138,7 @@ public class FileInitTests {
 		assertFalse( cell.isLabel() );
 		
 		// test a closet
-		cell = board.getCell(12, 14);
+		cell = board.getCell(14, 12);
 		room = board.getRoom( cell ) ;
 		assertTrue( room != null );
 		assertEquals( room.getName(), "Unused" ) ;
