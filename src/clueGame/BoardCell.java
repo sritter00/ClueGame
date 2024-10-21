@@ -24,7 +24,9 @@ public class BoardCell {
 	public void setOccupied(boolean occupied) {
 		this.occupied = occupied;
 	}
-	
+	public boolean getOccupied() {
+		return occupied;
+	}
 	
 	// Boolean for whether location is a doorway or not.
 	public boolean isDoorway() {
@@ -35,6 +37,7 @@ public class BoardCell {
 		this.row = row  ;
 		this.column = column;
 		this.initial = initial;
+		adjList = new HashSet<BoardCell>();
 	}
 	// Setter to add a cell to the cell adjacency list
 	public void addAdjacency(BoardCell cell) {

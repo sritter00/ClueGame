@@ -11,7 +11,6 @@ import java.io.*;
 import java.util.*;
 import java.lang.Character;
 import clueGame.BoardCell;
-import experiment.TestBoardCell;
 
 public class Board {
 	private BoardCell[][] grid;
@@ -28,11 +27,44 @@ public class Board {
 	public Set<BoardCell> getAdjList(int row, int col){
 		return grid[row][col].getAdjList();
 	}
-	// Calculate the targets for a player
+	// Calculates legal targets for a move from startCell of length path length.
 	public void calcTargets(BoardCell startCell, int pathLength) {
-
-
+		visited = new HashSet<>();
+		targets = new HashSet<>();
+		visited.add(startCell);
+		for(BoardCell curAdjCell : startCell.getAdjList()) {
+			if(!visited.contains(curAdjCell)) {
+				DFS(curAdjCell, pathLength-1);
+			}
+		}
 	}
+
+	// Recursive function that removes and adds the starting cell based on the input of the path length.
+	public void DFS(BoardCell startCell, int pathLength) {
+		visited.add(startCell);
+		if(getRoom(startCell).getCenterCell() != null) {
+			targets.add(startCell);
+			visited.remove(startCell);
+			return;
+		}
+		if(startCell.getOccupied()) {
+			visited.remove(startCell);
+			return;	
+		}
+		if(pathLength == 0) {	
+			targets.add(startCell);
+			visited.remove(startCell);
+			return;
+		}
+
+		for(BoardCell curAdjCell : startCell.getAdjList()) {
+			if(!visited.contains(curAdjCell)) {
+				DFS(curAdjCell, pathLength-1);
+			}
+		}
+		visited.remove(startCell);
+	}
+
 	//Getter for the target list
 	public Set<BoardCell> getTargets() {
 		return targets;
@@ -158,7 +190,6 @@ public class Board {
 							roomMap.get(currentIndex.charAt(0)).setSecretPassage(currentIndex.charAt(1));
 						}else if(currentIndex.charAt(1) == '*') {
 							grid[curRow][curColumn].setRoomCenter(true);
-							System.out.println("("+curRow+","+curColumn+")");
 							roomMap.get(currentIndex.charAt(0)).setCenterCell(grid[curRow][curColumn]);
 						}else if(currentIndex.charAt(1) == '#') {
 							grid[curRow][curColumn].setRoomLabel(true);
@@ -204,9 +235,9 @@ public class Board {
 			new BadConfigFormatException(); // throw default error if no error was found and something went wrong
 		}
 
-		for (int row = 0; row < numRows; row++) {
+		for (int row = 0; row < numRows; row++) { //goes threw each row and column and adds adj depending on if statments
 			for (int col = 0; col < numColumns; col++) {
-				if(grid[row][col].isDoorway()) {
+				if(grid[row][col].isDoorway()) { // if its a doorway get the center of the room and add that to adj List
 					if(grid[row][col].getDoorDirection() == DoorDirection.UP){
 						char roomInitial = grid[row][col-1].getInitial();
 						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
@@ -228,7 +259,7 @@ public class Board {
 						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
 					}
 				}
-				if(grid[row][col].getInitial() == 'W') {
+				if(grid[row][col].getInitial() == 'W') { // if its a walkway add all walkway adjacencies
 					if(grid.length > row + 1 && grid[row+1][col].getInitial() == 'W') {
 						grid[row][col].addAdjacency(grid[row+1][col] );
 					}
@@ -244,7 +275,7 @@ public class Board {
 				}
 			}
 		}
-		for(Map.Entry<Character, Room> entry : roomMap.entrySet()) {
+		for(Map.Entry<Character, Room> entry : roomMap.entrySet()) {//For each room if it has center get all doorways and add that to the adjList
 			for(BoardCell cell : entry.getValue().getDoorWays()) {
 				if(entry.getValue().getCenterCell() != null) {
 					entry.getValue().getCenterCell().addAdjacency(cell);
@@ -254,6 +285,8 @@ public class Board {
 				}
 			}
 		}
+		visited = new HashSet<>();
+		targets = new HashSet<>();
 
 	}
 	// Getter for the cell.
