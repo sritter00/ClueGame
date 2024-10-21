@@ -1,3 +1,15 @@
+commit 24f2cdf2cb39fb72b37fbdad0603cd8b2a3c6e5f
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Thu Oct 17 16:10:22 2024 -0600
+
+    changed some of the tests up to fit are board
+
+commit 3f957136f9de8fb6ae7c53547adff1297036fb8a
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Thu Oct 17 13:48:28 2024 -0600
+
+    Created git log.
+
 commit 0f66478e492fc551d6a3cf66214255085b6836cb
 Author: Carter Gorling <rcgorling@mines.edu>
 Date:   Thu Oct 17 13:46:41 2024 -0600

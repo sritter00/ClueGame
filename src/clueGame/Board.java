@@ -16,7 +16,7 @@ import experiment.TestBoardCell;
 public class Board {
 	private BoardCell[][] grid;
 	private Set<BoardCell> targets = new HashSet<>();
-	private Set<BoardCell> visited = new HashSet<>();;
+	private Set<BoardCell> visited = new HashSet<>();
 	private int numColumns = 0;
 	private int numRows = 0;
 	private String layoutConfigFiles;
@@ -26,18 +26,15 @@ public class Board {
 	private static Board theInstance = new Board();
 	// Getter for the adjList
 	public Set<BoardCell> getAdjList(int row, int col){
-		Set<BoardCell> adjList = new HashSet<>();
-		return adjList;
+		return grid[row][col].getAdjList();
 	}
 	// Calculate the targets for a player
 	public void calcTargets(BoardCell startCell, int pathLength) {
-	
-	
+
+
 	}
 	//Getter for the target list
 	public Set<BoardCell> getTargets() {
-		BoardCell cell =new BoardCell(9,9 , 'W');
-		targets.add(cell);
 		return targets;
 	}
 	// Getter for the room.
@@ -108,7 +105,7 @@ public class Board {
 				String line = scanner.nextLine();
 				String[] rows = line.split(","); // Split file with , and put it into a string
 				// Get column count from the first row
-				
+
 				if (numColumns == 0) {
 					numRows = rows.length; 
 				}
@@ -158,8 +155,10 @@ public class Board {
 							grid[curRow][curColumn].setDoorDirection(DoorDirection.UP);
 						}else if(Character.isLetter(currentIndex.charAt(1))) {
 							grid[curRow][curColumn].setSecretPassage(currentIndex.charAt(1));
+							roomMap.get(currentIndex.charAt(0)).setSecretPassage(currentIndex.charAt(1));
 						}else if(currentIndex.charAt(1) == '*') {
 							grid[curRow][curColumn].setRoomCenter(true);
+							System.out.println("("+curRow+","+curColumn+")");
 							roomMap.get(currentIndex.charAt(0)).setCenterCell(grid[curRow][curColumn]);
 						}else if(currentIndex.charAt(1) == '#') {
 							grid[curRow][curColumn].setRoomLabel(true);
@@ -192,17 +191,68 @@ public class Board {
 	 */
 	public void initialize()
 	{
-		
+
 		try {
 			this.loadSetupConfig();
 		} catch (BadConfigFormatException e) {
 			new BadConfigFormatException();  // throw default error if no error was found and something went wrong
 		}
-		
+
 		try {
 			this.loadLayoutConfig();
 		} catch (BadConfigFormatException e) {
 			new BadConfigFormatException(); // throw default error if no error was found and something went wrong
+		}
+
+		for (int row = 0; row < numRows; row++) {
+			for (int col = 0; col < numColumns; col++) {
+				if(grid[row][col].isDoorway()) {
+					if(grid[row][col].getDoorDirection() == DoorDirection.UP){
+						char roomInitial = grid[row][col-1].getInitial();
+						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
+						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
+					}
+					if(grid[row][col].getDoorDirection() == DoorDirection.DOWN){
+						char roomInitial = grid[row][col+1].getInitial();
+						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
+						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
+					}
+					if(grid[row][col].getDoorDirection() == DoorDirection.RIGHT){
+						char roomInitial = grid[row+1][col].getInitial();
+						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
+						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
+					}
+					if(grid[row][col].getDoorDirection() == DoorDirection.LEFT){
+						char roomInitial = grid[row-1][col].getInitial();
+						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
+						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
+					}
+				}
+				if(grid[row][col].getInitial() == 'W') {
+					if(grid.length > row + 1 && grid[row+1][col].getInitial() == 'W') {
+						grid[row][col].addAdjacency(grid[row+1][col] );
+					}
+					if(col - 1 >=  0 && grid[row][col-1].getInitial() == 'W') {
+						grid[row][col].addAdjacency(grid[row][col-1]);
+					}
+					if (row -1 >= 0 && grid[row-1][col].getInitial() == 'W') {
+						grid[row][col].addAdjacency(grid[row-1][col]);
+					}
+					if(grid[0].length > col + 1 && grid[row][col+1].getInitial() == 'W') {
+						grid[row][col].addAdjacency(grid[row][col+1]);
+					}
+				}
+			}
+		}
+		for(Map.Entry<Character, Room> entry : roomMap.entrySet()) {
+			for(BoardCell cell : entry.getValue().getDoorWays()) {
+				if(entry.getValue().getCenterCell() != null) {
+					entry.getValue().getCenterCell().addAdjacency(cell);
+				}
+				if(entry.getValue().getSecretPassage() != null) {
+					entry.getValue().getCenterCell().addAdjacency(roomMap.get(entry.getValue().getSecretPassage()).getCenterCell());
+				}
+			}
 		}
 
 	}
