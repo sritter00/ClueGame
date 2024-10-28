@@ -61,7 +61,7 @@ public class Board {
 				DFS(curAdjCell, pathLength-1);
 			}
 		}
-		visited.remove(startCell);
+		visited.remove(startCell);//removes startcell from visited when going back from the recursive function
 	}
 
 	//Getter for the target list
@@ -145,7 +145,7 @@ public class Board {
 					scanner.close();
 					throw new BadConfigFormatException(message);
 				}
-				numRows++;
+				numRows++; //Increment number of rows based of of line number
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
