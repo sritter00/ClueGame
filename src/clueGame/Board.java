@@ -17,8 +17,8 @@ public class Board {
 	private Set<BoardCell> visited = new HashSet<>();
 	private int numColumns = 0;
 	private int numRows = 0;
-	private String layoutConfigFiles = null;
-	private String setConfigFiles = null;
+	private String layoutConfigFiles;
+	private String setConfigFiles;
 	private Map<Character, Room> roomMap = new HashMap<>();
 
 	private static Board theInstance = new Board();
@@ -70,8 +70,8 @@ public class Board {
 	}
 	// Getter for the room.
 	public Room getRoom(BoardCell cell) {
-		char ch = cell.getInitial();
-		Room newRoom = roomMap.get(ch);
+		char cellInitial = cell.getInitial();
+		Room newRoom = roomMap.get(cellInitial);
 		return newRoom;
 	}
 	// Getter for number of rows.
