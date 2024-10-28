@@ -17,8 +17,8 @@ public class Board {
 	private Set<BoardCell> visited = new HashSet<>();
 	private int numColumns = 0;
 	private int numRows = 0;
-	private String layoutConfigFiles;
-	private String setConfigFiles;
+	private String layoutConfigFiles = null;
+	private String setConfigFiles = null;
 	private Map<Character, Room> roomMap = new HashMap<>();
 
 	private static Board theInstance = new Board();
@@ -83,9 +83,9 @@ public class Board {
 		return numColumns;
 	}
 	// Setter for configuration files.
-	public void setConfigFiles (String CsvFile, String TxtFile) {
-		setConfigFiles = TxtFile;
-		layoutConfigFiles = CsvFile;
+	public void setConfigFiles (String csvFile, String txtFile) {
+		setConfigFiles = txtFile;
+		layoutConfigFiles = csvFile;
 	}
 	// Load setup configuration.
 	public void loadSetupConfig () throws BadConfigFormatException {
