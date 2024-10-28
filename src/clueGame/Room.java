@@ -27,7 +27,7 @@ public class Room {
 	}
 	// Constructor
 	public Room() {
-		
+		name = null;
 	}
 	// Setter for adding a cell into the doorways list
 	public void addDoorWay(BoardCell cell) {
