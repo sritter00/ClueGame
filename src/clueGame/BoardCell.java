@@ -20,10 +20,11 @@ public class BoardCell {
 	private char secretPassage;
 	private boolean occupied;
 	private Set<BoardCell> adjList = new HashSet<BoardCell>();
-	//Setter for occupied
+	// Setter for occupied.
 	public void setOccupied(boolean occupied) {
 		this.occupied = occupied;
 	}
+	// Getter for occupied.
 	public boolean getOccupied() {
 		return occupied;
 	}
