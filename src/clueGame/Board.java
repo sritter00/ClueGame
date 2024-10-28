@@ -221,7 +221,11 @@ public class Board {
 	 */
 	public void initialize()
 	{
-
+		targets = new HashSet<>();
+		visited = new HashSet<>();
+		numColumns = 0;
+		numRows = 0;
+		roomMap = new HashMap<>();
 		try {
 			this.loadSetupConfig();
 		} catch (BadConfigFormatException e) {
@@ -284,8 +288,6 @@ public class Board {
 				}
 			}
 		}
-		visited = new HashSet<>();
-		targets = new HashSet<>();
 
 	}
 	// Getter for the cell.

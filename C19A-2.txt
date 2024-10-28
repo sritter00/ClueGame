@@ -74,8 +74,6 @@ public void initialize()
 		visited = new HashSet<>();
 		numColumns = 0;
 		numRows = 0;
-		layoutConfigFiles = null;
-		setConfigFiles = null;
 		roomMap = new HashMap<>();
 		try {
 			this.loadSetupConfig();
