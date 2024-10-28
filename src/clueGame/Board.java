@@ -17,8 +17,8 @@ public class Board {
 	private Set<BoardCell> visited = new HashSet<>();
 	private int numColumns = 0;
 	private int numRows = 0;
-	private String layoutConfigFiles;
-	private String setConfigFiles;
+	private String layoutConfigFiles = null;
+	private String setConfigFiles = null;
 	private Map<Character, Room> roomMap = new HashMap<>();
 
 	private static Board theInstance = new Board();
