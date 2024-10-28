@@ -1,0 +1,143 @@
+Before:	public void initialize()
+	{
+
+		try {
+			this.loadSetupConfig();
+		} catch (BadConfigFormatException e) {
+			new BadConfigFormatException();  // throw default error if no error was found and something went wrong
+		}
+
+		try {
+			this.loadLayoutConfig();
+		} catch (BadConfigFormatException e) {
+			new BadConfigFormatException(); // throw default error if no error was found and something went wrong
+		}
+
+		for (int row = 0; row < numRows; row++) { //goes through each row and column and adds adj depending on if statements
+			for (int col = 0; col < numColumns; col++) {
+				if(grid[row][col].isDoorway()) { // if its a doorway get the center of the room and add that to adj List
+					if(grid[row][col].getDoorDirection() == DoorDirection.UP){
+						char roomInitial = grid[row-1][col].getInitial();
+						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
+						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
+					}
+					if(grid[row][col].getDoorDirection() == DoorDirection.DOWN){
+						char roomInitial = grid[row+1][col].getInitial();
+						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
+						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
+					}
+					if(grid[row][col].getDoorDirection() == DoorDirection.RIGHT){
+						char roomInitial = grid[row][col+1].getInitial();
+						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
+						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
+					}
+					if(grid[row][col].getDoorDirection() == DoorDirection.LEFT){
+						char roomInitial = grid[row][col-1].getInitial();
+						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
+						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
+					}
+				}
+				if(grid[row][col].getInitial() == 'W') { // if its a walkway add all walkway adjacencies
+					if(grid[0].length > col+1 && grid[row][col+1].getInitial() == 'W') {
+						grid[row][col].addAdjacency(grid[row][col+1] );
+					}
+					if(row - 1 >=  0 && grid[row-1][col].getInitial() == 'W') {
+						grid[row][col].addAdjacency(grid[row-1][col]);
+					}
+					if (col -1 >= 0 && grid[row][col-1].getInitial() == 'W') {
+						grid[row][col].addAdjacency(grid[row][col-1]);
+					}
+					if(grid.length > row + 1 && grid[row+1][col].getInitial() == 'W') {
+						grid[row][col].addAdjacency(grid[row+1][col]);
+					}
+				}
+			}
+		}
+		for(Map.Entry<Character, Room> entry : roomMap.entrySet()) {//For each room if it has center get all doorways and add that to the adjList
+			for(BoardCell cell : entry.getValue().getDoorWays()) {
+				if(entry.getValue().getCenterCell() != null) {
+					entry.getValue().getCenterCell().addAdjacency(cell);
+				}
+				if(entry.getValue().getSecretPassage() != null) {
+					entry.getValue().getCenterCell().addAdjacency(roomMap.get(entry.getValue().getSecretPassage()).getCenterCell());
+				}
+			}
+		}
+		visited = new HashSet<>();
+		targets = new HashSet<>();
+
+	}
+after:
+public void initialize()
+	{
+		targets = new HashSet<>();
+		visited = new HashSet<>();
+		numColumns = 0;
+		numRows = 0;
+		layoutConfigFiles = null;
+		setConfigFiles = null;
+		roomMap = new HashMap<>();
+		try {
+			this.loadSetupConfig();
+		} catch (BadConfigFormatException e) {
+			new BadConfigFormatException();  // throw default error if no error was found and something went wrong
+		}
+
+		try {
+			this.loadLayoutConfig();
+		} catch (BadConfigFormatException e) {
+			new BadConfigFormatException(); // throw default error if no error was found and something went wrong
+		}
+
+		for (int row = 0; row < numRows; row++) { //goes through each row and column and adds adj depending on if statements
+			for (int col = 0; col < numColumns; col++) {
+				if(grid[row][col].isDoorway()) { // if its a doorway get the center of the room and add that to adj List
+					if(grid[row][col].getDoorDirection() == DoorDirection.UP){
+						char roomInitial = grid[row-1][col].getInitial();
+						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
+						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
+					}
+					if(grid[row][col].getDoorDirection() == DoorDirection.DOWN){
+						char roomInitial = grid[row+1][col].getInitial();
+						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
+						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
+					}
+					if(grid[row][col].getDoorDirection() == DoorDirection.RIGHT){
+						char roomInitial = grid[row][col+1].getInitial();
+						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
+						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
+					}
+					if(grid[row][col].getDoorDirection() == DoorDirection.LEFT){
+						char roomInitial = grid[row][col-1].getInitial();
+						grid[row][col].addAdjacency(roomMap.get(roomInitial).getCenterCell());
+						roomMap.get(roomInitial).addDoorWay(grid[row][col]);
+					}
+				}
+				if(grid[row][col].getInitial() == 'W') { // if its a walkway add all walkway adjacencies
+					if(grid[0].length > col+1 && grid[row][col+1].getInitial() == 'W') {
+						grid[row][col].addAdjacency(grid[row][col+1] );
+					}
+					if(row - 1 >=  0 && grid[row-1][col].getInitial() == 'W') {
+						grid[row][col].addAdjacency(grid[row-1][col]);
+					}
+					if (col -1 >= 0 && grid[row][col-1].getInitial() == 'W') {
+						grid[row][col].addAdjacency(grid[row][col-1]);
+					}
+					if(grid.length > row + 1 && grid[row+1][col].getInitial() == 'W') {
+						grid[row][col].addAdjacency(grid[row+1][col]);
+					}
+				}
+			}
+		}
+		for(Map.Entry<Character, Room> entry : roomMap.entrySet()) {//For each room if it has center get all doorways and add that to the adjList
+			for(BoardCell cell : entry.getValue().getDoorWays()) {
+				if(entry.getValue().getCenterCell() != null) {
+					entry.getValue().getCenterCell().addAdjacency(cell);
+				}
+				if(entry.getValue().getSecretPassage() != null) {
+					entry.getValue().getCenterCell().addAdjacency(roomMap.get(entry.getValue().getSecretPassage()).getCenterCell());
+				}
+			}
+		}
+
+	}
