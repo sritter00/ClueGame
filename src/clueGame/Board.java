@@ -110,10 +110,10 @@ public class Board {
 						scanner.close();
 						throw new BadConfigFormatException(message);
 					}
-					Character ch = Character.valueOf(rows[2].charAt(0));
+					Character cellInitial = Character.valueOf(rows[2].charAt(0));
 					Room newRoom = new Room();
 					newRoom.setName(rows[1]);
-					roomMap.put(ch, newRoom);
+					roomMap.put(cellInitial, newRoom);
 				}
 				curColumn++;
 			}
