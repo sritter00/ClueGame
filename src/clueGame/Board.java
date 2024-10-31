@@ -10,7 +10,7 @@ package clueGame;
 import java.io.*;
 import java.util.*;
 import java.lang.Character;
-
+import java.util.Random;
 public class Board {
 	private BoardCell[][] grid;
 	private Set<BoardCell> targets = new HashSet<>();
@@ -21,8 +21,9 @@ public class Board {
 	private String setConfigFiles = null;
 	private Map<Character, Room> roomMap = new HashMap<>();
 	private Set<Card> cardList = new HashSet<>();
-
+	private int numPlayers = 0;
 	private static Board theInstance = new Board();
+	private Solution gameSolution;
 	// Getter for the adjList
 	public Set<BoardCell> getAdjList(int row, int col){
 		return grid[row][col].getAdjList();
@@ -91,6 +92,7 @@ public class Board {
 	// Load setup configuration.
 	public void loadSetupConfig () throws BadConfigFormatException {
 		roomMap = new HashMap<>();
+		numPlayers = 0;
 		try {
 			int curColumn = 1;
 			File file = new File(setConfigFiles);
@@ -127,6 +129,7 @@ public class Board {
 						cardList.add(new Card(rows[1], CardType.WEAPON));
 					}else if(rows[0].equals("Player")) {
 						cardList.add(new Card(rows[1], CardType.PERSON));
+						numPlayers++;
 					}else {
 						String message = "---"+line + "--- is not formated properly in: " + file +" at line (" + curColumn +")";
 						scanner.close();
@@ -307,6 +310,7 @@ public class Board {
 				}
 			}
 		}
+		generateSolution();
 
 	}
 	// Getter for the cell.
@@ -326,9 +330,45 @@ public class Board {
 				return newCard;
 			}
 		}
-		return new Card("Blank Card", CardType.PERSON);
+		return new Card("Blank Card", null);
 	}
-
+	
+	//getter for the solution to the game
+	public Solution getSolution() {
+		return gameSolution;
+	}
+	
+	//generates a solution based off of the cards we have
+	public void generateSolution() {
+		//Generating a random solution
+		List<Card> cardArrayList = new ArrayList<>(cardList);
+		boolean gotPlayerCard = false;
+		boolean gotRoomCard = false;
+		boolean gotWeaponCard = false;
+		Card CurrentCard = null;
+		Card PlayerCard = null;
+		Card RoomCard = null;
+		Card WeaponCard = null;
+		Random rand = new Random();
+		while(!(gotPlayerCard && gotRoomCard && gotWeaponCard)) {
+			int randInt = rand.nextInt(cardList.size());
+			CurrentCard = cardArrayList.get(randInt);
+			if(CurrentCard.getType() == CardType.PERSON && gotPlayerCard == false) {
+				PlayerCard = CurrentCard;
+				gotPlayerCard = true;
+			}
+			if(CurrentCard.getType() == CardType.ROOM && gotRoomCard == false) {
+				RoomCard = CurrentCard;
+				gotRoomCard = true;
+			}
+			if(CurrentCard.getType() == CardType.WEAPON && gotWeaponCard == false) {
+				WeaponCard = CurrentCard;
+				gotWeaponCard = true;
+			}
+		}
+		gameSolution = new Solution(RoomCard, PlayerCard, WeaponCard);
+	}
+	
 	public void deal() {
 
 	}
