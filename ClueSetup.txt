@@ -8,11 +8,33 @@ Room, Observatory, O
 Room, Living Room, L
 Room, Theater, T
 Room, Spa, S
+
 // Other Spaces on board
 Space, Unused, X
 Space, Walkway, W
+
 // Additional Indicators
 // Indicator, Doors, <,>,^,v
 // Indicator, Center, *  
 // Indicator, RoomName, #
 // Indicator, SecretPassage, RoomLetter
+
+// Weapons
+Weapon, Knife
+Weapon, Glock 19
+Weapon, TV Remote
+Weapon, Broken Bottle
+Weapon, Frying Pan
+Weapon, Brick
+Weapon, Trophy
+Weapon, Rope
+Weapon, Hitman
+
+//Players
+Player, Diego
+Player, John
+Player, Sophia
+Player, Charlotte
+Player, Izumi
+Player, Johann
+

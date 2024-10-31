@@ -20,6 +20,7 @@ public class Board {
 	private String layoutConfigFiles = null;
 	private String setConfigFiles = null;
 	private Map<Character, Room> roomMap = new HashMap<>();
+	private Set<Card> cardList = new HashSet<>();
 
 	private static Board theInstance = new Board();
 	// Getter for the adjList
@@ -96,24 +97,42 @@ public class Board {
 			Scanner scanner = new Scanner(file);
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
+				if(line.equals("")) {
+					continue;
+				}
 				String[] rows = line.split(", "); // Split file with , and put it into a string
 				char firstChar = line.charAt(0);
 				char secondChar = line.charAt(1);
 				if(!(firstChar == '/' && secondChar == '/')) { //Check if commented out
-					if(rows.length != 3) {
+					if(rows[0].equals("Room") || rows[0].equals("Space")) {
+						if(rows.length != 3) {
+							String message = "---"+line + "--- is not formated properly in: " + file +" at line (" + curColumn +")";
+							scanner.close();
+							throw new BadConfigFormatException(message);
+						}
+						if(!Character.isLetter(rows[2].charAt(0))) {
+							String message = rows[2].charAt(0) + " is not a letter in stetup file: " + file;
+							scanner.close();
+							throw new BadConfigFormatException(message);
+						}
+
+						Character cellInitial = Character.valueOf(rows[2].charAt(0));
+						Room newRoom = new Room();
+						newRoom.setName(rows[1]);
+						roomMap.put(cellInitial, newRoom);
+						if(rows[0].equals("Room")) {
+							cardList.add(new Card(rows[1], CardType.ROOM));
+						}
+					}else if(rows[0].equals("Weapon")) {
+						cardList.add(new Card(rows[1], CardType.WEAPON));
+					}else if(rows[0].equals("Player")) {
+						cardList.add(new Card(rows[1], CardType.PERSON));
+					}else {
 						String message = "---"+line + "--- is not formated properly in: " + file +" at line (" + curColumn +")";
 						scanner.close();
 						throw new BadConfigFormatException(message);
 					}
-					if(!Character.isLetter(rows[2].charAt(0))) {
-						String message = rows[2].charAt(0) + " is not a letter in stetup file: " + file;
-						scanner.close();
-						throw new BadConfigFormatException(message);
-					}
-					Character cellInitial = Character.valueOf(rows[2].charAt(0));
-					Room newRoom = new Room();
-					newRoom.setName(rows[1]);
-					roomMap.put(cellInitial, newRoom);
+				
 				}
 				curColumn++;
 			}
@@ -298,5 +317,19 @@ public class Board {
 	public Room getRoom(char ch) {
 		Room newRoom = roomMap.get(ch);
 		return newRoom;
+	}
+	//getter for the card list
+	public Card getCard(String cardName){
+		for(Card card : cardList) {
+			if(cardName.equals(card.getCardName())) {
+				Card newCard = card;
+				return newCard;
+			}
+		}
+		return new Card("Blank Card", CardType.PERSON);
+	}
+
+	public void deal() {
+
 	}
 }

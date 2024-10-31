@@ -26,7 +26,10 @@ public class Card {
 	}
 	// Equals method
 	public boolean equals(Card target) {
-		// Needs to be built
-		return false;
+		if(this.cardName.equals(target.getCardName()) && this.type.equals(target.getType())) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }
