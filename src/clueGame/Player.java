@@ -25,9 +25,7 @@ public abstract class Player {
 		hand = new ArrayList<Card>();
 	}
 	// Update hand method adding a card to the hand list.
-	public void updateHand(Card card) {
-		hand.add(card);
-	}
+	abstract void updateHand(Card card);
 	// Getter for the hand list.
 	public List<Card> getHand() {
         return hand;

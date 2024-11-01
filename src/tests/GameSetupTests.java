@@ -32,7 +32,7 @@ public class GameSetupTests {
 		assertEquals("Brick", board.getCard("Brick").getCardName());
 		assertEquals(CardType.WEAPON, board.getCard("Knife").getType());
 		assertEquals("Johann", board.getCard("Johann").getCardName());
-		assertEquals(CardType.PERSON, board.getCard("Diego").getType());
+		assertEquals(CardType.PERSON, board.getCard("Johann").getType());
 	}
 	@Test
 	public void TestSolution() {
