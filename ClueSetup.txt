@@ -31,10 +31,10 @@ Weapon, Rope
 Weapon, Hitman
 
 //Players
-Player, Diego
-Player, John
-Player, Sophia
-Player, Charlotte
-Player, Izumi
-Player, Johann
+Player, Diego, 0, 7 
+Player, John, 0, 18
+Player, Sophia, 8, 25
+Player, Charlotte, 19, 25
+Player, Izumi, 28, 19
+Player, Johann, 28, 5
 
