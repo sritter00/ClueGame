@@ -21,6 +21,7 @@ public class Board {
 	private String setConfigFiles = null;
 	private Map<Character, Room> roomMap = new HashMap<>();
 	private Set<Card> cardList = new HashSet<>();
+	private Set<Player> playerList = new HashSet<>();
 	private int numPlayers = 0;
 	private static Board theInstance = new Board();
 	private Solution gameSolution;
@@ -95,7 +96,7 @@ public class Board {
 		numPlayers = 0;
 		cardList = new HashSet<>();
 		try {
-			int curColumn = 1;
+			int curColumn = 0;
 			File file = new File(setConfigFiles);
 			Scanner scanner = new Scanner(file);
 			while (scanner.hasNextLine()) {
@@ -130,6 +131,11 @@ public class Board {
 						cardList.add(new Card(rows[1], CardType.WEAPON));
 					}else if(rows[0].equals("Player")) {
 						cardList.add(new Card(rows[1], CardType.PERSON));
+						if(curColumn == 0) {
+							playerList.add(new HumanPlayer(rows[1], rows[2], Integer.parseInt(rows[3]), Integer.parseInt(rows[4])));
+						}else {
+							playerList.add(new ComputerPlayer(rows[1], rows[2], Integer.parseInt(rows[3]), Integer.parseInt(rows[4])));
+						}
 						numPlayers++;
 					}else {
 						String message = "---"+line + "--- is not formated properly in: " + file +" at line (" + curColumn +")";
@@ -311,7 +317,7 @@ public class Board {
 				}
 			}
 		}
-		if(cardList.size() != roomMap.size() - 2) {
+		if(cardList.size() != roomMap.size() - 2) {// If just rooms in the setup file don't generate solution
 			generateSolution();
 		}
 		
