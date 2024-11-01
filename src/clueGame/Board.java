@@ -93,6 +93,7 @@ public class Board {
 	public void loadSetupConfig () throws BadConfigFormatException {
 		roomMap = new HashMap<>();
 		numPlayers = 0;
+		cardList = new HashSet<>();
 		try {
 			int curColumn = 1;
 			File file = new File(setConfigFiles);
@@ -310,7 +311,11 @@ public class Board {
 				}
 			}
 		}
-		generateSolution();
+		if(cardList.size() != roomMap.size() - 2) {
+			generateSolution();
+		}
+		
+		
 
 	}
 	// Getter for the cell.

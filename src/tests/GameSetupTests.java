@@ -57,6 +57,7 @@ public class GameSetupTests {
 			board.generateSolution();
 			currentSolution = board.getSolution();
 		}
+		System.out.print(numSameRoom);
 		assertTrue(numSamePerson <= 250 && numSamePerson >= 100); // make sure average number of times the same is about 1/6 of 1000
 		assertTrue(numSameRoom <= 200 && numSameRoom >= 70); // make sure average number of times is about 1/9 of 1000
 		assertTrue(numSameWeapon <= 200 && numSameWeapon >= 70); // make sure average number of times is about 1/9 of 1000
