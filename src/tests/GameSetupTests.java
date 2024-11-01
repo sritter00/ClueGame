@@ -63,21 +63,20 @@ public class GameSetupTests {
 		assertTrue(numSameWeapon <= 200 && numSameWeapon >= 70); // make sure average number of times is about 1/9 of 1000
 	}
 	@Test
-	public void TestPlayerLoad() {// Checks if we load Players
+	public void TestPlayersAreLoaded() {// Checks if we load Players
 		Player computerPlayer = new ComputerPlayer("Blank", "No Color", 0, 0);
 		Class<?> computerClass = computerPlayer.getClass();
 		Player humanPlayer = new HumanPlayer("Blank", "No Color", 0, 0);
-		Class<?> humanClass = computerPlayer.getClass();
+		Class<?> humanClass = humanPlayer.getClass();
 		int numHumanClass = 0;
 		int numCompClass = 0;
 		List<Player> playerList = new ArrayList<>(board.getPlayerList());
 		assertTrue(playerList.size() == 6);
 		for(Player player : playerList) {
-			System.out.println(player.getClass());
 			if(player.getClass().equals(computerClass)) {
 				numCompClass++;
 			}
-			if(player.getClass().equals( humanClass)) {
+			if(player.getClass().equals(humanClass)) {
 				numHumanClass++;
 			}		
 		}

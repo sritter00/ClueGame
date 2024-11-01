@@ -92,12 +92,13 @@ public class Board {
 	}
 	// Load setup configuration.
 	public void loadSetupConfig () throws BadConfigFormatException {
+		int curColumn = 1;
 		roomMap = new HashMap<>();
 		numPlayers = 0;
 		cardList = new HashSet<>();
 		playerList = new HashSet<>();
+
 		try {
-			int curColumn = 0;
 			File file = new File(setConfigFiles);
 			Scanner scanner = new Scanner(file);
 			while (scanner.hasNextLine()) {
@@ -132,21 +133,24 @@ public class Board {
 						cardList.add(new Card(rows[1], CardType.WEAPON));
 					}else if(rows[0].equals("Player")) {
 						cardList.add(new Card(rows[1], CardType.PERSON));
-						if(curColumn == 0) {
+						if(numPlayers == 0) {
 							playerList.add(new HumanPlayer(rows[1], rows[2], Integer.parseInt(Character.toString(rows[3].charAt(0))), Integer.parseInt(Character.toString(rows[4].charAt(0)))));
+							numPlayers++;
 						}else {
 							playerList.add(new ComputerPlayer(rows[1], rows[2], Integer.parseInt(Character.toString(rows[3].charAt(0))), Integer.parseInt(Character.toString(rows[4].charAt(0)))));
+							numPlayers++;
 						}
-						numPlayers++;
+						
 					}else {
 						String message = "---"+line + "--- is not formated properly in: " + file +" at line (" + curColumn +")";
 						scanner.close();
 						throw new BadConfigFormatException(message);
 					}
-				
+
 				}
 				curColumn++;
 			}
+			curColumn = 0; 
 			scanner.close();
 		} catch (FileNotFoundException e) {
 			System.out.println(setConfigFiles + " not found, change file name to correct file name or create the correct file");
@@ -231,12 +235,17 @@ public class Board {
 					}
 					curColumn++; // new Column after we get entry of room char names
 				}
+				curColumn = 0;
 				curRow++; // new Row at end of next line
 			}
+			curRow = 0;
 			scanner.close();
+
 		} catch (FileNotFoundException e) {
 			System.out.println(layoutConfigFiles + " not found, change file name to correct file name or create the correct file");
 		}
+
+
 	}
 	// constructor is private to ensure only one can be created
 	private Board() {
@@ -249,8 +258,7 @@ public class Board {
 	/*
 	 * initialize the board (since we are using singleton pattern)
 	 */
-	public void initialize()
-	{
+	public void initialize(){
 		targets = new HashSet<>();
 		visited = new HashSet<>();
 		numColumns = 0;
@@ -324,8 +332,8 @@ public class Board {
 		for(Player player : playerList) {
 			grid[player.getRow()][player.getColumn()].setOccupied(true);
 		}
-		
-		
+
+
 
 	}
 	// Getter for the cell.
@@ -347,12 +355,12 @@ public class Board {
 		}
 		return new Card("Blank Card", null);
 	}
-	
+
 	//getter for the solution to the game
 	public Solution getSolution() {
 		return gameSolution;
 	}
-	
+
 	//generates a solution based off of the cards we have
 	public void generateSolution() {
 		//Generating a random solution
@@ -385,10 +393,10 @@ public class Board {
 	}
 	// Getter for the playerList
 	public Set<Player> getPlayerList() {
-		 return playerList;
+		return playerList;
 	}
-	
-	
+
+
 	public void deal() {
 
 	}
