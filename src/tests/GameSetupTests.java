@@ -1,5 +1,6 @@
 package tests;
 import static org.junit.Assert.*;
+import java.util.*;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,7 +21,7 @@ public class GameSetupTests {
 	}
 
 	@Test
-	public void TestCards() {
+	public void TestCards() { // Checks if cards are loaded
 		assertEquals("Guest House", board.getCard("Guest House").getCardName());
 		assertEquals(CardType.ROOM, board.getCard("Guest House").getType());
 		assertEquals("Knife", board.getCard("Knife").getCardName());
@@ -35,7 +36,7 @@ public class GameSetupTests {
 		assertEquals(CardType.PERSON, board.getCard("Johann").getType());
 	}
 	@Test
-	public void TestSolution() {
+	public void TestSolution() { // Checks if solution is loaded
 		int numSamePerson = 0;
 		int numSameRoom = 0;
 		int numSameWeapon = 0;
@@ -57,10 +58,32 @@ public class GameSetupTests {
 			board.generateSolution();
 			currentSolution = board.getSolution();
 		}
-		System.out.print(numSameRoom);
 		assertTrue(numSamePerson <= 250 && numSamePerson >= 100); // make sure average number of times the same is about 1/6 of 1000
 		assertTrue(numSameRoom <= 200 && numSameRoom >= 70); // make sure average number of times is about 1/9 of 1000
 		assertTrue(numSameWeapon <= 200 && numSameWeapon >= 70); // make sure average number of times is about 1/9 of 1000
+	}
+	@Test
+	public void TestPlayerLoad() {// Checks if we load Players
+		Player computerPlayer = new ComputerPlayer("Blank", "No Color", 0, 0);
+		Class<?> computerClass = computerPlayer.getClass();
+		Player humanPlayer = new HumanPlayer("Blank", "No Color", 0, 0);
+		Class<?> humanClass = computerPlayer.getClass();
+		int numHumanClass = 0;
+		int numCompClass = 0;
+		List<Player> playerList = new ArrayList<>(board.getPlayerList());
+		assertTrue(playerList.size() == 6);
+		for(Player player : playerList) {
+			System.out.println(player.getClass());
+			if(player.getClass().equals(computerClass)) {
+				numCompClass++;
+			}
+			if(player.getClass().equals( humanClass)) {
+				numHumanClass++;
+			}		
+		}
+		assertEquals(numCompClass, 5);
+		assertEquals(numHumanClass, 1);
+		
 	}
 	
 }

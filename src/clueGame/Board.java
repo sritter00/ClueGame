@@ -95,6 +95,7 @@ public class Board {
 		roomMap = new HashMap<>();
 		numPlayers = 0;
 		cardList = new HashSet<>();
+		playerList = new HashSet<>();
 		try {
 			int curColumn = 0;
 			File file = new File(setConfigFiles);
@@ -132,9 +133,9 @@ public class Board {
 					}else if(rows[0].equals("Player")) {
 						cardList.add(new Card(rows[1], CardType.PERSON));
 						if(curColumn == 0) {
-							playerList.add(new HumanPlayer(rows[1], rows[2], Integer.parseInt(rows[3]), Integer.parseInt(rows[4])));
+							playerList.add(new HumanPlayer(rows[1], rows[2], Integer.parseInt(Character.toString(rows[3].charAt(0))), Integer.parseInt(Character.toString(rows[4].charAt(0)))));
 						}else {
-							playerList.add(new ComputerPlayer(rows[1], rows[2], Integer.parseInt(rows[3]), Integer.parseInt(rows[4])));
+							playerList.add(new ComputerPlayer(rows[1], rows[2], Integer.parseInt(Character.toString(rows[3].charAt(0))), Integer.parseInt(Character.toString(rows[4].charAt(0)))));
 						}
 						numPlayers++;
 					}else {
@@ -320,6 +321,9 @@ public class Board {
 		if(cardList.size() != roomMap.size() - 2) {// If just rooms in the setup file don't generate solution
 			generateSolution();
 		}
+		for(Player player : playerList) {
+			grid[player.getRow()][player.getColumn()].setOccupied(true);
+		}
 		
 		
 
@@ -379,6 +383,11 @@ public class Board {
 		}
 		gameSolution = new Solution(RoomCard, PlayerCard, WeaponCard);
 	}
+	// Getter for the playerList
+	public Set<Player> getPlayerList() {
+		 return playerList;
+	}
+	
 	
 	public void deal() {
 
