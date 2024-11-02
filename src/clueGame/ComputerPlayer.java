@@ -21,4 +21,8 @@ public class ComputerPlayer extends Player {
 	public void updateHand(Card card) {
 		hand.add(card);
 	}
+	// Getter for the hand list.
+	public List<Card> getHand() {
+	    return hand;
+	}
 }

@@ -140,7 +140,7 @@ public class Board {
 							playerList.add(new ComputerPlayer(rows[1], rows[2], Integer.parseInt(Character.toString(rows[3].charAt(0))), Integer.parseInt(Character.toString(rows[4].charAt(0)))));
 							numPlayers++;
 						}
-						
+
 					}else {
 						String message = "---"+line + "--- is not formated properly in: " + file +" at line (" + curColumn +")";
 						scanner.close();
@@ -329,9 +329,10 @@ public class Board {
 		if(cardList.size() != roomMap.size() - 2) {// If just rooms in the setup file don't generate solution
 			generateSolution();
 		}
-		for(Player player : playerList) {
+		for(Player player : playerList) { 
 			grid[player.getRow()][player.getColumn()].setOccupied(true);
 		}
+		
 
 
 
@@ -350,10 +351,10 @@ public class Board {
 		for(Card card : cardList) {
 			if(cardName.equals(card.getCardName())) {
 				Card newCard = card;
-				return newCard;
+				return newCard; //Card Found return that card
 			}
 		}
-		return new Card("Blank Card", null);
+		return new Card(null , null); //Card Not found return a null card
 	}
 
 	//getter for the solution to the game
@@ -398,6 +399,29 @@ public class Board {
 
 
 	public void deal() {
+		Random rand = new Random();
+		List<Card> cardArrayList = new ArrayList<>(cardList);
+		double cardAmount = Math.floor(cardList.size()/numPlayers); 
 
+		for(Player player : playerList) { // loops thorugh player and gives them the cards they need
+			for(int index = 0 ; index < cardAmount; index++) {// Loop through the distributed card amount and puts it into players hand
+				int randInt = rand.nextInt(cardList.size());
+				while(cardArrayList.get(randInt).isDealt()) {// if card is already dealt grab new card
+					randInt = rand.nextInt(cardList.size());
+				}
+				player.updateHand(cardArrayList.get(randInt));
+				cardArrayList.get(randInt).setIsDealt(true);
+			}
+		}
+		for(Player player : playerList) {// check if there are any remaining cards that are not dealt and deal them to the player
+			for(Card card : cardArrayList){
+				if(card.isDealt()) {
+					continue;
+				}else {
+					player.updateHand(card);
+					break;
+				}		
+			}
+		}
 	}
 }

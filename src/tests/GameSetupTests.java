@@ -63,7 +63,7 @@ public class GameSetupTests {
 		assertTrue(numSameWeapon <= 200 && numSameWeapon >= 70); // make sure average number of times is about 1/9 of 1000
 	}
 	@Test
-	public void TestPlayersAreLoaded() {// Checks if we load Players
+	public void TestPlayersAreLoaded() {// Checks if we load Players into playerlist properly (1 human 5 Computers)
 		Player computerPlayer = new ComputerPlayer("Blank", "No Color", 0, 0);
 		Class<?> computerClass = computerPlayer.getClass();
 		Player humanPlayer = new HumanPlayer("Blank", "No Color", 0, 0);
@@ -72,7 +72,7 @@ public class GameSetupTests {
 		int numCompClass = 0;
 		List<Player> playerList = new ArrayList<>(board.getPlayerList());
 		assertTrue(playerList.size() == 6);
-		for(Player player : playerList) {
+		for(Player player : playerList) {//Checks the class of each player in playerlist and counts the amount of different subclasses
 			if(player.getClass().equals(computerClass)) {
 				numCompClass++;
 			}
@@ -80,9 +80,29 @@ public class GameSetupTests {
 				numHumanClass++;
 			}		
 		}
-		assertEquals(numCompClass, 5);
-		assertEquals(numHumanClass, 1);
+		assertEquals(5, numCompClass);// There are 5 computer players
+		assertEquals(1, numHumanClass);//There is 1 Human player
 		
+	}
+	@Test
+	public void TestCardsDelt() {
+		List<Player> playerList = new ArrayList<>(board.getPlayerList());
+		List<Card> cardList = new ArrayList<>();
+		Set<Card> cardSet = new HashSet<>();
+		int totalCards = 0;
+		int totalCardsPerPlayer = 0;
+		for(Player player : playerList) {
+			for(Card card : player.getHand()) {
+				totalCards++;
+				totalCardsPerPlayer++;
+				cardList.add(card);
+				cardSet.add(card);
+			}
+		assertEquals(4, totalCardsPerPlayer);
+		totalCardsPerPlayer = 0;
+		}
+		assertEquals(totalCards, 24);
+		assertEquals(cardSet.size(), cardList.size());//Checks if there all distinct cards
 	}
 	
 }
