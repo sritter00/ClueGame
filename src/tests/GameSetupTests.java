@@ -98,10 +98,10 @@ public class GameSetupTests {
 				cardList.add(card);
 				cardSet.add(card);
 			}
-		assertEquals(4, totalCardsPerPlayer);
+		assertEquals(4, totalCardsPerPlayer);//Makes sure that there is only 4 cards per player
 		totalCardsPerPlayer = 0;
 		}
-		assertEquals(totalCards, 24);
+		assertEquals(totalCards, 24);//Checks if total cards is 24
 		assertEquals(cardSet.size(), cardList.size());//Checks if there all distinct cards
 	}
 	

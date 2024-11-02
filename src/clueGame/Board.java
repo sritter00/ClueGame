@@ -332,7 +332,7 @@ public class Board {
 		for(Player player : playerList) { 
 			grid[player.getRow()][player.getColumn()].setOccupied(true);
 		}
-		
+		deal();
 
 
 
