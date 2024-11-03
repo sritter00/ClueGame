@@ -1,4 +1,9 @@
 package tests;
+
+/*
+ * This program tests that players and cards are set up properly 
+ */
+
 import static org.junit.Assert.*;
 import java.util.*;
 
@@ -42,9 +47,9 @@ public class GameSetupTests {
 		int numSameWeapon = 0;
 		Solution currentSolution = board.getSolution();
 		for(int i = 0; i < 1000; i++) {
-			assertTrue(currentSolution.getPerson().getType() == CardType.PERSON);
-			assertTrue(currentSolution.getRoom().getType() == CardType.ROOM);
-			assertTrue(currentSolution.getWeapon().getType() == CardType.WEAPON);
+			assertTrue(currentSolution.getPerson().getType() == CardType.PERSON);// one person card
+			assertTrue(currentSolution.getRoom().getType() == CardType.ROOM);//one room card
+			assertTrue(currentSolution.getWeapon().getType() == CardType.WEAPON);// one weapon card
 			if(currentSolution.getPerson().getCardName().equals("Diego") ) {
 				numSamePerson++;
 			}
@@ -85,7 +90,7 @@ public class GameSetupTests {
 		
 	}
 	@Test
-	public void TestCardsDelt() {
+	public void TestCardsDealt() { // Checks if the cards are dealt properly 
 		List<Player> playerList = new ArrayList<>(board.getPlayerList());
 		List<Card> cardList = new ArrayList<>();
 		Set<Card> cardSet = new HashSet<>();

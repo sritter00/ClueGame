@@ -332,7 +332,10 @@ public class Board {
 		for(Player player : playerList) { 
 			grid[player.getRow()][player.getColumn()].setOccupied(true);
 		}
-		deal();
+		if(cardList.size() != roomMap.size() - 2) {// If just rooms in the setup file don't deal
+			deal();
+		}
+		
 
 
 

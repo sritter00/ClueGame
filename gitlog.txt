@@ -1,3 +1,100 @@
+commit ba33a2d2de1af286f0c38c5d770f60c9ae89a128
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Nov 1 18:15:50 2024 -0600
+
+    test cards delt now passes
+
+commit 6e6ffea30c03bf7bde2ba0c391d0098a24c208bf
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Nov 1 18:13:14 2024 -0600
+
+    Created test case for distributing the hands it fails
+
+commit d6bbdf46650f9aa2a42e006e7d67f9fb929d508b
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Nov 1 17:17:05 2024 -0600
+
+    Test TestPlayersAreLoaded now passes
+
+commit 66a6d3fec1d561102bc10723e2bca1f642c0eb03
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Nov 1 16:57:22 2024 -0600
+
+    added test for if player are loaded in
+
+commit d405ee8972d93528c5f063dabd71668a125f9d71
+Merge: 215ebae 95538b9
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Nov 1 12:59:21 2024 -0600
+
+    Merge branch 'main' of https://github.com/sritter00/ClueGame
+
+commit 215ebae388afcbaff9239ed88461fba503825197
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Nov 1 12:59:01 2024 -0600
+
+    added players to a player list and changed the clue setup file to include the color
+
+commit 95538b941725fde042da29ea621b0a6e3269764c
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Fri Nov 1 12:50:32 2024 -0600
+
+    Added 4 additional adjacency test cases in BoardTestsExp
+
+commit dc3882044acb1803f07a649cd404b8cfd8dc93fc
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Nov 1 12:35:53 2024 -0600
+
+    changed setup file to include starting location of players
+
+commit b4251f4f6f36a3f9e298bde9edb566970509cb45
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Thu Oct 31 19:13:11 2024 -0600
+
+    fixed error when all test files run together
+
+commit 9a3a6b4b86eb58ad342aa0c6641790378194bbdc
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Thu Oct 31 19:03:16 2024 -0600
+
+    added some minor things to the code
+
+commit 246a81ae1d12a46d2199f451fcef1fb53b3e04f9
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Thu Oct 31 18:31:21 2024 -0600
+
+    Test Solution test Now passes
+
+commit 70f3652dac4803c49de8d17a3687f93885100a2b
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Thu Oct 31 17:51:40 2024 -0600
+
+    Created a Test Solution test 
+
+commit 9c28df174b0d08cf46fee57921c9b7e4709ae91e
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Thu Oct 31 16:37:06 2024 -0600
+
+    ClueSetup.txt now includes weapons and people which are properly implemented tested by new test case testCards
+
+commit efaac49e68b7752b4e10a07ed76d79d9655cd290
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Wed Oct 30 15:07:49 2024 -0600
+
+    Rough build of the UML diagram except for the additions to the Board class.
+
+commit 2b941219bcfe88a5e5b1a8248bf5eaa05084abd3
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Mon Oct 28 12:39:54 2024 -0600
+
+    Added gitlog to C19A-2 text file
+
+commit f64d858a40e288c92561d729e3b9131fd6186982
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Mon Oct 28 12:37:13 2024 -0600
+
+    Updated gitlog
+
 commit 3cd4b084c743280f13fb5b9a583bcb889ae322fc
 Author: Carter Gorling <rcgorling@mines.edu>
 Date:   Mon Oct 28 12:29:43 2024 -0600
