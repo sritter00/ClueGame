@@ -399,7 +399,9 @@ public class Board {
 	public Set<Player> getPlayerList() {
 		return playerList;
 	}
-
+	public boolean checkAccusation() {
+		return true;
+	}
 
 	public void deal() {
 		Random rand = new Random();
