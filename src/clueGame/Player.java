@@ -38,10 +38,11 @@ public abstract class Player {
     public String getColor() {
         return color;
     }
-    //getter for the row
+    // Getter for the row
     public int getRow() {
     	return row;
     }
+    // Getter for the column
     public int getColumn() {
     	return column;
     }

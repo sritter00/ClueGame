@@ -38,7 +38,10 @@ public class GameSolutionTest {
 		assertFalse(board.checkAccusation(wrongCardPerson, roomCard, weaponCard));
 		assertFalse(board.checkAccusation(personCard, wrongCardRoom, weaponCard));
 		assertFalse(board.checkAccusation(personCard, roomCard, wrongCardWeapon));
-	
+	}
+	@Test
+	public void disproveSuggestion() {
+		
 	}
 	
 }
