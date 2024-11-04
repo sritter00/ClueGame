@@ -364,7 +364,10 @@ public class Board {
 	public Solution getSolution() {
 		return gameSolution;
 	}
-
+	//Setter for the solution to the game should only be used for tests
+	public void setSolution(Solution gameSolution) {
+		this.gameSolution = gameSolution;
+	}
 	//generates a solution based off of the cards we have
 	public void generateSolution() {
 		//Generating a random solution
@@ -399,10 +402,16 @@ public class Board {
 	public Set<Player> getPlayerList() {
 		return playerList;
 	}
-	public boolean checkAccusation() {
-		return true;
+	//Checks if an accusation is correct
+	public boolean checkAccusation(Card personCard, Card roomCard, Card weaponCard) {
+		Solution solution = getSolution();
+		if(solution.getPerson().equals(personCard) && solution.getRoom().equals(roomCard) && solution.getWeapon().equals(weaponCard)) {
+			return true;
+		}else {
+			return false;
+		}
 	}
-
+	// deals cards to the players
 	public void deal() {
 		Random rand = new Random();
 		List<Card> cardArrayList = new ArrayList<>(cardList);

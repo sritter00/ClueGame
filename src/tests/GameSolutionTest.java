@@ -26,7 +26,19 @@ public class GameSolutionTest {
 	}
 	@Test
 	public void CheckAccusation(){
-		
+		Card personCard = board.getCard("Johann");
+		Card roomCard = board.getCard("Guest House");
+		Card weaponCard = board.getCard("Glock 19");
+		Card wrongCardPerson = board.getCard("Diego");
+		Card wrongCardRoom = board.getCard("Spa");
+		Card wrongCardWeapon = board.getCard("Broken Bottle");
+		Solution newSolution = new Solution(roomCard, personCard, weaponCard);
+		board.setSolution(newSolution);
+		assertTrue(board.checkAccusation(personCard, roomCard, weaponCard));
+		assertFalse(board.checkAccusation(wrongCardPerson, roomCard, weaponCard));
+		assertFalse(board.checkAccusation(personCard, wrongCardRoom, weaponCard));
+		assertFalse(board.checkAccusation(personCard, roomCard, wrongCardWeapon));
+	
 	}
 	
 }
