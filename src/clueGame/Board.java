@@ -77,6 +77,13 @@ public class Board {
 		Room newRoom = roomMap.get(cellInitial);
 		return newRoom;
 	}
+	//getter for the room using row column
+	public Room getRoom(int row, int column) {
+		BoardCell cell = grid[row][column];
+		char cellInitial = cell.getInitial();
+		Room newRoom = roomMap.get(cellInitial);
+		return newRoom;
+	}
 	// Getter for number of rows.
 	public int getNumRows() {
 		return numRows;
@@ -266,10 +273,10 @@ public class Board {
 		roomMap = new HashMap<>();
 		try {
 			this.loadSetupConfig();
-		} catch (BadConfigFormatException e) {
 			new BadConfigFormatException();  // throw default error if no error was found and something went wrong
+		}catch (BadConfigFormatException e) {
+			new BadConfigFormatException(); // throw default error if no error was found and something went wrong
 		}
-
 		try {
 			this.loadLayoutConfig();
 		} catch (BadConfigFormatException e) {
@@ -446,6 +453,14 @@ public class Board {
 				}		
 			}
 		}
+	}
+	//Getter for the card list
+	public Set<Card> getCardList(){
+		return cardList;
+	}
+	//Setter for the card List
+	public void setCardList(Set<Card> cardList) {
+		this.cardList = cardList;
 	}
 	//Handles a suggestion made
 	public Card handdleSuggestion(Card personCard, Card roomCard, Card weaponCard, Player suggester) {

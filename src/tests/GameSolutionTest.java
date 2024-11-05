@@ -23,6 +23,7 @@ public class GameSolutionTest {
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		// Initialize will load BOTH config files
 		board.initialize();
+		
 	}
 	@Test
 	public void CheckAccusation(){
@@ -87,10 +88,52 @@ public class GameSolutionTest {
 		board.setPlayerList(playerList);
 		assertEquals(null ,board.handdleSuggestion(board.getCard("John"),board.getCard("Royal Dinin Room") , board.getCard("TV Remote"), player0));//no players can disprove, ensure null returned
 		assertEquals(null , board.handdleSuggestion(board.getCard("John"),board.getCard("Royal Dinin Room") , board.getCard("Glock 19"), player0));//only the suggesting player can disprove, ensure null.
-		assertEquals(board.getCard("Guest House") ,board.handdleSuggestion(board.getCard("Johann"),board.getCard("Guest House") , board.getCard("Glock 19"), player0));// Do a query that player 1 and 2 can disprove, ensure player 1 disproves 
+		assertEquals(board.getCard("Johann") ,board.handdleSuggestion(board.getCard("Johann"),board.getCard("Guest House") , board.getCard("Glock 19"), player0));// Do a query that player 1 and 2 can disprove, ensure player 1 disproves 
 	}
 	@Test
 	public void TestComputerSuggestion() {
+		Card personCard = board.getCard("Johann");
+		Card roomCard = board.getCard("Guest House");
+		Card weaponCard = board.getCard("Glock 19");
+		Card personCard1 = board.getCard("Diego");
+		Card roomCard1 = board.getCard("Spa");
+		Card weaponCard1 = board.getCard("Broken Bottle");
+		Card roomCard2 = board.getCard("Patio");
+		Card roomCard3 = board.getCard("Spa");
+		Card roomCard4 = board.getCard("Royal Hall");
+		Card weaponCard2 = board.getCard("TV Remote");
+		Card personCard2 = board.getCard("Sophia");
+		ComputerPlayer player1 = new ComputerPlayer("Player1", "Green", 13, 21); // room should be in patio
+		ComputerPlayer player2 = new ComputerPlayer("Player2", "Red", 26, 22);//room should be Spa
+		Set<Card> cardList = new HashSet<>();
+		player1.setCurrentRoom(board);
+		assertEquals(board.getRoom('P') , player1.getCurrentRoom());
+		player2.updateSeen(personCard);
+		player2.updateSeen(roomCard);
+		player2.updateSeen(weaponCard);
+		cardList.add(personCard);
+		cardList.add(roomCard);
+		cardList.add(weaponCard);
+		cardList.add(personCard1);
+		cardList.add(roomCard1);
+		cardList.add(weaponCard1);
+		cardList.add(roomCard2);
+		cardList.add(roomCard4);
+		cardList.add(roomCard3);
 		
+		board.setCardList(cardList);
+		player2.setCurrentRoom(board);
+		Solution sugTest = new Solution(roomCard3, personCard1, weaponCard1);
+		Solution sugTest1 = new Solution(roomCard3 , personCard2, weaponCard2);
+		assertEquals(sugTest.getPerson(), player2.createSuggestion(board).getPerson());
+		assertEquals(sugTest.getWeapon(),player2.createSuggestion(board).getWeapon());
+		assertEquals(sugTest.getRoom(),player2.createSuggestion(board).getRoom());
+		cardList.add(weaponCard2);
+		cardList.add(personCard2);
+		board.setCardList(cardList);
+		
+		assertTrue(sugTest.getPerson() == player2.createSuggestion(board).getPerson() || sugTest1.getPerson() == player2.createSuggestion(board).getPerson());
+		assertTrue(sugTest.getWeapon().equals(player2.createSuggestion(board).getWeapon()) || sugTest1.getPerson().equals( player2.createSuggestion(board).getPerson()));
+		assertTrue(sugTest.getRoom().equals(player2.createSuggestion(board).getRoom()) && sugTest1.getRoom().equals( player2.createSuggestion(board).getRoom()));
 	}
 }
