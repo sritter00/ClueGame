@@ -92,6 +92,7 @@ public class GameSolutionTest {
 	}
 	@Test
 	public void TestComputerSuggestion() {
+		//Set up for all tests
 		Card personCard = board.getCard("Johann");
 		Card roomCard = board.getCard("Guest House");
 		Card weaponCard = board.getCard("Glock 19");
@@ -103,6 +104,7 @@ public class GameSolutionTest {
 		Card roomCard4 = board.getCard("Royal Hall");
 		Card weaponCard2 = board.getCard("TV Remote");
 		Card personCard2 = board.getCard("Sophia");
+		
 		ComputerPlayer player1 = new ComputerPlayer("Player1", "Green", 13, 21); // room should be in patio
 		ComputerPlayer player2 = new ComputerPlayer("Player2", "Red", 26, 22);//room should be Spa
 		Set<Card> cardList = new HashSet<>();
@@ -142,5 +144,12 @@ public class GameSolutionTest {
 		assertTrue(sugTest.getPerson() == player2.createSuggestion(board).getPerson() || sugTest1.getPerson() == player2.createSuggestion(board).getPerson());//If multiple weapons not seen, one of them is randomly selected
 		assertTrue(sugTest.getWeapon().equals(player2.createSuggestion(board).getWeapon()) || sugTest1.getPerson().equals( player2.createSuggestion(board).getPerson()));//If multiple persons not seen, one of them is randomly selected
 		assertTrue(sugTest.getRoom().equals(player2.createSuggestion(board).getRoom()) && sugTest1.getRoom().equals( player2.createSuggestion(board).getRoom()));//Room should be the room player is in
+	}
+	
+	@Test
+	public void TestComputerPlayerSelect() {
+		
+		
+		
 	}
 }

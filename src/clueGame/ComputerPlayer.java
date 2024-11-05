@@ -18,10 +18,13 @@ public class ComputerPlayer extends Player {
 	private List<Card> hand = new ArrayList<Card>();
 	private Set<Card> seenCards = new HashSet<>();
 	private Room currentRoom = null;
+	private Set<BoardCell> seenCells= new HashSet<>();
 	// Constructor
 	public ComputerPlayer(String name, String color, int row, int column) {
 		super(name, color, row, column);
 		hand = new ArrayList<Card>();
+		seenCells= new HashSet<>();
+		currentRoom = null;
 	}
 	public void updateHand(Card card) {
 		hand.add(card);
@@ -78,9 +81,27 @@ public class ComputerPlayer extends Player {
 		}
 	roomCard = board.getCard(this.getCurrentRoom().getName());
 	return new Solution(roomCard , personCard, weaponCard);
-
-
 	}
+	//updates the seen cells 
+	public void updateSeenRoom(BoardCell newSeenCell) {
+		seenCells.add(newSeenCell);
+	}
+	
+	//selects target for the computer player
+	public BoardCell selectTarget(Board board, int pathLength) {
+		board.calcTargets(board.getCell(super.getRow(), super.getColumn()), pathLength  );
+		List<BoardCell> targets = new ArrayList<>(board.getTargets());
+		for(BoardCell cell : targets) {
+			if(cell.isRoomCenter() && !seenCells.contains(cell)) { // if not been seen and room then return the cell
+				updateSeenRoom(cell);//add room to the list of seenRooms
+				return cell;
+			}
+		}
+		Random rand = new Random();
+		int randInt = rand.nextInt(targets.size());
+		return targets.get(randInt); // if no rooms in list return random location
+	}
+	
 	// setter for current Room using specific room
 	public void setCurrentRoom(Room currentRoom) {
 		this.currentRoom = currentRoom;
