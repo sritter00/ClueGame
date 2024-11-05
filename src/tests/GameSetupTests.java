@@ -98,9 +98,6 @@ public class GameSetupTests {
 		List<Card> cardList = new ArrayList<>();
 		Set<Card> cardSet = new HashSet<>();
 		int totalCards = 0;
-		System.out.println(board.getSolution().getPerson().getCardName());
-		System.out.println(board.getSolution().getRoom().getCardName());
-		System.out.println(board.getSolution().getWeapon().getCardName());
 		for(Player player : playerList) {
 			assertFalse(player.getHand().contains(board.getSolution().getPerson())); //make sure that the player is not dealt the solution hand
 			assertFalse(player.getHand().contains(board.getSolution().getWeapon()));

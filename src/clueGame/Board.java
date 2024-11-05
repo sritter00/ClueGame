@@ -386,6 +386,10 @@ public class Board {
 	
 		gameSolution = new Solution(RoomCard, PlayerCard, WeaponCard);
 	}
+	// Setter for player List
+	public void setPlayerList(Set<Player> playerList) {
+		this.playerList = playerList;
+	}
 	// Getter for the playerList
 	public Set<Player> getPlayerList() {
 		return playerList;
@@ -421,7 +425,7 @@ public class Board {
 				continue;
 			}
 		}
-		for(Player player : playerList) { // loops thorugh player and gives them the cards they need
+		for(Player player : playerList) { // loops through player and gives them the cards they need
 			for(int index = 0 ; index < cardAmount; index++) {// Loop through the distributed card amount and puts it into players hand
 				int randInt = rand.nextInt(cardList.size());
 				while(cardArrayList.get(randInt).isDealt()) {// if card is already dealt grab new card
@@ -446,10 +450,10 @@ public class Board {
 	//Handles a suggestion made
 	public Card handdleSuggestion(Card personCard, Card roomCard, Card weaponCard, Player suggester) {
 		for(Player player : playerList) {
-			if(player.equals(suggester)) {
-				continue;
-			}
 			for(Card card : player.getHand()) {
+				if(player.equals(suggester)) {
+					break;
+				}
 				if(card.equals(weaponCard)|| card.equals(roomCard)|| card.equals(personCard)) {
 					return card;
 				}

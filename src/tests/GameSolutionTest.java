@@ -62,7 +62,31 @@ public class GameSolutionTest {
 		assertTrue(answer.equals(weaponCard) || answer.equals(personCard));
 	}	
 	@Test
-	public void HandleSuggestion() {
-		
+	public void TestHandleSuggestion() {
+		Card personCard = board.getCard("Johann");
+		Card roomCard = board.getCard("Guest House");
+		Card weaponCard = board.getCard("Glock 19");
+		Card personCard1 = board.getCard("Diego");
+		Card roomCard1 = board.getCard("Spa");
+		Card weaponCard1 = board.getCard("Broken Bottle");
+		HumanPlayer player0 = new HumanPlayer("Player0", "Purple", 0, 0);
+		ComputerPlayer player1 = new ComputerPlayer("Player1", "Green", 0, 0);
+		ComputerPlayer player2 = new ComputerPlayer("Player2", "Red", 0, 0);
+		ComputerPlayer player3 = new ComputerPlayer("Player3", "Yellow", 0, 0);
+		player0.updateHand(weaponCard);
+		player1.updateHand(roomCard);
+		player2.updateHand(personCard);
+		player2.updateHand(personCard1);
+		player1.updateHand(weaponCard1);
+		player2.updateHand(roomCard1);
+		Set<Player> playerList = new HashSet<>();
+		playerList.add(player0);
+		playerList.add(player1);
+		playerList.add(player2);
+		playerList.add(player3);
+		board.setPlayerList(playerList);
+		assertEquals(null ,board.handdleSuggestion(board.getCard("John"),board.getCard("Royal Dinin Room") , board.getCard("TV Remote"), player0));//no players can disprove, ensure null returned
+		assertEquals(null , board.handdleSuggestion(board.getCard("John"),board.getCard("Royal Dinin Room") , board.getCard("Glock 19"), player0));//only the suggesting player can disprove, ensure null.
+		assertEquals(board.getCard("Guest House") ,board.handdleSuggestion(board.getCard("Johann"),board.getCard("Guest House") , board.getCard("Glock 19"), player0));// Do a query that player 1 and 2 can disprove, ensure player 1 disproves 
 	}
 }

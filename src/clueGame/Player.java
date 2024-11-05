@@ -48,4 +48,12 @@ public abstract class Player {
     public int getColumn() {
     	return column;
     }
+    public boolean equals(Player player) {
+    	if(this.name == player.getName() && this.color == player.getColor()) {
+    		return true;
+    	}else {
+    		return false;
+    	}
+    	
+    }
 }
