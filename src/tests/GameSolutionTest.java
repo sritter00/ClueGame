@@ -41,7 +41,24 @@ public class GameSolutionTest {
 	}
 	@Test
 	public void disproveSuggestion() {
+		Card personCard = board.getCard("Johann");
+		Card roomCard = board.getCard("Guest House");
+		Card weaponCard = board.getCard("Glock 19");
+		Solution suggestion = new Solution(roomCard, personCard, weaponCard);
 		
-	}
-	
+		HumanPlayer playerOneMatch = new HumanPlayer("One Match", "Purple", 0, 0);
+		playerOneMatch.updateHand(weaponCard);
+		Card answer = playerOneMatch.disproveSuggestion(suggestion);
+		assertTrue(answer.equals(weaponCard));
+		
+		HumanPlayer playerNoMatch = new HumanPlayer("No Match", "Purple", 0, 0);
+		answer = playerNoMatch.disproveSuggestion(suggestion);
+		assertEquals(answer, null);
+		
+		HumanPlayer playerMultipleMatch = new HumanPlayer("Two Match", "Purple", 0, 0);
+		playerMultipleMatch.updateHand(weaponCard);
+		playerMultipleMatch.updateHand(personCard);
+		answer = playerMultipleMatch.disproveSuggestion(suggestion);
+		assertTrue(answer.equals(weaponCard) || answer.equals(personCard));
+	}	
 }

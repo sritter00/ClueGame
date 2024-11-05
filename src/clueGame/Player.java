@@ -26,6 +26,8 @@ public abstract class Player {
 	}
 	// Update hand method adding a card to the hand list.
 	abstract void updateHand(Card card);
+	// Method for disproving a suggestion
+	abstract Card disproveSuggestion(Solution suggestion);
 	// Getter for the hand list.
 	public List<Card> getHand() {
         return hand;
