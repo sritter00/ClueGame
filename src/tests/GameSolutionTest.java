@@ -61,4 +61,8 @@ public class GameSolutionTest {
 		answer = playerMultipleMatch.disproveSuggestion(suggestion);
 		assertTrue(answer.equals(weaponCard) || answer.equals(personCard));
 	}	
+	@Test
+	public void HandleSuggestion() {
+		
+	}
 }
