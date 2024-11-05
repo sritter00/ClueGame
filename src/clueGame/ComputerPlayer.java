@@ -1,8 +1,10 @@
 package clueGame;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * ComputerPlayer: Child class of Player that represents a computer-controlled player using AI logic.
@@ -14,6 +16,8 @@ import java.util.Random;
 
 public class ComputerPlayer extends Player {
 	private List<Card> hand = new ArrayList<Card>();
+	private Set<Card> seenCards = new HashSet<>();
+	private Room currentRoom = null;
 	// Constructor
 	public ComputerPlayer(String name, String color, int row, int column) {
 		super(name, color, row, column);
@@ -41,6 +45,22 @@ public class ComputerPlayer extends Player {
 	// Getter for the hand list.
 	public List<Card> getHand() {
 	    return hand;
+	}
+	// Adds a card to the seen card set
+	public void updateSeen(Card seenCard) {
+		seenCards.add(seenCard);
+	}
+	// Returns a suggestion based off of seen cards
+	public Solution createSuggestion() {
+		
+	}
+	// setter for current Room
+	public void setCurrentRoom(Room currentRoom) {
+		this.currentRoom = currentRoom;
+	}
+	// getter for the current Room
+	public Room getCurrentRoom() {
+		return currentRoom;
 	}
 
 }

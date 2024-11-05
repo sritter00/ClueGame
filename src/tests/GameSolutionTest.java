@@ -89,4 +89,8 @@ public class GameSolutionTest {
 		assertEquals(null , board.handdleSuggestion(board.getCard("John"),board.getCard("Royal Dinin Room") , board.getCard("Glock 19"), player0));//only the suggesting player can disprove, ensure null.
 		assertEquals(board.getCard("Guest House") ,board.handdleSuggestion(board.getCard("Johann"),board.getCard("Guest House") , board.getCard("Glock 19"), player0));// Do a query that player 1 and 2 can disprove, ensure player 1 disproves 
 	}
+	@Test
+	public void TestComputerSuggestion() {
+		
+	}
 }
