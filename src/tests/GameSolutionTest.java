@@ -107,7 +107,11 @@ public class GameSolutionTest {
 		ComputerPlayer player2 = new ComputerPlayer("Player2", "Red", 26, 22);//room should be Spa
 		Set<Card> cardList = new HashSet<>();
 		player1.setCurrentRoom(board);
-		assertEquals(board.getRoom('P') , player1.getCurrentRoom());
+		
+		assertEquals(board.getRoom('P') , player1.getCurrentRoom());//Room matches current location
+		
+		
+		//Set up for next test
 		player2.updateSeen(personCard);
 		player2.updateSeen(roomCard);
 		player2.updateSeen(weaponCard);
@@ -125,15 +129,18 @@ public class GameSolutionTest {
 		player2.setCurrentRoom(board);
 		Solution sugTest = new Solution(roomCard3, personCard1, weaponCard1);
 		Solution sugTest1 = new Solution(roomCard3 , personCard2, weaponCard2);
-		assertEquals(sugTest.getPerson(), player2.createSuggestion(board).getPerson());
-		assertEquals(sugTest.getWeapon(),player2.createSuggestion(board).getWeapon());
-		assertEquals(sugTest.getRoom(),player2.createSuggestion(board).getRoom());
+		
+		assertEquals(sugTest.getPerson(), player2.createSuggestion(board).getPerson());//If only one weapon not seen, it's selected
+		assertEquals(sugTest.getWeapon(),player2.createSuggestion(board).getWeapon());//If only one person not seen, it's selected 
+		assertEquals(sugTest.getRoom(),player2.createSuggestion(board).getRoom());//Room should be the room player is in
+		
+		//Set up for last test
 		cardList.add(weaponCard2);
 		cardList.add(personCard2);
 		board.setCardList(cardList);
 		
-		assertTrue(sugTest.getPerson() == player2.createSuggestion(board).getPerson() || sugTest1.getPerson() == player2.createSuggestion(board).getPerson());
-		assertTrue(sugTest.getWeapon().equals(player2.createSuggestion(board).getWeapon()) || sugTest1.getPerson().equals( player2.createSuggestion(board).getPerson()));
-		assertTrue(sugTest.getRoom().equals(player2.createSuggestion(board).getRoom()) && sugTest1.getRoom().equals( player2.createSuggestion(board).getRoom()));
+		assertTrue(sugTest.getPerson() == player2.createSuggestion(board).getPerson() || sugTest1.getPerson() == player2.createSuggestion(board).getPerson());//If multiple weapons not seen, one of them is randomly selected
+		assertTrue(sugTest.getWeapon().equals(player2.createSuggestion(board).getWeapon()) || sugTest1.getPerson().equals( player2.createSuggestion(board).getPerson()));//If multiple persons not seen, one of them is randomly selected
+		assertTrue(sugTest.getRoom().equals(player2.createSuggestion(board).getRoom()) && sugTest1.getRoom().equals( player2.createSuggestion(board).getRoom()));//Room should be the room player is in
 	}
 }
