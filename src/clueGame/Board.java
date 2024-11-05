@@ -326,19 +326,6 @@ public class Board {
 				}
 			}
 		}
-		if(cardList.size() != roomMap.size() - 2) {// If just rooms in the setup file don't generate solution
-			generateSolution();
-		}
-		for(Player player : playerList) { 
-			grid[player.getRow()][player.getColumn()].setOccupied(true);
-		}
-		if(cardList.size() != roomMap.size() - 2) {// If just rooms in the setup file don't deal
-			deal();
-		}
-		
-
-
-
 	}
 	// Getter for the cell.
 	public BoardCell getCell(int row, int column) {
@@ -396,6 +383,7 @@ public class Board {
 				gotWeaponCard = true;
 			}
 		}
+	
 		gameSolution = new Solution(RoomCard, PlayerCard, WeaponCard);
 	}
 	// Getter for the playerList
@@ -414,9 +402,25 @@ public class Board {
 	// deals cards to the players
 	public void deal() {
 		Random rand = new Random();
+		for(Card card : cardList) {
+			card.setIsDealt(false);
+		}
 		List<Card> cardArrayList = new ArrayList<>(cardList);
-		double cardAmount = Math.floor(cardList.size()/numPlayers); 
-
+		double cardAmount = Math.floor((cardList.size()-3)/numPlayers); 
+		for(Card card : cardArrayList) { // set the three solution cards as dealt
+			if(gameSolution.getPerson().equals(card)) {
+				card.setIsDealt(true);
+				continue;
+			}
+			if(gameSolution.getWeapon().equals(card)) {
+				card.setIsDealt(true);
+				continue;
+			}
+			if(gameSolution.getRoom().equals(card)) {
+				card.setIsDealt(true);
+				continue;
+			}
+		}
 		for(Player player : playerList) { // loops thorugh player and gives them the cards they need
 			for(int index = 0 ; index < cardAmount; index++) {// Loop through the distributed card amount and puts it into players hand
 				int randInt = rand.nextInt(cardList.size());
@@ -433,9 +437,24 @@ public class Board {
 					continue;
 				}else {
 					player.updateHand(card);
+					card.setIsDealt(true);
 					break;
 				}		
 			}
 		}
+	}
+	//Handles a suggestion made
+	public Card handdleSuggestion(Card personCard, Card roomCard, Card weaponCard, Player suggester) {
+		for(Player player : playerList) {
+			if(player.equals(suggester)) {
+				continue;
+			}
+			for(Card card : player.getHand()) {
+				if(card.equals(weaponCard)|| card.equals(roomCard)|| card.equals(personCard)) {
+					return card;
+				}
+			}
+		}
+		return null; 
 	}
 }

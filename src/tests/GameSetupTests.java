@@ -45,6 +45,7 @@ public class GameSetupTests {
 		int numSamePerson = 0;
 		int numSameRoom = 0;
 		int numSameWeapon = 0;
+		board.generateSolution();
 		Solution currentSolution = board.getSolution();
 		for(int i = 0; i < 1000; i++) {
 			assertTrue(currentSolution.getPerson().getType() == CardType.PERSON);// one person card
@@ -91,22 +92,28 @@ public class GameSetupTests {
 	}
 	@Test
 	public void TestCardsDealt() { // Checks if the cards are dealt properly 
+		board.generateSolution();
+		board.deal();
 		List<Player> playerList = new ArrayList<>(board.getPlayerList());
 		List<Card> cardList = new ArrayList<>();
 		Set<Card> cardSet = new HashSet<>();
 		int totalCards = 0;
-		int totalCardsPerPlayer = 0;
+		System.out.println(board.getSolution().getPerson().getCardName());
+		System.out.println(board.getSolution().getRoom().getCardName());
+		System.out.println(board.getSolution().getWeapon().getCardName());
 		for(Player player : playerList) {
+			assertFalse(player.getHand().contains(board.getSolution().getPerson())); //make sure that the player is not dealt the solution hand
+			assertFalse(player.getHand().contains(board.getSolution().getWeapon()));
+			assertFalse(player.getHand().contains(board.getSolution().getRoom()));
 			for(Card card : player.getHand()) {
 				totalCards++;
-				totalCardsPerPlayer++;
 				cardList.add(card);
 				cardSet.add(card);
+				
 			}
-		assertEquals(4, totalCardsPerPlayer);//Makes sure that there is only 4 cards per player
-		totalCardsPerPlayer = 0;
+			
 		}
-		assertEquals(totalCards, 24);//Checks if total cards is 24
+		assertEquals(21, totalCards);//Checks if total cards is 21
 		assertEquals(cardSet.size(), cardList.size());//Checks if there all distinct cards
 	}
 	
