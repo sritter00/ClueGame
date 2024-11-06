@@ -37,10 +37,10 @@ public class GameSolutionTest {
 		Card wrongCardWeapon = board.getCard("Broken Bottle");
 		Solution newSolution = new Solution(roomCard, personCard, weaponCard);
 		board.setSolution(newSolution);
-		assertTrue(board.checkAccusation(personCard, roomCard, weaponCard));
-		assertFalse(board.checkAccusation(wrongCardPerson, roomCard, weaponCard));
-		assertFalse(board.checkAccusation(personCard, wrongCardRoom, weaponCard));
-		assertFalse(board.checkAccusation(personCard, roomCard, wrongCardWeapon));
+		assertTrue(board.checkAccusation(personCard, roomCard, weaponCard));//solution that is correct
+		assertFalse(board.checkAccusation(wrongCardPerson, roomCard, weaponCard));//solution with wrong person
+		assertFalse(board.checkAccusation(personCard, wrongCardRoom, weaponCard));//solution with wrong weapon
+		assertFalse(board.checkAccusation(personCard, roomCard, wrongCardWeapon));//solution with wrong room
 	}
 	@Test
 	public void disproveSuggestion() {
@@ -52,17 +52,17 @@ public class GameSolutionTest {
 		HumanPlayer playerOneMatch = new HumanPlayer("One Match", "Purple", 0, 0);
 		playerOneMatch.updateHand(weaponCard);
 		Card answer = playerOneMatch.disproveSuggestion(suggestion);
-		assertTrue(answer.equals(weaponCard));
+		assertTrue(answer.equals(weaponCard));//If player has only one matching card it should be returned
 		
 		HumanPlayer playerNoMatch = new HumanPlayer("No Match", "Purple", 0, 0);
 		answer = playerNoMatch.disproveSuggestion(suggestion);
-		assertEquals(answer, null);
+		assertEquals(answer, null);//If player has no matching cards, null is returned
 		
 		HumanPlayer playerMultipleMatch = new HumanPlayer("Two Match", "Purple", 0, 0);
 		playerMultipleMatch.updateHand(weaponCard);
 		playerMultipleMatch.updateHand(personCard);
 		answer = playerMultipleMatch.disproveSuggestion(suggestion);
-		assertTrue(answer.equals(weaponCard) || answer.equals(personCard));
+		assertTrue(answer.equals(weaponCard) || answer.equals(personCard));//If players has >1 matching card, returned card should be chosen randomly
 	}	
 	@Test
 	public void TestHandleSuggestion() {
@@ -92,7 +92,6 @@ public class GameSolutionTest {
 		
 		assertEquals(null ,board.handdleSuggestion(board.getCard("John"),board.getCard("Royal Dinin Room") , board.getCard("TV Remote"), player0));//no players can disprove, ensure null returned
 		assertEquals(null , board.handdleSuggestion(board.getCard("John"),board.getCard("Royal Dinin Room") , board.getCard("Glock 19"), player0));//only the suggesting player can disprove, ensure null.
-		System.out.println(board.handdleSuggestion(board.getCard("Johann"), board.getCard("Guest House") , board.getCard("Glock 19"), player0).getCardName());
 		assertEquals(board.getCard("Guest House") , board.handdleSuggestion(board.getCard("Johann"), board.getCard("Guest House") , board.getCard("Glock 19"), player0));// Do a query that player 1 and 2 can disprove, ensure player 1 disproves 
 	}
 	@Test
