@@ -23,6 +23,8 @@ public class GameSolutionTest {
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		// Initialize will load BOTH config files
 		board.initialize();
+//		board.generateSolution();
+//		board.deal();
 		
 	}
 	@Test
@@ -64,8 +66,9 @@ public class GameSolutionTest {
 	}	
 	@Test
 	public void TestHandleSuggestion() {
-		Card personCard = board.getCard("Johann");
+		board.setPlayerList(null);
 		Card roomCard = board.getCard("Guest House");
+		Card personCard = board.getCard("Johann");
 		Card weaponCard = board.getCard("Glock 19");
 		Card personCard1 = board.getCard("Diego");
 		Card roomCard1 = board.getCard("Spa");
@@ -76,19 +79,21 @@ public class GameSolutionTest {
 		ComputerPlayer player3 = new ComputerPlayer("Player3", "Yellow", 0, 0);
 		player0.updateHand(weaponCard);
 		player1.updateHand(roomCard);
+		player1.updateHand(weaponCard1);
 		player2.updateHand(personCard);
 		player2.updateHand(personCard1);
-		player1.updateHand(weaponCard1);
 		player2.updateHand(roomCard1);
 		Set<Player> playerList = new HashSet<>();
 		playerList.add(player0);
-		playerList.add(player1);
 		playerList.add(player2);
+		playerList.add(player1);
 		playerList.add(player3);
 		board.setPlayerList(playerList);
+		
 		assertEquals(null ,board.handdleSuggestion(board.getCard("John"),board.getCard("Royal Dinin Room") , board.getCard("TV Remote"), player0));//no players can disprove, ensure null returned
 		assertEquals(null , board.handdleSuggestion(board.getCard("John"),board.getCard("Royal Dinin Room") , board.getCard("Glock 19"), player0));//only the suggesting player can disprove, ensure null.
-		assertEquals(board.getCard("Johann") ,board.handdleSuggestion(board.getCard("Johann"),board.getCard("Guest House") , board.getCard("Glock 19"), player0));// Do a query that player 1 and 2 can disprove, ensure player 1 disproves 
+		System.out.println(board.handdleSuggestion(board.getCard("Johann"), board.getCard("Guest House") , board.getCard("Glock 19"), player0).getCardName());
+		assertEquals(board.getCard("Guest House") , board.handdleSuggestion(board.getCard("Johann"), board.getCard("Guest House") , board.getCard("Glock 19"), player0));// Do a query that player 1 and 2 can disprove, ensure player 1 disproves 
 	}
 	@Test
 	public void TestComputerSuggestion() {
@@ -140,15 +145,19 @@ public class GameSolutionTest {
 		cardList.add(weaponCard2);
 		cardList.add(personCard2);
 		board.setCardList(cardList);
-		
-		assertTrue(sugTest.getPerson() == player2.createSuggestion(board).getPerson() || sugTest1.getPerson() == player2.createSuggestion(board).getPerson());//If multiple weapons not seen, one of them is randomly selected
-		assertTrue(sugTest.getWeapon().equals(player2.createSuggestion(board).getWeapon()) || sugTest1.getPerson().equals( player2.createSuggestion(board).getPerson()));//If multiple persons not seen, one of them is randomly selected
-		assertTrue(sugTest.getRoom().equals(player2.createSuggestion(board).getRoom()) && sugTest1.getRoom().equals( player2.createSuggestion(board).getRoom()));//Room should be the room player is in
+		Solution player2Suggestion = player2.createSuggestion(board);
+		assertTrue(sugTest.getPerson().equals(player2Suggestion.getPerson()) || sugTest1.getPerson().equals(player2Suggestion.getPerson()));//If multiple weapons not seen, one of them is randomly selected
+		assertTrue(sugTest.getWeapon().equals(player2Suggestion.getWeapon()) || sugTest1.getWeapon().equals(player2Suggestion.getWeapon()));//If multiple persons not seen, one of them is randomly selected
+		assertTrue(sugTest.getRoom().equals(player2Suggestion.getRoom()) && sugTest1.getRoom().equals( player2Suggestion.getRoom()));//Room should be the room player is in
 	}
 	
 	@Test
-	public void TestComputerPlayerSelect() {
-		
+	public void TestComputerPlayerSelectTarget() {
+		ComputerPlayer player = new ComputerPlayer("Player", "Green", 28, 12); // room should be in patio
+		assertEquals(board.getCell(27 , 12), player.selectTarget(board, 1)); // target should be one up (selected randomly)
+		assertEquals(board.getCell(24 , 15), player.selectTarget(board, 4)); // should go into theater instead of going up one more
+		player.updateSeenRoom(board.getCell(24 , 15));
+		assertEquals(board.getCell(24 , 12), player.selectTarget(board, 4)); // now has seen Theater
 		
 		
 	}

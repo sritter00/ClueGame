@@ -24,7 +24,7 @@ public class Board {
 	private Set<Player> playerList = new HashSet<>();
 	private int numPlayers = 0;
 	private static Board theInstance = new Board();
-	private Solution gameSolution;
+	private Solution gameSolution = null;
 	// Getter for the adjList
 	public Set<BoardCell> getAdjList(int row, int col){
 		return grid[row][col].getAdjList();
@@ -273,7 +273,6 @@ public class Board {
 		roomMap = new HashMap<>();
 		try {
 			this.loadSetupConfig();
-			new BadConfigFormatException();  // throw default error if no error was found and something went wrong
 		}catch (BadConfigFormatException e) {
 			new BadConfigFormatException(); // throw default error if no error was found and something went wrong
 		}
@@ -314,7 +313,7 @@ public class Board {
 					if(row - 1 >=  0 && grid[row-1][col].getInitial() == 'W') {
 						grid[row][col].addAdjacency(grid[row-1][col]);
 					}
-					if (col -1 >= 0 && grid[row][col-1].getInitial() == 'W') {
+					if (col - 1 >= 0 && grid[row][col-1].getInitial() == 'W') {
 						grid[row][col].addAdjacency(grid[row][col-1]);
 					}
 					if(grid.length > row + 1 && grid[row+1][col].getInitial() == 'W') {
@@ -464,9 +463,21 @@ public class Board {
 	}
 	//Handles a suggestion made
 	public Card handdleSuggestion(Card personCard, Card roomCard, Card weaponCard, Player suggester) {
-		for(Player player : playerList) {
-			for(Card card : player.getHand()) {
-				if(player.equals(suggester)) {
+		List<Player> playerArrayList = new ArrayList<>(playerList);
+		int playerIndex = playerArrayList.indexOf(suggester);
+		for(int index = playerIndex; index < playerArrayList.size(); index++) {
+			for(Card card : playerArrayList.get(index).getHand()) {
+				if(playerArrayList.get(index).equals(suggester)) {
+					break;
+				}
+				if(card.equals(weaponCard)|| card.equals(roomCard)|| card.equals(personCard)) {
+					return card;
+				}
+			}
+		}
+		for(int index = 0; index < playerIndex; index++) {
+			for(Card card : playerArrayList.get(index).getHand()) {
+				if(playerArrayList.get(index).equals(suggester)) {
 					break;
 				}
 				if(card.equals(weaponCard)|| card.equals(roomCard)|| card.equals(personCard)) {
