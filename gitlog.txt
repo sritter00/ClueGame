@@ -1,3 +1,21 @@
+commit 6978dcc1a5251fa314a7869b2a06b0863b13c56e
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Mon Nov 11 12:51:13 2024 -0700
+
+    Documentation/Comments about functionality of methods in GameControlPanel.
+
+commit 865c86d8953263411d8cfdf456dfb21f5395b741
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Sat Nov 9 20:25:17 2024 -0700
+
+    Created GameControlPanel class that works as intended
+
+commit adf96f06cd25947f2e38d280a1d46d44f364cc89
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Tue Nov 5 19:06:27 2024 -0700
+
+    added git log and certain comments
+
 commit 235ba9b1c7c0c9273d0289e1a7bc8ce7bff98b4c
 Author: Shane Ritter <sritter@mines.edu>
 Date:   Tue Nov 5 19:00:22 2024 -0700
