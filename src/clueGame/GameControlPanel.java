@@ -1,5 +1,12 @@
 package clueGame;
 
+/**
+ * GameControlPanel: Layout for the control panel with setters for turns and guesses
+ * 
+ * author: Shane Ritter
+ * author: Carter Gorling
+ */
+
 import java.awt.*;
 import java.lang.reflect.Field;
 
@@ -37,7 +44,6 @@ public class GameControlPanel extends JPanel {
 		rollDisplay.setEditable(false);
 		rollPanel.add(rollDisplay);
 
-		
 		// Buttons Panel
 		nextPlayerButton = new JButton("Next");
 		accusationButton = new JButton("Make Accusation");
@@ -67,11 +73,13 @@ public class GameControlPanel extends JPanel {
         // Add panels to Bottom Panel
         bottomPanel.add(guessPanel);
         bottomPanel.add(guessResultPanel);
-
+        
+        // Add panels
 		add(topPanel);
 		add(bottomPanel);
 	}
 	
+	// Setter for the Players turn.
 	public void setTurn(Player player, int roll) {
 		turnDisplay.setText(player.getName());
 		Color color;
@@ -85,10 +93,12 @@ public class GameControlPanel extends JPanel {
 		rollDisplay.setText(String.valueOf(roll));
 	}
 
+	// Setter for the guess display.
 	public void setGuess(String guess) {
 		guessDisplay.setText(guess);
 	}
 
+	// Setter for the display of the guess result.
 	public void setGuessResult(String result) {
 		guessResultDisplay.setText(result);
 	}
