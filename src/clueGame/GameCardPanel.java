@@ -7,42 +7,63 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 public class GameCardPanel extends JPanel{
-	private JTextField weaponDisplaySeen;
-	private JTextField peopleDisplaySeen;
-	private JTextField roomDisplaySeen;
-	private JTextField weaponDisplayHand;
-	private JTextField peopleDisplayHand;
-	private JTextField roomDisplayHand;
+	private JPanel weaponDisplaySeen;
+	private JPanel peopleDisplaySeen;
+	private JPanel roomDisplaySeen;
+	private JPanel weaponDisplayHand;
+	private JPanel peopleDisplayHand;
+	private JPanel roomDisplayHand;
 	private JPanel weaponDisplay;
 	private JPanel roomDisplay;
 	private JPanel peopleDisplay;
-	
-	
+
+	private ArrayList<JTextField> peopleInHand = new ArrayList<>();
+	private ArrayList<JTextField> roomsInHand = new ArrayList<>();
+	private ArrayList<JTextField> weaponsInHand = new ArrayList<>();
+
+	private ArrayList<JTextField> peopleSeen = new ArrayList<>();
+	private ArrayList<JTextField> roomsSeen = new ArrayList<>();
+	private ArrayList<JTextField> weaponsSeen = new ArrayList<>();
+
+	private int numWeaponSeenDim = 1;
+	private int numPeopleSeenDim = 1;
+	private int numRoomSeenDim = 1;
+
+	private int numRoomHandDim = 1;
+	private int numPeopleHandDim = 1;
+	private int numWeaponHandDim = 1;
 	public GameCardPanel() {
+		setBackground(Color.GRAY);
 		setBorder(new TitledBorder("Known Cards"));
 		setLayout(new GridLayout(3, 0)); // three rows
-		peopleDisplay = new JPanel(new GridLayout(4, 0));
+		JTextField noneText = new JTextField(5);
+		noneText.setText("None");
+		noneText.setEditable(false);
 
-		peopleDisplayHand = new JTextField(5);
-		peopleDisplaySeen = new JTextField(5);
-		peopleDisplaySeen.setText("None");
-		peopleDisplayHand.setText("None");
+		peopleDisplay = new JPanel(new GridLayout(4, 0));
+		peopleDisplay.setBackground(Color.GRAY);
+		peopleDisplayHand = new JPanel(new GridLayout(numPeopleHandDim,0));
+		peopleDisplaySeen = new JPanel(new GridLayout(numPeopleSeenDim, 0));
+
+		
+		peopleDisplayHand.add(noneText);
+		peopleDisplaySeen.add(noneText);
+
 		peopleDisplay.setBorder(new TitledBorder("People:"));
-		peopleDisplayHand.setEditable(false);
-		peopleDisplaySeen.setEditable(false);
 		peopleDisplay.add(new JLabel("In Hand:"));
 		peopleDisplay.add(peopleDisplayHand);
 		peopleDisplay.add(new JLabel("Seen:"));
 		peopleDisplay.add(peopleDisplaySeen);
 
-		weaponDisplay = new JPanel(new GridLayout(4, 0));
 
-		weaponDisplayHand = new JTextField(5);
-		weaponDisplaySeen = new JTextField(5);
-		weaponDisplaySeen.setText("None");
-		weaponDisplayHand.setText("None");
-		weaponDisplayHand.setEditable(false);
-		weaponDisplaySeen.setEditable(false);
+		weaponDisplay = new JPanel(new GridLayout(4, 0));
+		weaponDisplay.setBackground(Color.GRAY);
+		weaponDisplayHand = new JPanel(new GridLayout(numWeaponHandDim,0));
+		weaponDisplaySeen = new JPanel(new GridLayout(numWeaponSeenDim, 0));
+
+		weaponDisplayHand.add(noneText);
+		weaponDisplaySeen.add(noneText);
+
 		weaponDisplay.setBorder(new TitledBorder("Weapons:"));
 		weaponDisplay.add(new JLabel("In Hand:"));
 		weaponDisplay.add(weaponDisplayHand);
@@ -50,13 +71,13 @@ public class GameCardPanel extends JPanel{
 		weaponDisplay.add(weaponDisplaySeen);
 
 		roomDisplay = new JPanel(new GridLayout(4, 0));
+		roomDisplay.setBackground(Color.GRAY);
+		roomDisplayHand = new JPanel(new GridLayout(numRoomHandDim,0));
+		roomDisplaySeen = new JPanel(new GridLayout(numRoomSeenDim,0));
 
-		roomDisplayHand = new JTextField(5);
-		roomDisplaySeen = new JTextField(5);
-		roomDisplaySeen.setText("None");
-		roomDisplayHand.setText("None");
-		roomDisplayHand.setEditable(false);
-		roomDisplaySeen.setEditable(false);
+		roomDisplayHand.add(noneText);
+		roomDisplaySeen.add(noneText);
+
 		roomDisplay.setBorder(new TitledBorder("Rooms:"));
 		roomDisplay.add(new JLabel("In Hand:"));
 		roomDisplay.add(roomDisplayHand);
@@ -67,30 +88,182 @@ public class GameCardPanel extends JPanel{
 		add(roomDisplay);
 		add(weaponDisplay);
 	}
-
 	public void updateSeen(Card card, Player player) {
-		if(card.getType() == CardType.PERSON) {
+		String cardName = card.getCardName();
+		JTextField cardAdd = new JTextField(5);
+		cardAdd.setText(cardName);
+		Color color;
+		try {
+			Field field = Class.forName("java.awt.Color").getField(player.getColor().toLowerCase());
+			color = (Color)field.get(null);
+			cardAdd.setBackground(color);;
+		} catch (Exception e) {
+			color = null;
+		}
+		cardAdd.setEditable(false);
+		switch (card.getType()) {
+		case CardType.PERSON:
+			if (!peopleSeen.contains(cardAdd)) {
+				if(peopleSeen.size() != 0 ) {
+					numPeopleSeenDim++;
+					peopleSeen.add(cardAdd);
+				}else {
+					peopleSeen.add(cardAdd);
+				}
+
+			}
+			break;
+		case CardType.ROOM:
+			if (!roomsSeen.contains(cardAdd)) {
+				if(roomsSeen.size() != 0) { 
+					numRoomSeenDim++;
+					roomsSeen.add(cardAdd);
+				}else {
+					roomsSeen.add(cardAdd);
+				}
 				
+			}
+			break;
+		case CardType.WEAPON:
+			if (!weaponsSeen.contains(cardAdd)) {
+				if(weaponsSeen.size() != 0) {
+					numWeaponSeenDim++;
+					weaponsSeen.add(cardAdd);
+				}else {
+					weaponsSeen.add(cardAdd);
+				}	
+			}
+			break;
 		}
-		if(card.getType() == CardType.ROOM) {
-			
-		}
-		if(card.getType() == CardType.WEAPON) {
-			
-		}
-	}
-	public void updateHand(Card card) {
-		if(card.getType() == CardType.PERSON) {			
-			
-		}
-		if(card.getType() == CardType.ROOM) {
-			
-		}
-		if(card.getType() == CardType.WEAPON) {
-			
-		}
+		updatePanels();
 	}
 
+	public void updateHand(Card card) {
+		String cardName = card.getCardName();
+		JTextField cardAdd = new JTextField(5);
+		cardAdd.setText(cardName);
+		cardAdd.setEditable(false);
+		switch (card.getType()) {
+		case PERSON:
+			if (peopleInHand.size() != 0) {
+				numPeopleHandDim++;
+				peopleInHand.add(cardAdd);
+			}else {
+				peopleInHand.add(cardAdd);
+			}
+			
+			break;
+		case ROOM:
+			if(roomsInHand.size() != 0) {
+				numRoomHandDim++;
+				roomsInHand.add(cardAdd);
+			}else {
+				roomsInHand.add(cardAdd);
+			}
+			
+			break;
+		case WEAPON:
+			if(weaponsInHand.size() !=0) {
+				numWeaponHandDim++;
+				weaponsInHand.add(cardAdd);
+			}else {
+				weaponsInHand.add(cardAdd);
+			}
+			
+			break;
+		}
+		updatePanels();
+	}
+	private void updatePanels() {
+		JTextField noneText = new JTextField(5);
+		noneText.setText("None");
+		noneText.setEditable(false);
+		peopleDisplayHand.removeAll();
+		roomDisplayHand.removeAll();
+		weaponDisplayHand.removeAll();
+		peopleDisplaySeen.removeAll();
+		roomDisplaySeen.removeAll();
+		weaponDisplaySeen.removeAll();
+
+		peopleDisplay.removeAll();
+		weaponDisplay.removeAll();
+		roomDisplay.removeAll();
+
+		peopleDisplayHand = new JPanel(new GridLayout(numPeopleHandDim,0));
+		peopleDisplaySeen = new JPanel(new GridLayout(numPeopleSeenDim, 0));
+
+		weaponDisplayHand = new JPanel(new GridLayout(numWeaponHandDim,0));
+		weaponDisplaySeen = new JPanel(new GridLayout(numWeaponSeenDim, 0));
+
+		roomDisplayHand = new JPanel(new GridLayout(numRoomHandDim,0));
+		roomDisplaySeen = new JPanel(new GridLayout(numRoomSeenDim,0));
+		
+		for(JTextField text : peopleInHand) {
+			peopleDisplayHand.add(text);
+		}
+		for(JTextField text : weaponsInHand) {
+			weaponDisplayHand.add(text);
+		}
+		for(JTextField text : roomsInHand) {
+			roomDisplayHand.add(text);
+		}
+		for(JTextField text : peopleSeen) {
+			peopleDisplaySeen.add(text);
+		}
+		for(JTextField text : weaponsSeen) {
+			weaponDisplaySeen.add(text);
+		}
+		for(JTextField text : roomsSeen) {
+			roomDisplaySeen.add(text);
+		}
+		if(peopleInHand.size() == 0) {
+			peopleDisplayHand.add(noneText);
+		}
+		if(weaponsInHand.size() == 0) {
+			weaponDisplayHand.add(noneText);
+		}
+		if(roomsInHand.size() == 0) {
+			roomDisplayHand.add(noneText);
+		}
+		if(peopleSeen.size() == 0) {
+			peopleDisplaySeen.add(noneText);
+		}
+		if(weaponsSeen.size() == 0) {
+			weaponDisplaySeen.add(noneText);
+		}
+		if(roomsSeen.size() == 0) {
+			roomDisplaySeen.add(noneText);
+		}
+		setBackground(Color.GRAY);
+		
+		peopleDisplay.setBackground(Color.GRAY);
+		peopleDisplay.setBorder(new TitledBorder("People:"));
+		peopleDisplay.add(new JLabel("In Hand:"));
+		peopleDisplay.add(peopleDisplayHand);
+		peopleDisplay.add(new JLabel("Seen:"));
+		peopleDisplay.add(peopleDisplaySeen);
+
+		weaponDisplay.setBackground(Color.GRAY);
+		weaponDisplay.setBorder(new TitledBorder("Weapons:"));
+		weaponDisplay.add(new JLabel("In Hand:"));
+		weaponDisplay.add(weaponDisplayHand);
+		weaponDisplay.add(new JLabel("Seen:"));
+		weaponDisplay.add(weaponDisplaySeen);
+
+		roomDisplay.setBackground(Color.GRAY);
+		roomDisplay.setBorder(new TitledBorder("Rooms:"));
+		roomDisplay.add(new JLabel("In Hand:"));
+		roomDisplay.add(roomDisplayHand);
+		roomDisplay.add(new JLabel("Seen:"));
+		roomDisplay.add(roomDisplaySeen);
+
+		peopleDisplay.revalidate();
+		peopleDisplay.repaint();
+		roomDisplay.revalidate();
+		roomDisplay.repaint();
+		weaponDisplay.revalidate();
+		weaponDisplay.repaint();
+	}
 
 
 	public static void main(String[] args) {
@@ -101,8 +274,15 @@ public class GameCardPanel extends JPanel{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		frame.setVisible(true); // make it visible
 
-		panel.updateHand(new Card("Example Card Person", CardType.PERSON));
-		//		panel.updateHand(new Card("Example Card Person2", CardType.PERSON));
+		// Sample cards to demonstrate update functionality
+		panel.updateHand(new Card("Colonel Mustard", CardType.PERSON));
+		panel.updateHand(new Card("Knife", CardType.WEAPON));
+		panel.updateHand(new Card("Library", CardType.ROOM));
+
+		panel.updateSeen(new Card("Professor Plum", CardType.PERSON), new ComputerPlayer("Professor plum", "Yellow", 0, 0));
+		panel.updateSeen(new Card("Candlestick", CardType.WEAPON), new ComputerPlayer("Example", "red", 0, 0));
+		panel.updateSeen(new Card("Kitchen", CardType.ROOM), new ComputerPlayer("Example", "blue", 0, 0));
+		panel.updateSeen(new Card("New Room", CardType.ROOM), new ComputerPlayer("Example", "white", 0, 0));
 	}
 
 	public static void main1(String[] args) {

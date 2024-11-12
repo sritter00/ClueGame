@@ -84,7 +84,7 @@ public class GameControlPanel extends JPanel {
 		turnDisplay.setText(player.getName());
 		Color color;
 		try {
-		    Field field = Class.forName("java.awt.Color").getField(player.getColor());
+		    Field field = Class.forName("java.awt.Color").getField(player.getColor().toLowerCase());
 		    color = (Color)field.get(null);
 		    turnDisplay.setBackground(color);;
 		} catch (Exception e) {
