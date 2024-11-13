@@ -1,5 +1,8 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 /**
  * TestBoard: Initializes the grid, calculating movement targets based on a start cell and path length.
  * 
@@ -11,7 +14,10 @@ import java.io.*;
 import java.util.*;
 import java.lang.Character;
 import java.util.Random;
-public class Board {
+
+import javax.swing.*;
+
+public class Board extends JPanel {
 	private BoardCell[][] grid;
 	private Set<BoardCell> targets = new HashSet<>();
 	private Set<BoardCell> visited = new HashSet<>();
@@ -25,6 +31,8 @@ public class Board {
 	private int numPlayers = 0;
 	private static Board theInstance = new Board();
 	private Solution gameSolution = null;
+	private int dx;
+	private int dy;
 	// Getter for the adjList
 	public Set<BoardCell> getAdjList(int row, int col){
 		return grid[row][col].getAdjList();
@@ -141,10 +149,10 @@ public class Board {
 					}else if(rows[0].equals("Player")) {
 						cardList.add(new Card(rows[1], CardType.PERSON));
 						if(numPlayers == 0) {
-							playerList.add(new HumanPlayer(rows[1], rows[2], Integer.parseInt(Character.toString(rows[3].charAt(0))), Integer.parseInt(Character.toString(rows[4].charAt(0)))));
+							playerList.add(new HumanPlayer(rows[1], rows[2], Integer.parseInt(rows[3]), Integer.parseInt(rows[4])));
 							numPlayers++;
 						}else {
-							playerList.add(new ComputerPlayer(rows[1], rows[2], Integer.parseInt(Character.toString(rows[3].charAt(0))), Integer.parseInt(Character.toString(rows[4].charAt(0)))));
+							playerList.add(new ComputerPlayer(rows[1], rows[2], Integer.parseInt(rows[3]), Integer.parseInt(rows[4])));
 							numPlayers++;
 						}
 
@@ -389,7 +397,7 @@ public class Board {
 				gotWeaponCard = true;
 			}
 		}
-	
+
 		gameSolution = new Solution(RoomCard, PlayerCard, WeaponCard);
 	}
 	// Setter for player List
@@ -487,4 +495,38 @@ public class Board {
 		}
 		return null; 
 	}
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		int cellWidth = getWidth() / numColumns;
+		int cellHeight = getHeight() / numRows;
+
+		// Draw cells
+		for (int row = 0; row < numRows; row++) { 
+			for (int col = 0; col < numColumns; col++) {
+				grid[row][col].draw(g, cellWidth, cellHeight);
+			}
+		}
+
+		// Draw room names
+		drawRoomNames(g, cellWidth, cellHeight);
+		
+
+		// Draw players
+		for (Player player : playerList) {
+			player.draw(g, cellWidth, cellHeight);
+		}
+	}
+	private void drawRoomNames(Graphics g, int cellWidth, int cellHeight) {
+		for (int row = 0; row < numRows; row++) { 
+			for (int col = 0; col < numColumns; col++) {
+				if(grid[row][col].isLabel()) {	
+					grid[row][col].drawLabel(g, cellWidth, cellHeight, getRoom(grid[row][col].getInitial()).getName());
+				}
+				
+			}
+		}
+	}
+
+
 }

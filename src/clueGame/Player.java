@@ -1,5 +1,9 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.lang.reflect.Field;
+
 /**
  * Player: An abstract class representing a player in the game, with attributes for name, 
  * color, location, and a hand of cards. It includes functionality for updating the player’s hand.
@@ -55,5 +59,18 @@ public abstract class Player {
     		return false;
     	}
     	
+    }
+    public void draw(Graphics g, int cellWidth, int cellHeight) {
+    	int drawX = column * cellWidth;
+        int drawY = row * cellHeight;
+        Color color = null;
+        try {
+		    Field field = Class.forName("java.awt.Color").getField(getColor().toLowerCase());
+		    color = (Color)field.get(null);
+		} catch (Exception e) {
+		    color = null;
+		}
+        g.setColor(color);
+        g.fillOval(drawX, drawY, cellWidth, cellHeight);
     }
 }

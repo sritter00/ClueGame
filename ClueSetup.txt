@@ -31,10 +31,10 @@ Weapon, Rope
 Weapon, Hitman
 
 //Players
-Player, Diego, Red, 0, 7 
-Player, John, Yellow, 0, 18
+Player, Diego, Red, 0, 7
+Player, John, Orange, 0, 18
 Player, Sophia, White, 8, 25
 Player, Charlotte, Blue, 19, 25
 Player, Izumi, Black, 28, 19
-Player, Johann, Purple, 28, 5
+Player, Johann, Pink, 28, 5
 
