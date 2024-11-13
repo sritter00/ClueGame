@@ -256,7 +256,12 @@ public class GameCardPanel extends JPanel{
 		roomDisplay.repaint();
 		weaponDisplay.revalidate();
 		weaponDisplay.repaint();
+	
 	}
+    public Dimension getPreferredSize() {
+        // Set a custom width while keeping the height flexible
+        return new Dimension(150, super.getPreferredSize().height); // Adjust 200 to your preferred width
+    }
 	// main
 	public static void main(String[] args) {
 		GameCardPanel panel = new GameCardPanel();  // create the panel
