@@ -1,5 +1,12 @@
 package clueGame;
 
+/**
+ * GameCardPanel: Responsible for the panel showing the cards that have seen or are in hand.
+ * 
+ * author: Shane Ritter
+ * author: Carter Gorling
+ */
+
 import java.awt.*;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -32,6 +39,8 @@ public class GameCardPanel extends JPanel{
 	private int numRoomHandDim = 1;
 	private int numPeopleHandDim = 1;
 	private int numWeaponHandDim = 1;
+	
+	// Constructor
 	public GameCardPanel() {
 		setBackground(Color.GRAY);
 		setBorder(new TitledBorder("Known Cards"));
@@ -60,6 +69,7 @@ public class GameCardPanel extends JPanel{
 		add(weaponDisplay);
 		updatePanels();
 	}
+	// Updates the seen cards shown on the panel.
 	public void updateSeen(Card card, Player player) {
 		String cardName = card.getCardName();
 		JTextField cardAdd = new JTextField(5);
@@ -109,7 +119,7 @@ public class GameCardPanel extends JPanel{
 		}
 		updatePanels();
 	}
-
+	// Updates the hand of cards that the player has.
 	public void updateHand(Card card) {
 		String cardName = card.getCardName();
 		JTextField cardAdd = new JTextField(5);
@@ -146,6 +156,7 @@ public class GameCardPanel extends JPanel{
 		}
 		updatePanels();
 	}
+	// Updates the panels visual by removing all previous information and updating it with the newer cards.
 	private void updatePanels() {
 		peopleDisplayHand.removeAll();
 		roomDisplayHand.removeAll();
@@ -252,7 +263,7 @@ public class GameCardPanel extends JPanel{
 		weaponDisplay.repaint();
 	}
 
-
+	// main
 	public static void main(String[] args) {
 		GameCardPanel panel = new GameCardPanel();  // create the panel
 		JFrame frame = new JFrame();  // create the frame 
