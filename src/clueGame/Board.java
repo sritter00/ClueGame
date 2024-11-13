@@ -72,7 +72,7 @@ public class Board extends JPanel {
 				DFS(curAdjCell, pathLength-1);
 			}
 		}
-		visited.remove(startCell);//removes startcell from visited when going back from the recursive function
+		visited.remove(startCell); // removes startcell from visited when going back from the recursive function
 	}
 
 	//Getter for the target list
@@ -176,7 +176,7 @@ public class Board extends JPanel {
 	public void loadLayoutConfig() throws BadConfigFormatException{
 		numRows = 0;
 		numColumns = 0;
-		//Get rows and columns
+		// Get rows and columns
 		try {
 			File file = new File(layoutConfigFiles);
 			Scanner scanner = new Scanner(file);
@@ -194,13 +194,13 @@ public class Board extends JPanel {
 					scanner.close();
 					throw new BadConfigFormatException(message);
 				}
-				numRows++; //Increment number of rows based of of line number
+				numRows++; // Increment number of rows based of of line number
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
 			System.out.println(layoutConfigFiles + " not found, change file name to correct file name or create the correct file");
 		}
-		//set up the board
+		// Set up the board
 		grid = new BoardCell[numRows][numColumns];
 		int curRow = 0;
 		try {
@@ -262,16 +262,16 @@ public class Board extends JPanel {
 
 
 	}
-	// constructor is private to ensure only one can be created
+	// Constructor is private to ensure only one can be created.
 	private Board() {
 		super();
 	}
-	// this method returns the only Board
+	// This method returns the only Board
 	public static Board getInstance() {
 		return theInstance;
 	}
 	/*
-	 * initialize the board (since we are using singleton pattern)
+	 * Initialize the board (since we are using singleton pattern).
 	 */
 	public void initialize(){
 		targets = new HashSet<>();
@@ -350,7 +350,7 @@ public class Board extends JPanel {
 		Room newRoom = roomMap.get(ch);
 		return newRoom;
 	}
-	//getter for the card list
+	// Getter for the card list
 	public Card getCard(String cardName){
 		for(Card card : cardList) {
 			if(cardName.equals(card.getCardName())) {
@@ -361,17 +361,17 @@ public class Board extends JPanel {
 		return new Card(null , null); //Card Not found return a null card
 	}
 
-	//getter for the solution to the game
+	// Getter for the solution to the game
 	public Solution getSolution() {
 		return gameSolution;
 	}
-	//Setter for the solution to the game should only be used for tests
+	// Setter for the solution to the game should only be used for tests
 	public void setSolution(Solution gameSolution) {
 		this.gameSolution = gameSolution;
 	}
-	//generates a solution based off of the cards we have
+	// Generates a solution based off of the cards we have
 	public void generateSolution() {
-		//Generating a random solution
+		// Generating a random solution
 		List<Card> cardArrayList = new ArrayList<>(cardList);
 		boolean gotPlayerCard = false;
 		boolean gotRoomCard = false;
@@ -408,7 +408,7 @@ public class Board extends JPanel {
 	public Set<Player> getPlayerList() {
 		return playerList;
 	}
-	//Checks if an accusation is correct
+	// Checks if an accusation is correct
 	public boolean checkAccusation(Card personCard, Card roomCard, Card weaponCard) {
 		Solution solution = getSolution();
 		if(solution.getPerson().equals(personCard) && solution.getRoom().equals(roomCard) && solution.getWeapon().equals(weaponCard)) {
@@ -417,7 +417,7 @@ public class Board extends JPanel {
 			return false;
 		}
 	}
-	// deals cards to the players
+	// Deals cards to the players
 	public void deal() {
 		Random rand = new Random();
 		for(Card card : cardList) {
@@ -495,6 +495,7 @@ public class Board extends JPanel {
 		}
 		return null; 
 	}
+	// Painting method handling the painting of the cells, players, rooms.
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -517,6 +518,7 @@ public class Board extends JPanel {
 			player.draw(g, cellWidth, cellHeight);
 		}
 	}
+	// Draw method for the names of the rooms.
 	private void drawRoomNames(Graphics g, int cellWidth, int cellHeight) {
 		for (int row = 0; row < numRows; row++) { 
 			for (int col = 0; col < numColumns; col++) {

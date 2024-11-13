@@ -32,7 +32,7 @@ public class BoardCell {
 	public boolean getOccupied() {
 		return occupied;
 	}
-
+	// Draw method for drawing of the cells.
 	public void draw(Graphics g, int cellWidth, int cellHeight) {
 		int x = column * cellWidth;
 		int y = row * cellHeight;
@@ -67,13 +67,13 @@ public class BoardCell {
 		}
 
 	}
+	// Draw method for the room labels.
 	public void drawLabel(Graphics g, int cellWidth, int cellHeight, String roomName) {
 		int x = column * cellWidth + cellWidth / 4;
 		int y = row * cellHeight + cellHeight / 2;
 		g.setColor(Color.blue);
 		g.drawString(roomName, x, y);
 	}
-
 	// Boolean for whether location is a doorway or not.
 	public boolean isDoorway() {
 		return doorway;

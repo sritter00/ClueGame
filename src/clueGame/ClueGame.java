@@ -1,5 +1,12 @@
 package clueGame;
 
+/**
+ * ClueGame: Builds the clue game visual.
+ * 
+ * author: Shane Ritter
+ * author: Carter Gorling
+ */
+
 import java.awt.*;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -9,6 +16,7 @@ import javax.swing.border.TitledBorder;
 public class ClueGame extends JFrame{
 	private static Board board;
 
+	// main
 	public static void main(String[] args) {
 		board = Board.getInstance();
 		// set the file names to use my config files

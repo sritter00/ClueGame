@@ -258,6 +258,7 @@ public class GameCardPanel extends JPanel{
 		weaponDisplay.repaint();
 	
 	}
+	// Dimension sizing for the visual.
     public Dimension getPreferredSize() {
         // Set a custom width while keeping the height flexible
         return new Dimension(150, super.getPreferredSize().height); // Adjust 200 to your preferred width
