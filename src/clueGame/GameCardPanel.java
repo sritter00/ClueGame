@@ -84,37 +84,35 @@ public class GameCardPanel extends JPanel{
 		}
 		cardAdd.setEditable(false);
 		switch (card.getType()) {
-		case CardType.PERSON:
-			if (!peopleSeen.contains(cardAdd)) {
-				if(peopleSeen.size() != 0 ) {
-					numPeopleSeenDim++;
-					peopleSeen.add(cardAdd);
-				}else {
-					peopleSeen.add(cardAdd);
+			case CardType.PERSON:
+				if (!peopleSeen.contains(cardAdd)) {
+					if(peopleSeen.size() != 0 ) {
+						numPeopleSeenDim++;
+						peopleSeen.add(cardAdd);
+					}else {
+						peopleSeen.add(cardAdd);
+					}
 				}
-
-			}
-			break;
-		case CardType.ROOM:
-			if (!roomsSeen.contains(cardAdd)) {
-				if(roomsSeen.size() != 0) { 
-					numRoomSeenDim++;
-					roomsSeen.add(cardAdd);
-				}else {
-					roomsSeen.add(cardAdd);
+				break;
+			case CardType.ROOM:
+				if (!roomsSeen.contains(cardAdd)) {
+					if(roomsSeen.size() != 0) { 
+						numRoomSeenDim++;
+						roomsSeen.add(cardAdd);
+					}else {
+						roomsSeen.add(cardAdd);
+					}
 				}
-				
-			}
-			break;
-		case CardType.WEAPON:
-			if (!weaponsSeen.contains(cardAdd)) {
-				if(weaponsSeen.size() != 0) {
-					numWeaponSeenDim++;
-					weaponsSeen.add(cardAdd);
-				}else {
-					weaponsSeen.add(cardAdd);
-				}	
-			}
+				break;
+			case CardType.WEAPON:
+				if (!weaponsSeen.contains(cardAdd)) {
+					if(weaponsSeen.size() != 0) {
+						numWeaponSeenDim++;
+						weaponsSeen.add(cardAdd);
+					}else {
+						weaponsSeen.add(cardAdd);
+					}	
+				}
 			break;
 		}
 		updatePanels();
@@ -126,32 +124,29 @@ public class GameCardPanel extends JPanel{
 		cardAdd.setText(cardName);
 		cardAdd.setEditable(false);
 		switch (card.getType()) {
-		case PERSON:
-			if (peopleInHand.size() != 0) {
-				numPeopleHandDim++;
-				peopleInHand.add(cardAdd);
-			}else {
-				peopleInHand.add(cardAdd);
-			}
-			
-			break;
-		case ROOM:
-			if(roomsInHand.size() != 0) {
-				numRoomHandDim++;
-				roomsInHand.add(cardAdd);
-			}else {
-				roomsInHand.add(cardAdd);
-			}
-			
-			break;
-		case WEAPON:
-			if(weaponsInHand.size() !=0) {
-				numWeaponHandDim++;
-				weaponsInHand.add(cardAdd);
-			}else {
-				weaponsInHand.add(cardAdd);
-			}
-			
+			case PERSON:
+				if (peopleInHand.size() != 0) {
+					numPeopleHandDim++;
+					peopleInHand.add(cardAdd);
+				}else {
+					peopleInHand.add(cardAdd);
+				}
+				break;
+			case ROOM:
+				if(roomsInHand.size() != 0) {
+					numRoomHandDim++;
+					roomsInHand.add(cardAdd);
+				}else {
+					roomsInHand.add(cardAdd);
+				}
+				break;
+			case WEAPON:
+				if(weaponsInHand.size() !=0) {
+					numWeaponHandDim++;
+					weaponsInHand.add(cardAdd);
+				}else {
+					weaponsInHand.add(cardAdd);
+				}
 			break;
 		}
 		updatePanels();
@@ -262,7 +257,6 @@ public class GameCardPanel extends JPanel{
 		weaponDisplay.revalidate();
 		weaponDisplay.repaint();
 	}
-
 	// main
 	public static void main(String[] args) {
 		GameCardPanel panel = new GameCardPanel();  // create the panel
@@ -288,8 +282,5 @@ public class GameCardPanel extends JPanel{
 		frame1.setSize(180, 750);  // size the frame
 		frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
 		frame1.setVisible(true); // make it visible
-
 	}
-
-
 }
