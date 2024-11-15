@@ -118,10 +118,18 @@ public class GameCardPanel extends JPanel{
 		updatePanels();
 	}
 	// Updates the hand of cards that the player has.
-	public void updateHand(Card card) {
+	public void updateHand(Card card, Player player) {
 		String cardName = card.getCardName();
 		JTextField cardAdd = new JTextField(5);
 		cardAdd.setText(cardName);
+		Color color;
+		try {
+			Field field = Class.forName("java.awt.Color").getField(player.getColor().toLowerCase());
+			color = (Color)field.get(null);
+			cardAdd.setBackground(color);;
+		} catch (Exception e) {
+			color = null;
+		}
 		cardAdd.setEditable(false);
 		switch (card.getType()) {
 			case PERSON:
@@ -272,9 +280,9 @@ public class GameCardPanel extends JPanel{
 		frame.setVisible(true); // make it visible
 
 		// Sample cards to demonstrate update functionality
-		panel.updateHand(new Card("Colonel Mustard", CardType.PERSON));
-		panel.updateHand(new Card("Knife", CardType.WEAPON));
-		panel.updateHand(new Card("Library", CardType.ROOM));
+		panel.updateHand(new Card("Colonel Mustard", CardType.PERSON), new ComputerPlayer("Professor plum", "Green", 0, 0));
+		panel.updateHand(new Card("Knife", CardType.WEAPON), new ComputerPlayer("Professor plum", "Green", 0, 0));
+		panel.updateHand(new Card("Library", CardType.ROOM), new ComputerPlayer("Professor plum", "Green", 0, 0));
 
 		panel.updateSeen(new Card("Professor Plum", CardType.PERSON), new ComputerPlayer("Professor plum", "Yellow", 0, 0));
 		panel.updateSeen(new Card("Candlestick", CardType.WEAPON), new ComputerPlayer("Example", "red", 0, 0));
