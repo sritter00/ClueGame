@@ -52,6 +52,7 @@ public abstract class Player {
     public int getColumn() {
     	return column;
     }
+    // Equals method returning a boolean if the color matches the player name or not.
     public boolean equals(Player player) {
     	if(this.name.equals(player.getName())  && this.color.equals(player.getColor()) ) {
     		return true;
@@ -60,6 +61,7 @@ public abstract class Player {
     	}
     	
     }
+    // Draw method for drawing of the player icon in a cell.
     public void draw(Graphics g, int cellWidth, int cellHeight) {
     	int drawX = column * cellWidth;
         int drawY = row * cellHeight;

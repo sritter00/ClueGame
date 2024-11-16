@@ -1,3 +1,57 @@
+commit 8d104eeb532d7bb88eadfcbefd6317cf910ddc9e
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Wed Nov 13 12:47:34 2024 -0700
+
+    Refactoring and improving code readability.
+
+commit a20fdcb5667b6686e70377b21927dbc0a8a82430
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Nov 13 12:21:35 2024 -0700
+
+    Finished board setup and added side panels
+
+commit 8be00f7adb71b01fcb057da0ad2db2e5b6ee7c97
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Wed Nov 13 11:49:18 2024 -0700
+
+    Improving functionality and readability of methods in GameCardPanel.
+
+commit 1c62d5d258a0b5cafa822ac0e194e950c6111d6b
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Wed Nov 13 11:43:19 2024 -0700
+
+    Refactoring of GameCardPanel.
+
+commit e0845758d820de8ae502725e203998446180457d
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Nov 13 10:49:29 2024 -0700
+
+    The board now is created thought without all the panels
+
+commit 7239f6403bd470ee64abc95ca58f0350a6bf26ca
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Tue Nov 12 17:25:06 2024 -0700
+
+    cleaned up some of the code so it doesn't repeat
+
+commit b2c3b649dcb911ebf1bff210b839a0b08763971f
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Tue Nov 12 16:37:41 2024 -0700
+
+    GameCardPanel Now works as intended
+
+commit 9bc19d8427fa4ec9594b40442bbb47763eba3838
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Mon Nov 11 21:28:39 2024 -0700
+
+    Added Game Card Panel that only displays none currently
+
+commit d9cf73863576eb2e983043e1a0d5aabb38b2af5f
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Mon Nov 11 12:51:47 2024 -0700
+
+    Updated gitlog.
+
 commit 6978dcc1a5251fa314a7869b2a06b0863b13c56e
 Author: Carter Gorling <rcgorling@mines.edu>
 Date:   Mon Nov 11 12:51:13 2024 -0700
