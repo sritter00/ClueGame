@@ -44,17 +44,19 @@ public abstract class Player {
     public String getColor() {
         return color;
     }
-    // Getter for the row
+    // Getter for the row.
     public int getRow() {
     	return row;
     }
-    // Getter for the column
+    // Getter for the column.
     public int getColumn() {
     	return column;
     }
+    // Setter for the row.
     public void setRow(int row) {
     	this.row = row;
     }
+    // Setter for the column.
     public void setColumn(int col) {
     	this.column = col;
     }

@@ -25,6 +25,7 @@ public class BoardCell {
 	private Color color;
 	private boolean highlighted;
 	private Set<BoardCell> adjList = new HashSet<BoardCell>();
+	
 	// Setter for occupied.
 	public void setOccupied(boolean occupied) {
 		this.occupied = occupied;

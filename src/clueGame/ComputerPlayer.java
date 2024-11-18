@@ -19,6 +19,7 @@ public class ComputerPlayer extends Player {
 	private Set<Card> seenCards = new HashSet<>();
 	private Room currentRoom = null;
 	private Set<BoardCell> seenCells= new HashSet<>();
+	
 	// Constructor
 	public ComputerPlayer(String name, String color, int row, int column) {
 		super(name, color, row, column);
@@ -26,6 +27,7 @@ public class ComputerPlayer extends Player {
 		seenCells= new HashSet<>();
 		currentRoom = null;
 	}
+	// Updates hand of cards for computer player.
 	public void updateHand(Card card) {
 		hand.add(card);
 		seenCards.add(card);
@@ -38,24 +40,23 @@ public class ComputerPlayer extends Player {
 	public void updateSeen(Card seenCard) {
 		seenCards.add(seenCard);
 	}
-	//updates the seen cells 
+	// Updates the seen cells 
 	public void updateSeenRoom(BoardCell newSeenCell) {
 		seenCells.add(newSeenCell);
 	}
-	
-	// setter for current Room using specific room
+	// Setter for current Room using specific room
 	public void setCurrentRoom(Room currentRoom) {
 		this.currentRoom = currentRoom;
 	}
-	// setter for current Room using row column
+	// Setter for current Room using row column
 	public void setCurrentRoom(Board board) {
 		this.currentRoom = board.getRoom(super.getRow(), super.getColumn());
 	}
-	// getter for the current Room
+	// Getter for the current Room
 	public Room getCurrentRoom() {
 		return currentRoom;
 	}
-	//selects target for the computer player
+	// Selects target for the computer player
 	public BoardCell selectTarget(Board board, int pathLength) {
 		board.calcTargets(board.getCell(super.getRow(), super.getColumn()), pathLength  );
 		List<BoardCell> targets = new ArrayList<>(board.getTargets());
@@ -85,22 +86,22 @@ public class ComputerPlayer extends Player {
 			cardArrayList.remove(card);
 		}
 		int randInt = rand.nextInt(cardArrayList.size());
-	while(!(foundWeapon && foundPerson)) {
-			randInt = rand.nextInt(cardArrayList.size());
-			CurrentCard = cardArrayList.get(randInt);
-			if(CurrentCard.getType().equals(CardType.PERSON) && foundPerson == false) {
-				personCard = board.getCard(cardArrayList.get(randInt).getCardName());
-				foundPerson = true;
-			}else if(CurrentCard.getType().equals(CardType.WEAPON) && foundWeapon == false) {
-				weaponCard = board.getCard(cardArrayList.get(randInt).getCardName());
-				foundWeapon = true;
-			}
+		while(!(foundWeapon && foundPerson)) {
+				randInt = rand.nextInt(cardArrayList.size());
+				CurrentCard = cardArrayList.get(randInt);
+				if(CurrentCard.getType().equals(CardType.PERSON) && foundPerson == false) {
+					personCard = board.getCard(cardArrayList.get(randInt).getCardName());
+					foundPerson = true;
+				}else if(CurrentCard.getType().equals(CardType.WEAPON) && foundWeapon == false) {
+					weaponCard = board.getCard(cardArrayList.get(randInt).getCardName());
+					foundWeapon = true;
+				}
 		}
-	roomCard = board.getCard(getCurrentRoom().getName());
-	return new Solution(roomCard , personCard, weaponCard);
+		roomCard = board.getCard(getCurrentRoom().getName());
+		return new Solution(roomCard , personCard, weaponCard);
 	}
 	
-	// disproves a suggestion
+	// Disproves a suggestion.
 	public Card disproveSuggestion(Solution suggestion) {
 		List<Card> matchingCards = new ArrayList<>();
 		for (Card card : hand) {
@@ -117,5 +118,4 @@ public class ComputerPlayer extends Player {
 			return matchingCards.get(random.nextInt(matchingCards.size()));
 		}
 	}
-
 }

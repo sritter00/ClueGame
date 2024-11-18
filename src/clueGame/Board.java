@@ -39,9 +39,11 @@ public class Board extends JPanel {
 	private int cellHeight;
 	private boolean humanTurnDone = true;
 	
+	// Returns boolean for if the human turn is done.
 	public boolean humanTurnDone() {
 		return humanTurnDone;
 	}
+	// Handles the move for the human player whether they made a valid move or not.
 	private void handleBoardClick(int x, int y) {
 		BoardCell clickedCell = grid[y/cellHeight][x/cellWidth];
 		if (isValidTarget(clickedCell)) {
@@ -56,7 +58,7 @@ public class Board extends JPanel {
 			JOptionPane.showMessageDialog(this, "Invalid move!", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
+	// Check for the cell that the human clicked and whether it's in the target list of valid moves.
 	private boolean isValidTarget(BoardCell clickedCell) {
 		for(BoardCell cell : targets) {
 			if(cell.equals(clickedCell)) {
@@ -108,7 +110,7 @@ public class Board extends JPanel {
 		visited.remove(startCell); // removes startcell from visited when going back from the recursive function
 	}
 
-	//Getter for the target list
+	// Getter for the target list
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
@@ -118,7 +120,7 @@ public class Board extends JPanel {
 		Room newRoom = roomMap.get(cellInitial);
 		return newRoom;
 	}
-	//getter for the room using row column
+	// Getter for the room using row column
 	public Room getRoom(int row, int column) {
 		BoardCell cell = grid[row][column];
 		char cellInitial = cell.getInitial();
@@ -500,15 +502,15 @@ public class Board extends JPanel {
 			}
 		}
 	}
-	//Getter for the card list
+	// Getter for the card list
 	public Set<Card> getCardList(){
 		return cardList;
 	}
-	//Setter for the card List
+	// Setter for the card List
 	public void setCardList(Set<Card> cardList) {
 		this.cardList = cardList;
 	}
-	//Handles a suggestion made
+	// Handles a suggestion made
 	public Card handdleSuggestion(Card personCard, Card roomCard, Card weaponCard, Player suggester) {
 		List<Player> playerArrayList = new ArrayList<>(playerList);
 		int playerIndex = playerArrayList.indexOf(suggester);
@@ -557,6 +559,7 @@ public class Board extends JPanel {
 			player.draw(g, cellWidth, cellHeight);
 		}
 	}
+	// Random roll for the moves of players.
 	public void roll() {
 		Random rand = new Random();
 		currentRoll = rand.nextInt(7);
@@ -564,9 +567,11 @@ public class Board extends JPanel {
 			currentRoll = rand.nextInt(7);
 		}
 	}
+	// Getter for the random roll.
 	public int getRoll() {
 		return currentRoll;
 	}
+	// Getter for the current player.
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
@@ -581,6 +586,7 @@ public class Board extends JPanel {
 			}
 		}
 	}
+	// Method for advancing which player is playing.
 	public void nextPlayer() {
 		List<Player> playerArrayList = new ArrayList<>(playerList);
 		currentPlayer = playerArrayList.get(currentPlayerIndex);
@@ -600,7 +606,7 @@ public class Board extends JPanel {
 		// Advance to next player
 		currentPlayerIndex = (currentPlayerIndex + 1) % playerArrayList.size();
 	}
-
+	// Method for moving the computer player.
 	private void makeComputerMove(ComputerPlayer player) {
 		// Computer selects target and moves
 		targets = new HashSet<>();
@@ -610,12 +616,11 @@ public class Board extends JPanel {
 		player.setRow(target.getRow());
 		repaint();
 	}
-
+	// Highlights the cells for the valid targets which the player can move to.
 	private void highlightTargets(Set<BoardCell> targets) {
 		for (BoardCell target : targets) {
 			target.setHighlighted(true);
 		}
 		repaint(); // Trigger a redraw to show highlights
 	}
-
 }

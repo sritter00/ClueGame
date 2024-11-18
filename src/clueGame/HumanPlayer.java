@@ -14,14 +14,17 @@ import java.util.Random;
 
 public class HumanPlayer extends Player {
 	private List<Card> hand = new ArrayList<Card>();
+	
 	// Constructor
 	public HumanPlayer(String name, String color, int row, int column) {
 		super(name, color, row, column);
 		hand = new ArrayList<Card>();
 	}
+	// Updates hand of cards for the human player.
 	public void updateHand(Card card) {
 		hand.add(card);
 	}
+	// Disproves a suggestion made.
 	public Card disproveSuggestion(Solution suggestion) {
 		List<Card> matchingCards = new ArrayList<>();
         for (Card card : hand) {
