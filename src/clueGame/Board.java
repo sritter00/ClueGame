@@ -38,24 +38,28 @@ public class Board extends JPanel {
 	private int cellWidth;
 	private int cellHeight;
 	private boolean humanTurnDone = true;
-	
+
 	// Returns boolean for if the human turn is done.
 	public boolean humanTurnDone() {
 		return humanTurnDone;
 	}
 	// Handles the move for the human player whether they made a valid move or not.
 	private void handleBoardClick(int x, int y) {
-		BoardCell clickedCell = grid[y/cellHeight][x/cellWidth];
-		if (isValidTarget(clickedCell)) {
-			getCurrentPlayer().setColumn(clickedCell.getColumn());
-			getCurrentPlayer().setRow(clickedCell.getRow());
-			for (BoardCell target : targets) {
-				target.setHighlighted(false);
-			}
-			humanTurnDone = true;
-			repaint();
-		} else {
+		if(y/cellHeight >= numRows || x/cellWidth >= numColumns) {
 			JOptionPane.showMessageDialog(this, "Invalid move!", "Error", JOptionPane.ERROR_MESSAGE);
+		}else {
+			BoardCell clickedCell = grid[y/cellHeight][x/cellWidth];
+			if (isValidTarget(clickedCell)) {
+				getCurrentPlayer().setColumn(clickedCell.getColumn());
+				getCurrentPlayer().setRow(clickedCell.getRow());
+				for (BoardCell target : targets) {
+					target.setHighlighted(false);
+				}
+				humanTurnDone = true;
+				repaint();
+			} else {
+				JOptionPane.showMessageDialog(this, "Invalid move!", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 	// Check for the cell that the human clicked and whether it's in the target list of valid moves.
