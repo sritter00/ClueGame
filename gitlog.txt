@@ -1,3 +1,40 @@
+commit 2c454035d9d33c43d016814186cb04d9aaaad473
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Mon Nov 18 12:18:19 2024 -0700
+
+    Refactoring by improving flow and documentation.
+
+commit 24a6315a02a41bb49a43697dc60fb375505e9281
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Sun Nov 17 17:16:53 2024 -0700
+
+    Created movement for the players and the next button works :)
+
+commit aa2c1522939d3b99d83e8e35bda14163b4a167ef
+Merge: 3956db6 bb95fd1
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Sat Nov 16 14:34:09 2024 -0700
+
+    Merge branch 'main' of https://github.com/sritter00/ClueGame
+
+commit 3956db6e19b1f3278cf7854f5aa48d20af5766d9
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Fri Nov 15 12:51:14 2024 -0700
+
+    added color to the game card panel for in hand color
+
+commit dc37fd28ff235be27bb7f809f54c3f03ddde40a4
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Nov 13 13:34:42 2024 -0700
+
+    fixed an error in one of the tests
+
+commit bb95fd14890928831d006db0a83435ba1c1f2029
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Wed Nov 13 12:48:04 2024 -0700
+
+    Updated gitlog.
+
 commit 8d104eeb532d7bb88eadfcbefd6317cf910ddc9e
 Author: Carter Gorling <rcgorling@mines.edu>
 Date:   Wed Nov 13 12:47:34 2024 -0700
