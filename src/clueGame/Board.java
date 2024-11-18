@@ -2,7 +2,8 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 /**
  * TestBoard: Initializes the grid, calculating movement targets based on a start cell and path length.
  * 
@@ -27,12 +28,44 @@ public class Board extends JPanel {
 	private String setConfigFiles = null;
 	private Map<Character, Room> roomMap = new HashMap<>();
 	private Set<Card> cardList = new HashSet<>();
-	private Set<Player> playerList = new HashSet<>();
+	private List<Player> playerList = new ArrayList<>();
 	private int numPlayers = 0;
 	private static Board theInstance = new Board();
 	private Solution gameSolution = null;
-	private int dx;
-	private int dy;
+	private int currentPlayerIndex;
+	private int currentRoll;
+	private Player currentPlayer;
+	private int cellWidth;
+	private int cellHeight;
+	private boolean humanTurnDone = true;
+	
+	public boolean humanTurnDone() {
+		return humanTurnDone;
+	}
+	private void handleBoardClick(int x, int y) {
+		BoardCell clickedCell = grid[y/cellHeight][x/cellWidth];
+		if (isValidTarget(clickedCell)) {
+			getCurrentPlayer().setColumn(clickedCell.getColumn());
+			getCurrentPlayer().setRow(clickedCell.getRow());
+			for (BoardCell target : targets) {
+				target.setHighlighted(false);
+			}
+			humanTurnDone = true;
+			repaint();
+		} else {
+			JOptionPane.showMessageDialog(this, "Invalid move!", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	private boolean isValidTarget(BoardCell clickedCell) {
+		for(BoardCell cell : targets) {
+			if(cell.equals(clickedCell)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	// Getter for the adjList
 	public Set<BoardCell> getAdjList(int row, int col){
 		return grid[row][col].getAdjList();
@@ -111,7 +144,7 @@ public class Board extends JPanel {
 		roomMap = new HashMap<>();
 		numPlayers = 0;
 		cardList = new HashSet<>();
-		playerList = new HashSet<>();
+		playerList = new ArrayList<>();
 
 		try {
 			File file = new File(setConfigFiles);
@@ -265,6 +298,12 @@ public class Board extends JPanel {
 	// Constructor is private to ensure only one can be created.
 	private Board() {
 		super();
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				handleBoardClick(e.getX(), e.getY());
+			}
+		});
 	}
 	// This method returns the only Board
 	public static Board getInstance() {
@@ -401,11 +440,11 @@ public class Board extends JPanel {
 		gameSolution = new Solution(RoomCard, PlayerCard, WeaponCard);
 	}
 	// Setter for player List
-	public void setPlayerList(Set<Player> playerList) {
+	public void setPlayerList(List<Player> playerList) {
 		this.playerList = playerList;
 	}
 	// Getter for the playerList
-	public Set<Player> getPlayerList() {
+	public List<Player> getPlayerList() {
 		return playerList;
 	}
 	// Checks if an accusation is correct
@@ -499,8 +538,8 @@ public class Board extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		int cellWidth = getWidth() / numColumns;
-		int cellHeight = getHeight() / numRows;
+		cellWidth = getWidth() / numColumns;
+		cellHeight = getHeight() / numRows;
 
 		// Draw cells
 		for (int row = 0; row < numRows; row++) { 
@@ -511,12 +550,25 @@ public class Board extends JPanel {
 
 		// Draw room names
 		drawRoomNames(g, cellWidth, cellHeight);
-		
+
 
 		// Draw players
 		for (Player player : playerList) {
 			player.draw(g, cellWidth, cellHeight);
 		}
+	}
+	public void roll() {
+		Random rand = new Random();
+		currentRoll = rand.nextInt(7);
+		while(currentRoll == 0) {
+			currentRoll = rand.nextInt(7);
+		}
+	}
+	public int getRoll() {
+		return currentRoll;
+	}
+	public Player getCurrentPlayer() {
+		return currentPlayer;
 	}
 	// Draw method for the names of the rooms.
 	private void drawRoomNames(Graphics g, int cellWidth, int cellHeight) {
@@ -525,10 +577,45 @@ public class Board extends JPanel {
 				if(grid[row][col].isLabel()) {	
 					grid[row][col].drawLabel(g, cellWidth, cellHeight, getRoom(grid[row][col].getInitial()).getName());
 				}
-				
+
 			}
 		}
 	}
+	public void nextPlayer() {
+		List<Player> playerArrayList = new ArrayList<>(playerList);
+		currentPlayer = playerArrayList.get(currentPlayerIndex);
+		if (currentPlayer.getClass() == new HumanPlayer(null, null, 0 , 0).getClass()) {
+			humanTurnDone = false;
+			targets = new HashSet<>();
+			roll();
+			calcTargets(grid[currentPlayer.getRow()][currentPlayer.getColumn()], currentRoll);
+			// Highlight possible moves
+			highlightTargets(targets);
+		} else {
+			ComputerPlayer computerPlayer = (ComputerPlayer) playerArrayList.get(currentPlayerIndex);
+			// Handle computer player turn
+			makeComputerMove(computerPlayer);
+		}
 
+		// Advance to next player
+		currentPlayerIndex = (currentPlayerIndex + 1) % playerArrayList.size();
+	}
+
+	private void makeComputerMove(ComputerPlayer player) {
+		// Computer selects target and moves
+		targets = new HashSet<>();
+		roll();
+		BoardCell target = player.selectTarget(this, currentRoll);
+		player.setColumn(target.getColumn());
+		player.setRow(target.getRow());
+		repaint();
+	}
+
+	private void highlightTargets(Set<BoardCell> targets) {
+		for (BoardCell target : targets) {
+			target.setHighlighted(true);
+		}
+		repaint(); // Trigger a redraw to show highlights
+	}
 
 }

@@ -83,10 +83,10 @@ public class GameSolutionTest {
 		player2.updateHand(personCard);
 		player2.updateHand(personCard1);
 		player2.updateHand(roomCard1);
-		Set<Player> playerList = new HashSet<>();
+		List<Player> playerList = new ArrayList<>();
 		playerList.add(player0);
-		playerList.add(player2);
 		playerList.add(player1);
+		playerList.add(player2);
 		playerList.add(player3);
 		board.setPlayerList(playerList);
 		

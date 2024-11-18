@@ -8,6 +8,8 @@ package clueGame;
  */
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.Field;
 
 import javax.swing.*;
@@ -46,6 +48,16 @@ public class GameControlPanel extends JPanel {
 
 		// Buttons Panel
 		nextPlayerButton = new JButton("Next");
+        // Add action listener to the button
+        nextPlayerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	if(Board.getInstance().humanTurnDone()) {
+            		Board.getInstance().nextPlayer(); // Delegate logic to Board
+                    setTurn(Board.getInstance().getCurrentPlayer(), Board.getInstance().getRoll());
+            	}
+            }
+        });
 		accusationButton = new JButton("Make Accusation");
 
 		// Add components to Top Panel
@@ -78,6 +90,7 @@ public class GameControlPanel extends JPanel {
 		add(topPanel);
 		add(bottomPanel);
 	}
+    
 	
 	// Setter for the Players turn.
 	public void setTurn(Player player, int roll) {
@@ -92,7 +105,7 @@ public class GameControlPanel extends JPanel {
 		}
 		rollDisplay.setText(String.valueOf(roll));
 	}
-
+	
 	// Setter for the guess display.
 	public void setGuess(String guess) {
 		guessDisplay.setText(guess);

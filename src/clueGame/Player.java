@@ -52,6 +52,12 @@ public abstract class Player {
     public int getColumn() {
     	return column;
     }
+    public void setRow(int row) {
+    	this.row = row;
+    }
+    public void setColumn(int col) {
+    	this.column = col;
+    }
     // Equals method returning a boolean if the color matches the player name or not.
     public boolean equals(Player player) {
     	if(this.name.equals(player.getName())  && this.color.equals(player.getColor()) ) {
