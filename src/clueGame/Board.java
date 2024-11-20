@@ -19,25 +19,26 @@ import java.util.Random;
 import javax.swing.*;
 
 public class Board extends JPanel {
-	private BoardCell[][] grid;
-	private Set<BoardCell> targets = new HashSet<>();
-	private Set<BoardCell> visited = new HashSet<>();
 	private int numColumns = 0;
 	private int numRows = 0;
-	private String layoutConfigFiles = null;
-	private String setConfigFiles = null;
-	private Map<Character, Room> roomMap = new HashMap<>();
-	private Set<Card> cardList = new HashSet<>();
-	private List<Player> playerList = new ArrayList<>();
 	private int numPlayers = 0;
-	private static Board theInstance = new Board();
-	private Solution gameSolution = null;
 	private int currentPlayerIndex;
 	private int currentRoll;
-	private Player currentPlayer;
 	private int cellWidth;
 	private int cellHeight;
+	private String layoutConfigFiles = null;
+	private String setConfigFiles = null;
 	private boolean humanTurnDone = true;
+	private Set<BoardCell> targets = new HashSet<>();
+	private Set<BoardCell> visited = new HashSet<>();
+	private Set<Card> cardList = new HashSet<>();
+	private Map<Character, Room> roomMap = new HashMap<>();
+	private List<Player> playerList = new ArrayList<>();
+	private static Board theInstance = new Board();
+	private BoardCell[][] grid;
+	private Player currentPlayer;
+	private Solution gameSolution = null;
+
 	// Constructor is private to ensure only one can be created.
 	private Board() {
 		super();
@@ -77,10 +78,6 @@ public class Board extends JPanel {
 	public void setConfigFiles (String csvFile, String txtFile) {
 		setConfigFiles = txtFile;
 		layoutConfigFiles = csvFile;
-	}
-	// Returns boolean for if the human turn is done.
-	public boolean humanTurnDone() {
-		return humanTurnDone;
 	}
 	// This method returns the only Board
 	public static Board getInstance() {
@@ -141,6 +138,10 @@ public class Board extends JPanel {
 	// Getter for the target list
 	public Set<BoardCell> getTargets() {
 		return targets;
+	}
+	// Returns boolean for if the human turn is done.
+	public boolean humanTurnDone() {
+		return humanTurnDone;
 	}
 	// Handles the move for the human player whether they made a valid move or not.
 	private void handleBoardClick(int x, int y) {
