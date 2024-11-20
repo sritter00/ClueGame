@@ -38,10 +38,105 @@ public class Board extends JPanel {
 	private int cellWidth;
 	private int cellHeight;
 	private boolean humanTurnDone = true;
-
+	// Constructor is private to ensure only one can be created.
+	private Board() {
+		super();
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				handleBoardClick(e.getX(), e.getY());
+			}
+		});
+	}
+	// Getter for the adjList
+	public Set<BoardCell> getAdjList(int row, int col){
+		return grid[row][col].getAdjList();
+	}
+	// Getter for the room.
+	public Room getRoom(BoardCell cell) {
+		char cellInitial = cell.getInitial();
+		Room newRoom = roomMap.get(cellInitial);
+		return newRoom;
+	}
+	// Getter for the room using row column
+	public Room getRoom(int row, int column) {
+		BoardCell cell = grid[row][column];
+		char cellInitial = cell.getInitial();
+		Room newRoom = roomMap.get(cellInitial);
+		return newRoom;
+	}
+	// Getter for number of rows.
+	public int getNumRows() {
+		return numRows;
+	}
+	// Getter for number of columns.
+	public int getNumColumns() {
+		return numColumns;
+	}
+	// Setter for configuration files.
+	public void setConfigFiles (String csvFile, String txtFile) {
+		setConfigFiles = txtFile;
+		layoutConfigFiles = csvFile;
+	}
 	// Returns boolean for if the human turn is done.
 	public boolean humanTurnDone() {
 		return humanTurnDone;
+	}
+	// This method returns the only Board
+	public static Board getInstance() {
+		return theInstance;
+	}
+	// Getter for the cell.
+	public BoardCell getCell(int row, int column) {
+		return grid[row][column]; 
+	}
+	// Getter for the room.
+	public Room getRoom(char ch) {
+		Room newRoom = roomMap.get(ch);
+		return newRoom;
+	}
+	// Getter for the card list
+	public Card getCard(String cardName){
+		for(Card card : cardList) {
+			if(cardName.equals(card.getCardName())) {
+				Card newCard = card;
+				return newCard; //Card Found return that card
+			}
+		}
+		return new Card(null , null); //Card Not found return a null card
+	}
+
+	// Getter for the solution to the game
+	public Solution getSolution() {
+		return gameSolution;
+	}
+	// Setter for the solution to the game should only be used for tests
+	public void setSolution(Solution gameSolution) {
+		this.gameSolution = gameSolution;
+	}
+	// Setter for player List
+	public void setPlayerList(List<Player> playerList) {
+		this.playerList = playerList;
+	}
+	// Getter for the playerList
+	public List<Player> getPlayerList() {
+		return playerList;
+	}
+	// Getter for the card list
+	public Set<Card> getCardList(){
+		return cardList;
+	}
+	// Setter for the card List
+	public void setCardList(Set<Card> cardList) {
+		this.cardList = cardList;
+	}
+	// Getter for the random roll.
+	public int getRoll() {
+		return currentRoll;
+	}
+	// Getter for the current player.
+	public Player getCurrentPlayer() {
+		return currentPlayer;
 	}
 	// Handles the move for the human player whether they made a valid move or not.
 	private void handleBoardClick(int x, int y) {
@@ -72,10 +167,6 @@ public class Board extends JPanel {
 		return false;
 	}
 
-	// Getter for the adjList
-	public Set<BoardCell> getAdjList(int row, int col){
-		return grid[row][col].getAdjList();
-	}
 	// Calculates legal targets for a move from startCell of length path length.
 	public void calcTargets(BoardCell startCell, int pathLength) {
 		visited = new HashSet<>();
@@ -117,32 +208,6 @@ public class Board extends JPanel {
 	// Getter for the target list
 	public Set<BoardCell> getTargets() {
 		return targets;
-	}
-	// Getter for the room.
-	public Room getRoom(BoardCell cell) {
-		char cellInitial = cell.getInitial();
-		Room newRoom = roomMap.get(cellInitial);
-		return newRoom;
-	}
-	// Getter for the room using row column
-	public Room getRoom(int row, int column) {
-		BoardCell cell = grid[row][column];
-		char cellInitial = cell.getInitial();
-		Room newRoom = roomMap.get(cellInitial);
-		return newRoom;
-	}
-	// Getter for number of rows.
-	public int getNumRows() {
-		return numRows;
-	}
-	// Getter for number of columns.
-	public int getNumColumns() {
-		return numColumns;
-	}
-	// Setter for configuration files.
-	public void setConfigFiles (String csvFile, String txtFile) {
-		setConfigFiles = txtFile;
-		layoutConfigFiles = csvFile;
 	}
 	// Load setup configuration.
 	public void loadSetupConfig () throws BadConfigFormatException {
@@ -301,20 +366,6 @@ public class Board extends JPanel {
 
 
 	}
-	// Constructor is private to ensure only one can be created.
-	private Board() {
-		super();
-		addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				handleBoardClick(e.getX(), e.getY());
-			}
-		});
-	}
-	// This method returns the only Board
-	public static Board getInstance() {
-		return theInstance;
-	}
 	/*
 	 * Initialize the board (since we are using singleton pattern).
 	 */
@@ -386,34 +437,6 @@ public class Board extends JPanel {
 			}
 		}
 	}
-	// Getter for the cell.
-	public BoardCell getCell(int row, int column) {
-		return grid[row][column]; 
-	}
-	// Getter for the room.
-	public Room getRoom(char ch) {
-		Room newRoom = roomMap.get(ch);
-		return newRoom;
-	}
-	// Getter for the card list
-	public Card getCard(String cardName){
-		for(Card card : cardList) {
-			if(cardName.equals(card.getCardName())) {
-				Card newCard = card;
-				return newCard; //Card Found return that card
-			}
-		}
-		return new Card(null , null); //Card Not found return a null card
-	}
-
-	// Getter for the solution to the game
-	public Solution getSolution() {
-		return gameSolution;
-	}
-	// Setter for the solution to the game should only be used for tests
-	public void setSolution(Solution gameSolution) {
-		this.gameSolution = gameSolution;
-	}
 	// Generates a solution based off of the cards we have
 	public void generateSolution() {
 		// Generating a random solution
@@ -444,14 +467,6 @@ public class Board extends JPanel {
 		}
 
 		gameSolution = new Solution(RoomCard, PlayerCard, WeaponCard);
-	}
-	// Setter for player List
-	public void setPlayerList(List<Player> playerList) {
-		this.playerList = playerList;
-	}
-	// Getter for the playerList
-	public List<Player> getPlayerList() {
-		return playerList;
 	}
 	// Checks if an accusation is correct
 	public boolean checkAccusation(Card personCard, Card roomCard, Card weaponCard) {
@@ -505,14 +520,6 @@ public class Board extends JPanel {
 				}		
 			}
 		}
-	}
-	// Getter for the card list
-	public Set<Card> getCardList(){
-		return cardList;
-	}
-	// Setter for the card List
-	public void setCardList(Set<Card> cardList) {
-		this.cardList = cardList;
 	}
 	// Handles a suggestion made
 	public Card handdleSuggestion(Card personCard, Card roomCard, Card weaponCard, Player suggester) {
@@ -570,14 +577,6 @@ public class Board extends JPanel {
 		while(currentRoll == 0) {
 			currentRoll = rand.nextInt(7);
 		}
-	}
-	// Getter for the random roll.
-	public int getRoll() {
-		return currentRoll;
-	}
-	// Getter for the current player.
-	public Player getCurrentPlayer() {
-		return currentPlayer;
 	}
 	// Draw method for the names of the rooms.
 	private void drawRoomNames(Graphics g, int cellWidth, int cellHeight) {
