@@ -27,11 +27,6 @@ public class ComputerPlayer extends Player {
 		seenCells= new HashSet<>();
 		currentRoom = null;
 	}
-	// Updates hand of cards for computer player.
-	public void updateHand(Card card) {
-		hand.add(card);
-		seenCards.add(card);
-	}
 	// Getter for the hand list.
 	public List<Card> getHand() {
 		return hand;
@@ -55,6 +50,11 @@ public class ComputerPlayer extends Player {
 	// Getter for the current Room
 	public Room getCurrentRoom() {
 		return currentRoom;
+	}
+	// Updates hand of cards for computer player.
+	public void updateHand(Card card) {
+		hand.add(card);
+		seenCards.add(card);
 	}
 	// Selects target for the computer player
 	public BoardCell selectTarget(Board board, int pathLength) {
