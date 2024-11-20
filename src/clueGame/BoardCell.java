@@ -42,74 +42,6 @@ public class BoardCell {
     public void setHighlighted(boolean highlighted) {
         this.highlighted = highlighted;
     }
-	// Draw method for drawing of the cells.
-	public void draw(Graphics g, int cellWidth, int cellHeight) {
-		int x = column * cellWidth;
-		int y = row * cellHeight;
-		if(highlighted) {
-			g.setColor(Color.CYAN); // Highlight color
-			g.fillRect(x, y, cellWidth, cellHeight);
-			g.setColor(Color.BLACK); // Draw border for clarity
-			g.drawRect(x, y, cellWidth, cellHeight);
-		}else {
-			g.setColor(color);
-			g.fillRect(x, y, cellWidth, cellHeight);
-			if(initial.equals('W')) {
-				g.setColor(Color.BLACK);
-				g.drawRect(x, y, cellWidth, cellHeight);
-			}
-			if(this.isDoorway()) {
-				if(getDoorDirection() == DoorDirection.DOWN) {
-					g.setColor(Color.BLUE);
-					g.drawRect(x, y + cellHeight-cellHeight/7, cellWidth, cellHeight/10);
-					g.fillRect(x, y + cellHeight-cellHeight/7, cellWidth, cellHeight/10);
-				}
-				if(getDoorDirection() == DoorDirection.UP) {
-					g.setColor(Color.BLUE);
-					g.drawRect(x, y, cellWidth, cellHeight/10);
-					g.fillRect(x, y, cellWidth, cellHeight/10);
-				}
-				if(getDoorDirection() == DoorDirection.RIGHT) {
-					g.setColor(Color.BLUE);
-					g.drawRect(x+cellWidth-cellWidth/10, y, cellWidth/10, cellHeight);
-					g.fillRect(x+cellWidth-cellWidth/10, y, cellWidth/10, cellHeight);
-				}
-				if(getDoorDirection() == DoorDirection.LEFT) {
-					g.setColor(Color.BLUE);
-					g.drawRect(x, y, cellWidth/10, cellHeight);
-					g.fillRect(x, y, cellWidth/10, cellHeight);
-
-				}
-			}
-		}
-
-
-	}
-	// Draw method for the room labels.
-	public void drawLabel(Graphics g, int cellWidth, int cellHeight, String roomName) {
-		int x = column * cellWidth + cellWidth / 4;
-		int y = row * cellHeight + cellHeight / 2;
-		g.setColor(Color.white);
-		g.drawString(roomName, x, y);
-	}
-	// Boolean for whether location is a doorway or not.
-	public boolean isDoorway() {
-		return doorway;
-	}
-	// Constructor
-	public BoardCell(int row, int column, Character initial){
-		this.row = row  ;
-		this.column = column;
-		this.initial = initial;
-		if(initial.equals('W'))	{
-			color = Color.YELLOW;
-		}else if(initial.equals('X')) {
-			color = Color.BLACK;
-		}else {
-			color = Color.GRAY;
-		}
-		adjList = new HashSet<BoardCell>();
-	}
 	// Setter to add a cell to the cell adjacency list
 	public void addAdjacency(BoardCell cell) {
 		adjList.add(cell);
@@ -163,4 +95,73 @@ public class BoardCell {
 	public int getColumn(){
 		return column;
 	}
+	// Boolean for whether location is a doorway or not.
+		public boolean isDoorway() {
+			return doorway;
+		}
+	// Draw method for drawing of the cells.
+	public void draw(Graphics g, int cellWidth, int cellHeight) {
+		int x = column * cellWidth;
+		int y = row * cellHeight;
+		if(highlighted) {
+			g.setColor(Color.CYAN); // Highlight color
+			g.fillRect(x, y, cellWidth, cellHeight);
+			g.setColor(Color.BLACK); // Draw border for clarity
+			g.drawRect(x, y, cellWidth, cellHeight);
+		}else {
+			g.setColor(color);
+			g.fillRect(x, y, cellWidth, cellHeight);
+			if(initial.equals('W')) {
+				g.setColor(Color.BLACK);
+				g.drawRect(x, y, cellWidth, cellHeight);
+			}
+			if(this.isDoorway()) {
+				if(getDoorDirection() == DoorDirection.DOWN) {
+					g.setColor(Color.BLUE);
+					g.drawRect(x, y + cellHeight-cellHeight/7, cellWidth, cellHeight/10);
+					g.fillRect(x, y + cellHeight-cellHeight/7, cellWidth, cellHeight/10);
+				}
+				if(getDoorDirection() == DoorDirection.UP) {
+					g.setColor(Color.BLUE);
+					g.drawRect(x, y, cellWidth, cellHeight/10);
+					g.fillRect(x, y, cellWidth, cellHeight/10);
+				}
+				if(getDoorDirection() == DoorDirection.RIGHT) {
+					g.setColor(Color.BLUE);
+					g.drawRect(x+cellWidth-cellWidth/10, y, cellWidth/10, cellHeight);
+					g.fillRect(x+cellWidth-cellWidth/10, y, cellWidth/10, cellHeight);
+				}
+				if(getDoorDirection() == DoorDirection.LEFT) {
+					g.setColor(Color.BLUE);
+					g.drawRect(x, y, cellWidth/10, cellHeight);
+					g.fillRect(x, y, cellWidth/10, cellHeight);
+
+				}
+			}
+		}
+
+
+	}
+	// Draw method for the room labels.
+	public void drawLabel(Graphics g, int cellWidth, int cellHeight, String roomName) {
+		int x = column * cellWidth + cellWidth / 4;
+		int y = row * cellHeight + cellHeight / 2;
+		g.setColor(Color.white);
+		g.drawString(roomName, x, y);
+	}
+	// Constructor
+	public BoardCell(int row, int column, Character initial){
+		this.row = row  ;
+		this.column = column;
+		this.initial = initial;
+		if(initial.equals('W'))	{
+			color = Color.YELLOW;
+		}else if(initial.equals('X')) {
+			color = Color.BLACK;
+		}else {
+			color = Color.GRAY;
+		}
+		adjList = new HashSet<BoardCell>();
+	}
+
 }
