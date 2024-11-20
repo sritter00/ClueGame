@@ -138,6 +138,10 @@ public class Board extends JPanel {
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
+	// Getter for the target list
+	public Set<BoardCell> getTargets() {
+		return targets;
+	}
 	// Handles the move for the human player whether they made a valid move or not.
 	private void handleBoardClick(int x, int y) {
 		if(y/cellHeight >= numRows || x/cellWidth >= numColumns) {
@@ -147,10 +151,10 @@ public class Board extends JPanel {
 			if (isValidTarget(clickedCell)) {
 				getCurrentPlayer().setColumn(clickedCell.getColumn());
 				getCurrentPlayer().setRow(clickedCell.getRow());
-				for (BoardCell target : targets) {
+				for (BoardCell target : targets) { // dehighlights targets once user is done moving
 					target.setHighlighted(false);
 				}
-				humanTurnDone = true;
+				humanTurnDone = true; //the human turn is done so set the value to true
 				repaint();
 			} else {
 				JOptionPane.showMessageDialog(this, "Invalid move!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -203,11 +207,6 @@ public class Board extends JPanel {
 			}
 		}
 		visited.remove(startCell); // removes startcell from visited when going back from the recursive function
-	}
-
-	// Getter for the target list
-	public Set<BoardCell> getTargets() {
-		return targets;
 	}
 	// Load setup configuration.
 	public void loadSetupConfig () throws BadConfigFormatException {
@@ -553,18 +552,14 @@ public class Board extends JPanel {
 		super.paintComponent(g);
 		cellWidth = getWidth() / numColumns;
 		cellHeight = getHeight() / numRows;
-
 		// Draw cells
 		for (int row = 0; row < numRows; row++) { 
 			for (int col = 0; col < numColumns; col++) {
 				grid[row][col].draw(g, cellWidth, cellHeight);
 			}
 		}
-
 		// Draw room names
 		drawRoomNames(g, cellWidth, cellHeight);
-
-
 		// Draw players
 		for (Player player : playerList) {
 			player.draw(g, cellWidth, cellHeight);
@@ -605,7 +600,6 @@ public class Board extends JPanel {
 			// Handle computer player turn
 			makeComputerMove(computerPlayer);
 		}
-
 		// Advance to next player
 		currentPlayerIndex = (currentPlayerIndex + 1) % playerArrayList.size();
 	}
@@ -621,7 +615,7 @@ public class Board extends JPanel {
 	}
 	// Highlights the cells for the valid targets which the player can move to.
 	private void highlightTargets(Set<BoardCell> targets) {
-		for (BoardCell target : targets) {
+		for (BoardCell target : targets) { // goes through targets and highlights them for player to select
 			target.setHighlighted(true);
 		}
 		repaint(); // Trigger a redraw to show highlights
