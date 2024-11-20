@@ -1,6 +1,8 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 
 /**
@@ -25,7 +27,7 @@ public class BoardCell {
 	private Color color;
 	private boolean highlighted;
 	private Set<BoardCell> adjList = new HashSet<BoardCell>();
-	
+
 	// Setter for occupied.
 	public void setOccupied(boolean occupied) {
 		this.occupied = occupied;
@@ -34,14 +36,14 @@ public class BoardCell {
 	public boolean getOccupied() {
 		return occupied;
 	}
-    // Getter for highlighted
-    public boolean isHighlighted() {
-        return highlighted;
-    }
-    // Setter for highlighted
-    public void setHighlighted(boolean highlighted) {
-        this.highlighted = highlighted;
-    }
+	// Getter for highlighted
+	public boolean isHighlighted() {
+		return highlighted;
+	}
+	// Setter for highlighted
+	public void setHighlighted(boolean highlighted) {
+		this.highlighted = highlighted;
+	}
 	// Setter to add a cell to the cell adjacency list
 	public void addAdjacency(BoardCell cell) {
 		adjList.add(cell);
@@ -80,7 +82,7 @@ public class BoardCell {
 		this.roomCenter = roomCenter;
 	}
 	// Getter for the secret passage.
-	public char getSecretPassage() {
+	public Character getSecretPassage() {
 		return secretPassage;
 	}
 	// Setter for the secret passage.
@@ -96,9 +98,9 @@ public class BoardCell {
 		return column;
 	}
 	// Boolean for whether location is a doorway or not.
-		public boolean isDoorway() {
-			return doorway;
-		}
+	public boolean isDoorway() {
+		return doorway;
+	}
 	// Draw method for drawing of the cells.
 	public void draw(Graphics g, int cellWidth, int cellHeight) {
 		int x = column * cellWidth;
@@ -111,10 +113,20 @@ public class BoardCell {
 		}else {
 			g.setColor(color);
 			g.fillRect(x, y, cellWidth, cellHeight);
+			if(Character.isLetter(getSecretPassage())) {
+				Font largerFont = new Font("Serif", Font.BOLD, 20); // Change "Serif" and 20 as needed
+				g.setFont(largerFont);
+				FontMetrics metrics = g.getFontMetrics(largerFont);
+				int charWidth = metrics.charWidth(Character.toChars((int)getSecretPassage())[0]);
+				int charHeight = metrics.getAscent(); // Vertical height of the character
+				g.setColor(Color.BLUE);
+				g.drawChars(Character.toChars((int)getSecretPassage()), 0, 1, x + (cellWidth - charWidth) / 2, y + (cellHeight + charHeight) / 2);	
+			}
 			if(initial.equals('W')) {
 				g.setColor(Color.BLACK);
 				g.drawRect(x, y, cellWidth, cellHeight);
 			}
+
 			if(this.isDoorway()) {
 				if(getDoorDirection() == DoorDirection.DOWN) {
 					g.setColor(Color.BLUE);
@@ -146,6 +158,8 @@ public class BoardCell {
 	public void drawLabel(Graphics g, int cellWidth, int cellHeight, String roomName) {
 		int x = column * cellWidth + cellWidth / 4;
 		int y = row * cellHeight + cellHeight / 2;
+		Font largerFont = new Font("Serif", Font.PLAIN, 15);
+		g.setFont(largerFont);
 		g.setColor(Color.white);
 		g.drawString(roomName, x, y);
 	}

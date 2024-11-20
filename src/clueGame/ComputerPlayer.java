@@ -18,7 +18,7 @@ public class ComputerPlayer extends Player {
 	private List<Card> hand = new ArrayList<Card>();
 	private Set<Card> seenCards = new HashSet<>();
 	private Room currentRoom = null;
-	private Set<BoardCell> seenCells= new HashSet<>();
+	private Set<BoardCell> seenCells = new HashSet<>();
 	
 	// Constructor
 	public ComputerPlayer(String name, String color, int row, int column) {
@@ -62,6 +62,7 @@ public class ComputerPlayer extends Player {
 		List<BoardCell> targets = new ArrayList<>(board.getTargets());
 		for(BoardCell cell : targets) {
 			if(cell.isRoomCenter() && !seenCells.contains(cell)) { // if not been seen and room then return the cell
+				seenCells.add(cell);
 				return cell;
 			}
 		}
@@ -70,6 +71,7 @@ public class ComputerPlayer extends Player {
 		while(seenCells.contains(targets.get(randInt))) {
 			randInt = rand.nextInt(targets.size());
 		}
+		seenCells.add(targets.get(randInt));
 		return targets.get(randInt); // if no rooms in list return random location
 	}
 	// Returns a suggestion based off of seen cards
