@@ -19,13 +19,19 @@ public class ComputerPlayer extends Player {
 	private Set<Card> seenCards = new HashSet<>();
 	private Room currentRoom = null;
 	private Set<BoardCell> seenCells = new HashSet<>();
-	
+	private Solution makeAccusation = null;
 	// Constructor
 	public ComputerPlayer(String name, String color, int row, int column) {
 		super(name, color, row, column);
 		hand = new ArrayList<Card>();
 		seenCells= new HashSet<>();
 		currentRoom = null;
+	}
+	public void setAccusation (Solution makeAccusation) {
+		this.makeAccusation = makeAccusation;
+	}
+	public Solution getAccusation() {
+		return makeAccusation;
 	}
 	// Getter for the hand list.
 	public List<Card> getHand() {
@@ -56,6 +62,9 @@ public class ComputerPlayer extends Player {
 		hand.add(card);
 		seenCards.add(card);
 	}
+	public Set<Card> getSeenCards(){
+		return seenCards;
+	}
 	// Selects target for the computer player
 	public BoardCell selectTarget(Board board, int pathLength) {
 		board.calcTargets(board.getCell(super.getRow(), super.getColumn()), pathLength  );
@@ -71,7 +80,6 @@ public class ComputerPlayer extends Player {
 		while(seenCells.contains(targets.get(randInt))) {
 			randInt = rand.nextInt(targets.size());
 		}
-		seenCells.add(targets.get(randInt));
 		return targets.get(randInt); // if no rooms in list return random location
 	}
 	// Returns a suggestion based off of seen cards

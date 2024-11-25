@@ -14,7 +14,7 @@ public class Solution {
 
 	// Constructor
 	public Solution(Card room, Card person, Card weapon) {
-		this.room = room;
+		this.room = room; 
 		this.person = person;
 		this.weapon = weapon;
 	}

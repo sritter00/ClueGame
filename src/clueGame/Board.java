@@ -38,7 +38,10 @@ public class Board extends JPanel {
 	private BoardCell[][] grid;
 	private Player currentPlayer;
 	private Solution gameSolution = null;
-
+	private Solution suggestion;
+	private Card disprovenCard;
+	private Player humanPlayer;
+	private Player disprovePlayer;
 	// Constructor is private to ensure only one can be created.
 	private Board() {
 		super();
@@ -143,6 +146,15 @@ public class Board extends JPanel {
 	public boolean humanTurnDone() {
 		return humanTurnDone;
 	}
+	public Card getDisprovenCard() {
+		return disprovenCard;
+	}
+	public Solution getSuggestion() {
+		return suggestion;
+	}
+	public Player getHumanPlayer() {
+		return humanPlayer;
+	}
 	// Handles the move for the human player whether they made a valid move or not.
 	private void handleBoardClick(int x, int y) {
 		if(y/cellHeight >= numRows || x/cellWidth >= numColumns) {
@@ -150,13 +162,38 @@ public class Board extends JPanel {
 		}else {
 			BoardCell clickedCell = grid[y/cellHeight][x/cellWidth];
 			if (isValidTarget(clickedCell)) {
+				grid[getCurrentPlayer().getRow()][getCurrentPlayer().getColumn()].setOccupied(false);
 				getCurrentPlayer().setColumn(clickedCell.getColumn());
 				getCurrentPlayer().setRow(clickedCell.getRow());
+				grid[getCurrentPlayer().getRow()][getCurrentPlayer().getColumn()].setOccupied(true);
 				for (BoardCell target : targets) { // dehighlights targets once user is done moving
 					target.setHighlighted(false);
 				}
-				humanTurnDone = true; //the human turn is done so set the value to true
 				repaint();
+				if (grid[getCurrentPlayer().getRow()][getCurrentPlayer().getColumn()].isRoomCenter()) {
+	                String room = getRoom(grid[getCurrentPlayer().getRow()][getCurrentPlayer().getColumn()]).getName();
+	                SuggestionDialog suggestionDialog = new SuggestionDialog(
+	                    SwingUtilities.getWindowAncestor(this), cardList, room
+	                );
+	          
+	                suggestionDialog.setVisible(true); // Display the dialog
+	                suggestion = suggestionDialog.getSuggestion();
+	                if(suggestion != null) {
+	                	disprovenCard = handdleSuggestion(suggestion.getPerson(), suggestion.getRoom(), suggestion.getWeapon(), playerList.get(0));
+	                	ClueGame.getCardPanel().updateSeen(disprovenCard, disprovePlayer);
+	                }
+	                ClueGame.getControlPanel().setGuess(Board.getInstance().getSuggestion().getRoom().getCardName() + " , " 
+							+ Board.getInstance().getSuggestion().getPerson().getCardName() + " , "
+							+ Board.getInstance().getSuggestion().getWeapon().getCardName());
+	                if (Board.getInstance().getDisprovenCard() != null) {
+	                	 ClueGame.getControlPanel().setGuessResult("Guess Disproven by: " + disprovePlayer.getName() + ", Card: " + disprovenCard.getCardName(), disprovePlayer);
+					}else {
+						 ClueGame.getControlPanel().setGuessResult("Guess Not Disproven");
+					}
+	                
+	            }
+				
+				humanTurnDone = true; //the human turn is done so set the value to true
 			} else {
 				JOptionPane.showMessageDialog(this, "Invalid move!", "Error", JOptionPane.ERROR_MESSAGE);
 			}
@@ -253,7 +290,9 @@ public class Board extends JPanel {
 					}else if(rows[0].equals("Player")) {
 						cardList.add(new Card(rows[1], CardType.PERSON));
 						if(numPlayers == 0) {
+							
 							playerList.add(new HumanPlayer(rows[1], rows[2], Integer.parseInt(rows[3]), Integer.parseInt(rows[4])));
+							humanPlayer = playerList.get(0);
 							numPlayers++;
 						}else {
 							playerList.add(new ComputerPlayer(rows[1], rows[2], Integer.parseInt(rows[3]), Integer.parseInt(rows[4])));
@@ -523,28 +562,27 @@ public class Board extends JPanel {
 	}
 	// Handles a suggestion made
 	public Card handdleSuggestion(Card personCard, Card roomCard, Card weaponCard, Player suggester) {
-		List<Player> playerArrayList = new ArrayList<>(playerList);
-		int playerIndex = playerArrayList.indexOf(suggester);
-		for(int index = playerIndex; index < playerArrayList.size(); index++) {
-			for(Card card : playerArrayList.get(index).getHand()) {
-				if(playerArrayList.get(index).equals(suggester)) {
-					break;
-				}
-				if(card.equals(weaponCard)|| card.equals(roomCard)|| card.equals(personCard)) {
-					return card;
-				}
+		Solution suggestion1 = new Solution(roomCard, personCard, weaponCard);
+		int playerIndex = playerList.indexOf(suggester);
+		for(int index = playerIndex; index < playerList.size(); index++) {
+			if(playerList.get(index).equals(suggester)) {
+				continue;
+			}
+			if(playerList.get(index).disproveSuggestion(suggestion1) != null) {
+				disprovePlayer =  playerList.get(index);
+				return playerList.get(index).disproveSuggestion(suggestion1);
 			}
 		}
 		for(int index = 0; index < playerIndex; index++) {
-			for(Card card : playerArrayList.get(index).getHand()) {
-				if(playerArrayList.get(index).equals(suggester)) {
-					break;
-				}
-				if(card.equals(weaponCard)|| card.equals(roomCard)|| card.equals(personCard)) {
-					return card;
-				}
+			if(playerList.get(index).equals(suggester)) {
+				continue;
+			}
+			if(playerList.get(index).disproveSuggestion(suggestion1) != null) {
+				disprovePlayer =  playerList.get(index);
+				return playerList.get(index).disproveSuggestion(suggestion1);
 			}
 		}
+		
 		return null; 
 	}
 	// Painting method handling the painting of the cells, players, rooms.
@@ -589,6 +627,8 @@ public class Board extends JPanel {
 	public void nextPlayer() {
 		List<Player> playerArrayList = new ArrayList<>(playerList);
 		currentPlayer = playerArrayList.get(currentPlayerIndex);
+		suggestion = null;
+		disprovenCard = null;
 		if (currentPlayer.getClass() == new HumanPlayer(null, null, 0 , 0).getClass()) {
 			humanTurnDone = false;
 			targets = new HashSet<>();
@@ -607,12 +647,27 @@ public class Board extends JPanel {
 	// Method for moving the computer player.
 	private void makeComputerMove(ComputerPlayer player) {
 		// Computer selects target and moves
+		
+		if(player.getAccusation() != null) {
+			checkAccusation(player.getAccusation().getPerson(), player.getAccusation().getRoom(), player.getAccusation().getWeapon());
+		}
 		targets = new HashSet<>();
 		roll();
 		BoardCell target = player.selectTarget(this, currentRoll);
+		grid[player.getRow()][player.getColumn()].setOccupied(false);
 		player.setColumn(target.getColumn());
 		player.setRow(target.getRow());
+		grid[player.getRow()][player.getColumn()].setOccupied(true);
+		player.setCurrentRoom(this);
 		repaint();
+		if(player.getCurrentRoom().getLabelCell() != null) {
+			suggestion = player.createSuggestion(this);
+			disprovenCard = handdleSuggestion(suggestion.getPerson(), suggestion.getRoom(), suggestion.getWeapon(), player);
+			if(disprovenCard == null && !(player.getHand().contains(suggestion.getRoom()) )) {
+				player.setAccusation(suggestion);
+			}
+			player.updateSeen(disprovenCard);
+		}
 	}
 	// Highlights the cells for the valid targets which the player can move to.
 	private void highlightTargets(Set<BoardCell> targets) {

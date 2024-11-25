@@ -27,7 +27,7 @@ public class GameSetupTests {
 
 	@Test
 	public void TestCards() { // Checks if cards are loaded
-		assertEquals("Guest House", board.getCard("Guest House").getCardName());
+		assertEquals("Guest House", board.getCard("Guest House").getCardName()); 
 		assertEquals(CardType.ROOM, board.getCard("Guest House").getType());
 		assertEquals("Knife", board.getCard("Knife").getCardName());
 		assertEquals(CardType.WEAPON, board.getCard("Knife").getType());

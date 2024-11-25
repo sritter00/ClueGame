@@ -48,16 +48,33 @@ public class GameControlPanel extends JPanel {
 
 		// Buttons Panel
 		nextPlayerButton = new JButton("Next");
-        // Add action listener to the button
-        nextPlayerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	if(Board.getInstance().humanTurnDone()) {
-            		Board.getInstance().nextPlayer(); // Delegate logic to Board
-                    setTurn(Board.getInstance().getCurrentPlayer(), Board.getInstance().getRoll());
-            	}
-            }
-        });
+		// Add action listener to the button
+		nextPlayerButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(Board.getInstance().humanTurnDone()) {
+					setGuessResult("");
+					setGuess("");
+					Board.getInstance().nextPlayer(); // Delegate logic to Board
+					setTurn(Board.getInstance().getCurrentPlayer(), Board.getInstance().getRoll());
+					if(Board.getInstance().getSuggestion() != null) {
+						setGuess(Board.getInstance().getSuggestion().getRoom().getCardName() + " , " 
+								+ Board.getInstance().getSuggestion().getPerson().getCardName() + " , "
+								+ Board.getInstance().getSuggestion().getWeapon().getCardName());
+						if(Board.getInstance().getCurrentPlayer().getClass() != HumanPlayer.class) {
+							if (Board.getInstance().getDisprovenCard() != null) {
+								setGuessResult("Guess Disproven");
+							}else {
+								setGuessResult("Guess Not Disproven");
+							}
+						}
+					}
+
+
+
+				}
+			}
+		});
 		accusationButton = new JButton("Make Accusation");
 
 		// Add components to Top Panel
@@ -65,47 +82,47 @@ public class GameControlPanel extends JPanel {
 		topPanel.add(rollPanel);
 		topPanel.add(nextPlayerButton);
 		topPanel.add(accusationButton);
-		 // Bottom Panel (0x2)
-        JPanel bottomPanel = new JPanel(new GridLayout(0, 2));
+		// Bottom Panel (0x2)
+		JPanel bottomPanel = new JPanel(new GridLayout(0, 2));
 
-        // Guess Panel with Border
-        JPanel guessPanel = new JPanel(new GridLayout(1, 0));
-        guessPanel.setBorder(new TitledBorder("Guess"));
-        guessDisplay = new JTextField(20);
-        guessDisplay.setEditable(false);
-        guessPanel.add(guessDisplay);
+		// Guess Panel with Border
+		JPanel guessPanel = new JPanel(new GridLayout(1, 0));
+		guessPanel.setBorder(new TitledBorder("Guess"));
+		guessDisplay = new JTextField(20);
+		guessDisplay.setEditable(false);
+		guessPanel.add(guessDisplay);
 
-        // Guess Result Panel with Border
-        JPanel guessResultPanel = new JPanel(new GridLayout(1, 0));
-        guessResultPanel.setBorder(new TitledBorder("Response"));
-        guessResultDisplay = new JTextField(20);
-        guessResultDisplay.setEditable(false);
-        guessResultPanel.add(guessResultDisplay);
+		// Guess Result Panel with Border
+		JPanel guessResultPanel = new JPanel(new GridLayout(1, 0));
+		guessResultPanel.setBorder(new TitledBorder("Response"));
+		guessResultDisplay = new JTextField(20);
+		guessResultDisplay.setEditable(false);
+		guessResultPanel.add(guessResultDisplay);
 
-        // Add panels to Bottom Panel
-        bottomPanel.add(guessPanel);
-        bottomPanel.add(guessResultPanel);
-        
-        // Add panels
+		// Add panels to Bottom Panel
+		bottomPanel.add(guessPanel);
+		bottomPanel.add(guessResultPanel);
+
+		// Add panels
 		add(topPanel);
 		add(bottomPanel);
 	}
-    
-	
+
+
 	// Setter for the Players turn.
 	public void setTurn(Player player, int roll) {
 		turnDisplay.setText(player.getName());
 		Color color;
 		try {
-		    Field field = Class.forName("java.awt.Color").getField(player.getColor().toLowerCase());
-		    color = (Color)field.get(null);
-		    turnDisplay.setBackground(color);;
+			Field field = Class.forName("java.awt.Color").getField(player.getColor().toLowerCase());
+			color = (Color)field.get(null);
+			turnDisplay.setBackground(color);;
 		} catch (Exception e) {
-		    color = null;
+			color = null;
 		}
 		rollDisplay.setText(String.valueOf(roll));
 	}
-	
+
 	// Setter for the guess display.
 	public void setGuess(String guess) {
 		guessDisplay.setText(guess);
@@ -113,9 +130,21 @@ public class GameControlPanel extends JPanel {
 
 	// Setter for the display of the guess result.
 	public void setGuessResult(String result) {
+		guessResultDisplay.setBackground(Color.WHITE);
 		guessResultDisplay.setText(result);
 	}
-
+	// Setter for the display of the guess result.
+	public void setGuessResult(String result, Player player) {
+		guessResultDisplay.setText(result);
+		Color color;
+		try {
+			Field field = Class.forName("java.awt.Color").getField(player.getColor().toLowerCase());
+			color = (Color)field.get(null);
+			guessResultDisplay.setBackground(color);;
+		} catch (Exception e) {
+			color = null;
+		}
+	}
 	/**
 	 * Main to test the panel
 	 * 
