@@ -1,5 +1,12 @@
 package clueGame;
 
+/**
+ * SuggestionDialog: Handles the dialog visual for the suggestion players make.
+ * 
+ * author: Shane Ritter
+ * author: Carter Gorling
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,15 +15,17 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class SuggestionDialog extends JDialog {
-
     private JComboBox<String> weaponBox;
     private JComboBox<String> suspectBox;
     private JComboBox<String> roomBox;
     private JButton submitButton;
     private Solution suggestion;
+    
+    // Getter for the suggestion made.
     public Solution getSuggestion() {
     	return suggestion;
     }
+    // Constructor handling the suggestion.
     public SuggestionDialog(Component parent, Set<Card> cardList, String room) {
     	super((Frame) parent, "Make a Suggestion", true); // Modal dialog
         setLayout(new BorderLayout());
@@ -68,5 +77,4 @@ public class SuggestionDialog extends JDialog {
         pack();
         setLocationRelativeTo(parent);
     }
-    
 }

@@ -1,5 +1,12 @@
 package clueGame;
 
+/**
+ * AccusationDialog: Handles the accusation for the Clue Game.
+ * 
+ * author: Shane Ritter
+ * author: Carter Gorling
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

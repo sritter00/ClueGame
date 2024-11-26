@@ -55,9 +55,11 @@ public class Board extends JPanel {
 			}
 		});
 	}
+	// Method that ends the game.
 	public void endGame() {
 		endGame = true;
 	}
+	// Getter for the endgame boolean.
 	public boolean getEndGame() {
 		return endGame;
 	}
@@ -147,7 +149,7 @@ public class Board extends JPanel {
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
-	// Getter for the target list
+	// Getter for the target list.
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}
@@ -155,24 +157,31 @@ public class Board extends JPanel {
 	public boolean humanTurnDone() {
 		return humanTurnDone;
 	}
+	// Getter for the disproven card.
 	public Card getDisprovenCard() {
 		return disprovenCard;
 	}
+	// Getter for the suggestion made.
 	public Solution getSuggestion() {
 		return suggestion;
 	}
+	// Getter for the human player.
 	public Player getHumanPlayer() {
 		return humanPlayer;
 	}
+	// Getter for the boolean if the player can make an accusation or not.
 	public boolean canMakeAcusation() {
 		return canMakeAcusation;
 	}
+	// Boolean method for the player winning or losing.
 	public boolean playerWon() {
 		return playerWon;
 	}
+	// Setter for the player who won.
 	public void setPlayerWon(boolean playerWon) {
 		this.playerWon = playerWon;
 	}
+	// Getter for the player matching the card.
 	public Player getPlayer(Card card) {
 		for(Player player : playerList) {
 			if(player.getName().equals(card.getCardName())) {

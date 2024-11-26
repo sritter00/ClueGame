@@ -23,15 +23,20 @@ public class ClueGame extends JFrame{
 	private static Board boardPanel;
 	private static GameControlPanel controlPanel;
 	private static GameCardPanel cardPanel;
+	
+	// Getter for the board panel.
 	public static Board getBoardPanel() {
 		return boardPanel;
 	}
+	// Getter for the control panel.
 	public static GameControlPanel getControlPanel() {
 		return controlPanel;
 	}
+	// Getter for the card panel.
 	public static GameCardPanel getCardPanel() {
 		return cardPanel;
 	}
+	// Method that handles the end game dialog for the human player.
 	private static void checkGameEnd() {
         if (board.getEndGame()) {
             if (board.playerWon()) {

@@ -27,9 +27,11 @@ public class ComputerPlayer extends Player {
 		seenCells= new HashSet<>();
 		currentRoom = null;
 	}
+	// Setter for the accusation made.
 	public void setAccusation (Solution makeAccusation) {
 		this.makeAccusation = makeAccusation;
 	}
+	// Getter for the accusation made.
 	public Solution getAccusation() {
 		return makeAccusation;
 	}
@@ -62,6 +64,7 @@ public class ComputerPlayer extends Player {
 		hand.add(card);
 		seenCards.add(card);
 	}
+	// Getter for the set of cards seen.
 	public Set<Card> getSeenCards(){
 		return seenCards;
 	}

@@ -30,7 +30,4 @@ public class Solution {
 	public Card getWeapon() {
 		return weapon;
 	}
-	
-	
-
 }

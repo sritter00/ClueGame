@@ -17,11 +17,11 @@ public class Room {
 	private Character secretPassage;
 	private Set<BoardCell> doorWays = new HashSet<>();
 	
-	//Setter for the secret passage
+	// Setter for the secret passage
 	public void setSecretPassage(Character secretPassage) {
 		this.secretPassage = secretPassage;
 	}
-	//getter for the secret Passage
+	// Getter for the secret Passage
 	public Character getSecretPassage(){
 		return secretPassage;
 	}
@@ -33,7 +33,7 @@ public class Room {
 	public void addDoorWay(BoardCell cell) {
 		doorWays.add(cell);
 	}
-	//getter for the doorways list
+	// Getter for the doorways list
 	public Set<BoardCell> getDoorWays(){
 		return doorWays;
 	}

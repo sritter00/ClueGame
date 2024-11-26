@@ -85,9 +85,11 @@ public abstract class Player {
         g.setColor(Color.BLACK);
         g.drawOval(drawX, drawY, cellWidth, cellHeight);
     }
+    // Method for the boolean for the player having moved.
 	public boolean isJustMoved() {
 		return justMoved;
 	}
+	// Setter for the player just having moved.
 	public void setJustMoved(boolean justMoved) {
 		this.justMoved = justMoved;
 	}
