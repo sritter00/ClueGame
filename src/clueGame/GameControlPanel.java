@@ -76,7 +76,26 @@ public class GameControlPanel extends JPanel {
 			}
 		});
 		accusationButton = new JButton("Make Accusation");
-
+		accusationButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(Board.getInstance().canMakeAcusation()) {
+					AccusationDialog accusationDialog = new AccusationDialog(
+		                    SwingUtilities.getWindowAncestor(Board.getInstance()), Board.getInstance().getCardList()
+		                );
+					accusationDialog.setVisible(true); // Display the dialog
+					Solution accusation = accusationDialog.getAccusation();
+					System.out.print(accusation.getRoom().getCardName() + ", " + accusation.getPerson().getCardName()+ ", " + accusation.getWeapon().getCardName());
+					if(Board.getInstance().checkAccusation(accusation.getPerson(), accusation.getRoom(),accusation.getWeapon())) {
+						Board.getInstance().setPlayerWon(true);
+						System.out.print(Board.getInstance().playerWon());
+					}
+					Board.getInstance().endGame();
+				}else {
+					JOptionPane.showMessageDialog(Board.getInstance(), "Can't Make Acusation Until the Start of Your Turn", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 		// Add components to Top Panel
 		topPanel.add(turnPanel);
 		topPanel.add(rollPanel);

@@ -75,6 +75,9 @@ public class ComputerPlayer extends Player {
 				return cell;
 			}
 		}
+		if(targets.size() == 1) {
+			return targets.get(0);
+		}
 		Random rand = new Random();
 		int randInt = rand.nextInt(targets.size());
 		while(seenCells.contains(targets.get(randInt))) {

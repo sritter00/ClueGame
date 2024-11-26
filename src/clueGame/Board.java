@@ -42,6 +42,9 @@ public class Board extends JPanel {
 	private Card disprovenCard;
 	private Player humanPlayer;
 	private Player disprovePlayer;
+	private boolean endGame;
+	private boolean canMakeAcusation;
+	private boolean playerWon;
 	// Constructor is private to ensure only one can be created.
 	private Board() {
 		super();
@@ -51,6 +54,12 @@ public class Board extends JPanel {
 				handleBoardClick(e.getX(), e.getY());
 			}
 		});
+	}
+	public void endGame() {
+		endGame = true;
+	}
+	public boolean getEndGame() {
+		return endGame;
 	}
 	// Getter for the adjList
 	public Set<BoardCell> getAdjList(int row, int col){
@@ -155,13 +164,23 @@ public class Board extends JPanel {
 	public Player getHumanPlayer() {
 		return humanPlayer;
 	}
+	public boolean canMakeAcusation() {
+		return canMakeAcusation;
+	}
+	public boolean playerWon() {
+		return playerWon;
+	}
+	public void setPlayerWon(boolean playerWon) {
+		this.playerWon = playerWon;
+	}
 	// Handles the move for the human player whether they made a valid move or not.
 	private void handleBoardClick(int x, int y) {
-		if(y/cellHeight >= numRows || x/cellWidth >= numColumns) {
+		if(y/cellHeight >= numRows || x/cellWidth >= numColumns) { // Error user clicks out of bounds
 			JOptionPane.showMessageDialog(this, "Invalid move!", "Error", JOptionPane.ERROR_MESSAGE);
 		}else {
 			BoardCell clickedCell = grid[y/cellHeight][x/cellWidth];
 			if (isValidTarget(clickedCell)) {
+				canMakeAcusation = false;
 				grid[getCurrentPlayer().getRow()][getCurrentPlayer().getColumn()].setOccupied(false);
 				getCurrentPlayer().setColumn(clickedCell.getColumn());
 				getCurrentPlayer().setRow(clickedCell.getRow());
@@ -173,7 +192,7 @@ public class Board extends JPanel {
 				if (grid[getCurrentPlayer().getRow()][getCurrentPlayer().getColumn()].isRoomCenter()) {
 	                String room = getRoom(grid[getCurrentPlayer().getRow()][getCurrentPlayer().getColumn()]).getName();
 	                SuggestionDialog suggestionDialog = new SuggestionDialog(
-	                    SwingUtilities.getWindowAncestor(this), cardList, room
+	                    SwingUtilities.getWindowAncestor(this), cardList, room 
 	                );
 	          
 	                suggestionDialog.setVisible(true); // Display the dialog
@@ -625,12 +644,14 @@ public class Board extends JPanel {
 	}
 	// Method for advancing which player is playing.
 	public void nextPlayer() {
+		System.out.println(gameSolution.getRoom().getCardName() + ", " + gameSolution.getPerson().getCardName() + ", " + gameSolution.getWeapon().getCardName());
 		List<Player> playerArrayList = new ArrayList<>(playerList);
 		currentPlayer = playerArrayList.get(currentPlayerIndex);
 		suggestion = null;
 		disprovenCard = null;
 		if (currentPlayer.getClass() == new HumanPlayer(null, null, 0 , 0).getClass()) {
 			humanTurnDone = false;
+			canMakeAcusation = true;
 			targets = new HashSet<>();
 			roll();
 			calcTargets(grid[currentPlayer.getRow()][currentPlayer.getColumn()], currentRoll);
@@ -647,9 +668,9 @@ public class Board extends JPanel {
 	// Method for moving the computer player.
 	private void makeComputerMove(ComputerPlayer player) {
 		// Computer selects target and moves
-		
-		if(player.getAccusation() != null) {
-			checkAccusation(player.getAccusation().getPerson(), player.getAccusation().getRoom(), player.getAccusation().getWeapon());
+		if(player.getAccusation() != null) { // If computer made an accusation assume he won and end game
+			playerWon = false;
+			endGame=true;
 		}
 		targets = new HashSet<>();
 		roll();

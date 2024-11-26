@@ -8,10 +8,13 @@ package clueGame;
  */
 
 import java.awt.*;
+import javax.swing.*;
+import javax.swing.Timer;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.Field;
 import java.util.*;
-
-import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
 public class ClueGame extends JFrame{
@@ -29,6 +32,19 @@ public class ClueGame extends JFrame{
 	public static GameCardPanel getCardPanel() {
 		return cardPanel;
 	}
+	private static void checkGameEnd() {
+        if (board.getEndGame()) {
+            if (board.playerWon()) {
+                JOptionPane.showMessageDialog(frame, "Congratulations, you won!", "Game Over",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(frame, "You lost. Better luck next time!", "Game Over",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+            // Exit the game after the dialog is closed
+            System.exit(0);
+        }
+    }
 	// main
 	public static void main(String[] args) {
 		board = Board.getInstance();
@@ -54,8 +70,16 @@ public class ClueGame extends JFrame{
 		controlPanel.setTurn(board.getCurrentPlayer(), board.getRoll());
 		frame.setVisible(true); // make it visible
 		JOptionPane.showMessageDialog(frame, "You are Diego.\nCan you find the solution\nbefore the Computer players?", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
+		// Start the game loop using a Swing Timer
+		Timer gameLoopTimer = new Timer(100, new ActionListener() {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        checkGameEnd();
+		    }
+		});
+		gameLoopTimer.start();
 	}
-	
+
 
 
 }
