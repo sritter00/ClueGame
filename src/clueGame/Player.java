@@ -19,7 +19,7 @@ public abstract class Player {
 	private String color;
 	private int row, column;
 	private List<Card> hand = new ArrayList<Card>();
-
+	private boolean justMoved = false;
 	// Constructor
 	public Player(String name, String color, int row, int column) {
 		this.name = name;
@@ -82,5 +82,13 @@ public abstract class Player {
 		}
         g.setColor(color);
         g.fillOval(drawX, drawY, cellWidth, cellHeight);
+        g.setColor(Color.BLACK);
+        g.drawOval(drawX, drawY, cellWidth, cellHeight);
     }
+	public boolean isJustMoved() {
+		return justMoved;
+	}
+	public void setJustMoved(boolean justMoved) {
+		this.justMoved = justMoved;
+	}
 }

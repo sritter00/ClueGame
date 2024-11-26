@@ -173,6 +173,14 @@ public class Board extends JPanel {
 	public void setPlayerWon(boolean playerWon) {
 		this.playerWon = playerWon;
 	}
+	public Player getPlayer(Card card) {
+		for(Player player : playerList) {
+			if(player.getName().equals(card.getCardName())) {
+				return player;
+			}
+		}
+		return null;
+	}
 	// Handles the move for the human player whether they made a valid move or not.
 	private void handleBoardClick(int x, int y) {
 		if(y/cellHeight >= numRows || x/cellWidth >= numColumns) { // Error user clicks out of bounds
@@ -209,9 +217,16 @@ public class Board extends JPanel {
 					}else {
 						 ClueGame.getControlPanel().setGuessResult("Guess Not Disproven");
 					}
-	                
+	                // move suggested player to location
+	                grid[getPlayer(suggestion.getPerson()).getRow()][getPlayer(suggestion.getPerson()).getColumn()].setOccupied(false);
+	    			getPlayer(suggestion.getPerson()).setColumn(currentPlayer.getColumn());
+	    			getPlayer(suggestion.getPerson()).setRow(currentPlayer.getRow());
+	    			getPlayer(suggestion.getPerson()).setJustMoved(true);
+	    			grid[getPlayer(suggestion.getPerson()).getRow()][getPlayer(suggestion.getPerson()).getColumn()].setOccupied(true);
+					repaint();
 	            }
 				
+				currentPlayer.setJustMoved(false);
 				humanTurnDone = true; //the human turn is done so set the value to true
 			} else {
 				JOptionPane.showMessageDialog(this, "Invalid move!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -233,6 +248,11 @@ public class Board extends JPanel {
 		visited = new HashSet<>();
 		targets = new HashSet<>();
 		visited.add(startCell);
+		if(currentPlayer != null) {
+			if(currentPlayer.isJustMoved()) {
+				targets.add(startCell);
+			}
+		}
 		for(BoardCell curAdjCell : startCell.getAdjList()) {
 			if(!visited.contains(curAdjCell)) {
 				DFS(curAdjCell, pathLength-1);
@@ -644,7 +664,6 @@ public class Board extends JPanel {
 	}
 	// Method for advancing which player is playing.
 	public void nextPlayer() {
-		System.out.println(gameSolution.getRoom().getCardName() + ", " + gameSolution.getPerson().getCardName() + ", " + gameSolution.getWeapon().getCardName());
 		List<Player> playerArrayList = new ArrayList<>(playerList);
 		currentPlayer = playerArrayList.get(currentPlayerIndex);
 		suggestion = null;
@@ -683,12 +702,19 @@ public class Board extends JPanel {
 		repaint();
 		if(player.getCurrentRoom().getLabelCell() != null) {
 			suggestion = player.createSuggestion(this);
+			grid[getPlayer(suggestion.getPerson()).getRow()][getPlayer(suggestion.getPerson()).getColumn()].setOccupied(false);
+			getPlayer(suggestion.getPerson()).setColumn(currentPlayer.getColumn());
+			getPlayer(suggestion.getPerson()).setRow(currentPlayer.getRow());
+			getPlayer(suggestion.getPerson()).setJustMoved(true);
+			grid[getPlayer(suggestion.getPerson()).getRow()][getPlayer(suggestion.getPerson()).getColumn()].setOccupied(true);
+			repaint();
 			disprovenCard = handdleSuggestion(suggestion.getPerson(), suggestion.getRoom(), suggestion.getWeapon(), player);
 			if(disprovenCard == null && !(player.getHand().contains(suggestion.getRoom()) )) {
 				player.setAccusation(suggestion);
 			}
 			player.updateSeen(disprovenCard);
 		}
+		currentPlayer.setJustMoved(false);
 	}
 	// Highlights the cells for the valid targets which the player can move to.
 	private void highlightTargets(Set<BoardCell> targets) {

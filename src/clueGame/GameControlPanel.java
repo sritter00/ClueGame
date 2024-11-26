@@ -85,10 +85,8 @@ public class GameControlPanel extends JPanel {
 		                );
 					accusationDialog.setVisible(true); // Display the dialog
 					Solution accusation = accusationDialog.getAccusation();
-					System.out.print(accusation.getRoom().getCardName() + ", " + accusation.getPerson().getCardName()+ ", " + accusation.getWeapon().getCardName());
 					if(Board.getInstance().checkAccusation(accusation.getPerson(), accusation.getRoom(),accusation.getWeapon())) {
 						Board.getInstance().setPlayerWon(true);
-						System.out.print(Board.getInstance().playerWon());
 					}
 					Board.getInstance().endGame();
 				}else {
