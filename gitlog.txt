@@ -1,3 +1,122 @@
+commit de7210012395279cbe2e18febf62528a0b30dcfd
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Tue Nov 26 23:28:37 2024 -0600
+
+    Created the extra credit text file.
+
+commit 490d46fd9391172bacc99c4b4eb9de4f8d64aca4
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Tue Nov 26 23:23:25 2024 -0600
+
+    Created the ClueGame jar file.
+
+commit c09d8c657d001a395ad6cedd639ef5071045fbfa
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Mon Nov 25 23:06:18 2024 -0700
+
+    Refactoring and cleaning up documentation of 8 of the classes in clueGame package.
+
+commit 0da6e704e99b2080dfd7ec256de0e678a9a316da
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Mon Nov 25 19:00:44 2024 -0700
+
+    Mostly everything is done might need to add some comments in places but otherwise game functions mostly like it should
+
+commit 342a7e0ad1bc458da1a2c6f55dc8c7d83527c1d0
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Mon Nov 25 17:50:07 2024 -0700
+
+    Make Accusation is now possible for the player and the game ends when the player loses
+
+commit f4b8e1115419c66843b6dfd4491ffa85fd2a6a26
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Sun Nov 24 18:54:55 2024 -0700
+
+    Added suggestions for both computer and players
+
+commit 296458cc8b2161444c0e905acc0712b093a2b7d6
+Merge: e301265 3183914
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Nov 20 13:39:26 2024 -0700
+
+    Merge branch 'main' of https://github.com/sritter00/ClueGame
+
+commit e301265d9e494909a681bff88af7bb51a7cbb2ed
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Nov 20 13:38:56 2024 -0700
+
+    Refactor 8, Changed the draw function in boardcell to draw the secret passage ways
+
+commit 3183914e6af8edfa0a30b6b26ed81c5df966d512
+Merge: 4e43755 32605f6
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Wed Nov 20 12:27:38 2024 -0700
+
+    Merge branch 'Refactor7'
+
+commit 32605f6b6eeea5a78388108b49c34ac1b90851b9
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Wed Nov 20 12:27:05 2024 -0700
+
+    Refactor 7, reorganization of instance variables for Board class improving readability.
+
+commit 4e43755727c7503e8a58d5f0f7bd32e5f6bf2fd6
+Merge: 2e0fd1b 74c23be
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Wed Nov 20 12:13:31 2024 -0700
+
+    Merge branch 'Refactor6'
+
+commit 74c23bea788d1d53676e243dea38c67d41fcde58
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Wed Nov 20 12:12:49 2024 -0700
+
+    Refactor 6, moving updateHand method after getters and setters for code readability.
+
+commit 2e0fd1ba563c075633f4cc3713c6eb7481ffecd9
+Merge: b052ab5 a02117f
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Nov 20 10:45:18 2024 -0700
+
+    Merge branch 'Refactor5'
+
+commit a02117f32758a3a92d8a871d4dbdce173b56fa60
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Nov 20 10:44:49 2024 -0700
+
+    Refactor 5 added a bunch of comments to the code
+
+commit b052ab59b7e5c5855294cb8a40364be8d7a547e4
+Merge: 38d7def a1eed53
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Nov 20 10:30:11 2024 -0700
+
+    Merge branch 'Refactor4'
+
+commit a1eed5317872eaf5628f155faeac2eb5b49c43f8
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Nov 20 10:29:11 2024 -0700
+
+    Refactor 4 changed the bardCell to make sure that the getters and setters are first before the functionality functions
+
+commit 38d7def3c25467a42993294c54fa704f37a5e595
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Wed Nov 20 09:44:55 2024 -0700
+
+    formated board class to have all getters and setters first then functionality second
+
+commit bc55a960e6fc2e8da036769d5047262842e1e3ad
+Author: Shane Ritter <sritter@mines.edu>
+Date:   Mon Nov 18 12:34:58 2024 -0700
+
+    Refactor 2 if mouse was clicked off board it would cause an error in console it is now fixed
+
+commit f3f0c30d1250312dec4b569ec7cf5462383b5bad
+Author: Carter Gorling <rcgorling@mines.edu>
+Date:   Mon Nov 18 12:19:35 2024 -0700
+
+    Updated gitlog.
+
 commit 2c454035d9d33c43d016814186cb04d9aaaad473
 Author: Carter Gorling <rcgorling@mines.edu>
 Date:   Mon Nov 18 12:18:19 2024 -0700
